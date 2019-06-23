@@ -1,6 +1,12 @@
 const express = require('express')
 const app = express()
 var http = require('http').createServer(app)
+const path = require('path')
+const router = express.Router()
+
+app.use(express.static(__dirname + '/view'))
+app.use('/', router)
+
 
 app.get('/', (request, response) => {
 	response.send('test')
@@ -31,7 +37,7 @@ app.get('/member6', (request, response) => {
 })
 
 app.get('/member7', (request, response) => {
-	response.send('group member 7')
+	response.sendFile('/view/davids.html', {root : __dirname})
 })
 
 http.listen(3000, () => {
