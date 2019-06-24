@@ -9,34 +9,42 @@ app.use('/', router)
 
 
 app.get('/', (request, response) => {
-	response.send('test')
+	response.status(200);
+	response.sendFile('view/index.html', {root: __dirname});
 })
 
-app.get('/member1', (request, response) => {
-	response.send('group member 1')
+app.get('/davids', (request, response) => {
+	response.status(200);
+	response.send('view/davids.html')
 })
 
-app.get('/member2', (request, response) => {
-	response.send('group member 2')
+app.get('/harshs', (request, response) => {
+	response.status(200);
+	response.send('view/harshs.html')
 })
 
-app.get('/member3', (request, response) => {
-	response.send('group member 3')
+app.get('/tristans', (request, response) => {
+	response.status(200);
+	response.send('view/tristans.html')
 })
 
 app.get('/member4', (request, response) => {
+	response.status(200);
 	response.send('group member 4')
 })
 
 app.get('/member5', (request, response) => {
+	response.status(200);
 	response.send('group member 5')
 })
 
 app.get('/member6', (request, response) => {
+	response.status(200);
 	response.sendFile('/view/tristan.html', {root : __dirname})
 })
 
 app.get('/member7', (request, response) => {
+	response.status(200);
 	response.sendFile('/view/davids.html', {root : __dirname})
 })
 
