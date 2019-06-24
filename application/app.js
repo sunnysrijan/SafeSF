@@ -33,7 +33,7 @@ app.get('/member5', (request, response) => {
 })
 
 app.get('/member6', (request, response) => {
-	response.send('group member 6')
+	response.sendFile('/view/tristan.html', {root : __dirname})
 })
 
 app.get('/member7', (request, response) => {
