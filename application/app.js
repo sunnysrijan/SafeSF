@@ -28,25 +28,6 @@ app.get('/tristans', (request, response) => {
 	response.send('view/tristans.html')
 })
 
-app.get('/member4', (request, response) => {
-	response.status(200);
-	response.send('group member 4')
-})
-
-app.get('/member5', (request, response) => {
-	response.status(200);
-	response.send('group member 5')
-})
-
-app.get('/member6', (request, response) => {
-	response.status(200);
-	response.sendFile('/view/tristan.html', {root : __dirname})
-})
-
-app.get('/member7', (request, response) => {
-	response.status(200);
-	response.sendFile('/view/davids.html', {root : __dirname})
-})
 
 http.listen(3000, () => {
 	console.log("Server is up and listening on 3000...")

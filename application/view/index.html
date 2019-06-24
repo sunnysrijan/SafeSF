@@ -24,7 +24,7 @@
 					window.location.href = page + ".html";
 			}
 
-			xmlReq.open('GET', 'http://localhost:3000/' + page, true);
+			xmlReq.open('GET', '/' + page, true);
 			xmlReq.responseType = "document";
 			xmlReq.send();
 		}
