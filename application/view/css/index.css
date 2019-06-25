@@ -1,0 +1,11 @@
+div {
+	width: auto;
+	height: auto;
+	padding: 1em;
+}
+
+p {
+	font-size: medium;
+	width: 35em;
+	padding: 1em;
+}

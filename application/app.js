@@ -15,40 +15,40 @@ app.get('/', (request, response) => {
 
 app.get('/davids', (request, response) => {
 	response.status(200);
-	response.send('view/davids.html')
+	response.sendFile('view/davids.html', {root : __dirname})
 })
 
 app.get('/harshs', (request, response) => {
 	response.status(200);
-	response.send('view/harshs.html')
+	response.sendFile('view/harshs.html', {root: __dirname})
 })
 
 app.get('/tristans', (request, response) => {
 	response.status(200);
-	response.send('view/tristans.html')
+	response.sendFile('view/tristans.html', {root : __dirname})
 })
 
-app.get('/member4', (request, response) => {
+
+app.get('/lidiyas', (request, response) => {
 	response.status(200);
-	response.send('group member 4')
+	response.sendFile('view/lidiyas.html', {root : __dirname})
 })
 
-app.get('/member5', (request, response) => {
+app.get('/sunnys', (request, response) => {
 	response.status(200);
-	response.send('group member 5')
+	response.sendFile('view/sunnys.html', {root : __dirname})
 })
 
-app.get('/member6', (request, response) => {
+app.get('/alexs', (request, response) => {
 	response.status(200);
-	response.sendFile('/view/tristan.html', {root : __dirname})
+	response.sendFile('/view/alexs.html', {root : __dirname})
 })
 
-app.get('/member7', (request, response) => {
+app.get('/evans', (request, response) => {
 	response.status(200);
-	response.sendFile('/view/davids.html', {root : __dirname})
+	response.sendFile('/view/evans.html', {root : __dirname})
 })
 
 http.listen(3000, () => {
 	console.log("Server is up and listening on 3000...")
 })
-
