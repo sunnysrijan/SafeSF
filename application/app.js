@@ -28,19 +28,19 @@ app.get('/tristans', (request, response) => {
 	response.send('view/tristans.html')
 })
 
-app.get('/member4', (request, response) => {
+app.get('/lidiyas', (request, response) => {
 	response.status(200);
-	response.send('group member 4')
+	response.send('view/lidiyas.html')
 })
 
-app.get('/member5', (request, response) => {
+app.get('/sunnys', (request, response) => {
 	response.status(200);
-	response.send('group member 5')
+	response.send('view/sunnys')
 })
 
-app.get('/member6', (request, response) => {
+app.get('/alexs', (request, response) => {
 	response.status(200);
-	response.sendFile('/view/tristan.html', {root : __dirname})
+	response.sendFile('/view/alexs.html', {root : __dirname})
 })
 
 app.get('/member7', (request, response) => {

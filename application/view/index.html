@@ -14,7 +14,9 @@
 	<div><button onclick="goToPage('davids')">David Stillwagon (Ryan)</button></div>
 	<div><button onclick="goToPage('harshs')">Harshveer Saini (Harsh)</button></div>
 	<div><button onclick="goToPage('tristans')">Tristan Mclennan</button></div>
-	<div><button onclick="goToPage('lidiya')">Lidiya Jebessa</button></div>
+	<div><button onclick="goToPage('lidiyas')">Lidiya Jebessa</button></div>
+	<div><button onclick="goToPage('sunnys')">Sunny Srijan</button></div>
+	<div><button onclick="goToPage('alexs')">Alex Wolski</button></div>
 
 	<script>
 		function goToPage(page) {
@@ -25,7 +27,7 @@
 					window.location.href = page + ".html";
 			}
 
-			xmlReq.open('GET', 'http://localhost:3000/' + page, true);
+			xmlReq.open('GET', '/' + page, true);
 			xmlReq.responseType = "document";
 			xmlReq.send();
 		}
