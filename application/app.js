@@ -28,6 +28,11 @@ app.get('/tristans', (request, response) => {
 	response.send('view/tristans.html')
 })
 
+app.get('/sunny', (request, response) => {
+	response.status(200);
+	response.send('view/sunny.html')
+})
+
 
 http.listen(3000, () => {
 	console.log("Server is up and listening on 3000...")
