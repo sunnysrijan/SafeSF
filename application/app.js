@@ -43,12 +43,11 @@ app.get('/alexs', (request, response) => {
 	response.sendFile('/view/alexs.html', {root : __dirname})
 })
 
-app.get('/member7', (request, response) => {
+app.get('/evans', (request, response) => {
 	response.status(200);
-	response.sendFile('/view/davids.html', {root : __dirname})
+	response.sendFile('/view/evans.html', {root : __dirname})
 })
 
 http.listen(3000, () => {
 	console.log("Server is up and listening on 3000...")
 })
-
