@@ -22,7 +22,10 @@ exports.getResults = function(data, callback) {
             where_count++
             values.push(value)
         }
-        search_query = search_query + where_clause + order_clause
+        if(where_count > 0)
+        {
+            search_query = search_query + where_clause + order_clause
+        }
     }
 
     console.log(search_query)
