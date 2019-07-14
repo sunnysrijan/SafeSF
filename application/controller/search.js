@@ -6,6 +6,7 @@ exports.getResults = function(data, callback) {
 
     var search_query = 'SELECT * FROM reports'
     var where_clause = ' WHERE'
+    var order_clause = ' ORDER BY report_insert_date DESC'
     var where_count = 0
     var values = []
     
@@ -21,8 +22,10 @@ exports.getResults = function(data, callback) {
             where_count++
             values.push(value)
         }
-        search_query = search_query + where_clause
+        search_query = search_query + where_clause + order_clause
     }
+
+    console.log(search_query)
 
     db.query(search_query, values, function(err, result) {
         if(err) {
