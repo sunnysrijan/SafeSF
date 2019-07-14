@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const router = express.Router()
 var path = require('path')
 
+const db_search = require('./search.js')
+
 router.use(bodyParser.urlencoded({
     extended: false
 }))
@@ -45,6 +47,22 @@ router.get('/alexs', (req, res) => {
 router.get('/evans', (req, res) => {
     res.status(200)
     res.sendFile(path.resolve('view/evans.html'))
+})
+
+router.get('/search', (req, res) => {
+    db_search.getResults(req.query, function(err, result){
+        console.log(req.query)
+        if(err)
+        {
+            console.log('Error retrieving search results: ' + err)
+            res.sendStatus(503)
+        }
+        else
+        {
+            console.log("Retrieved Search Results from the Database")
+            res.send(result)
+        }
+    })
 })
 
 
