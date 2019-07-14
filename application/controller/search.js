@@ -5,37 +5,33 @@ exports.getResults = function(data, callback) {
     console.log(data)
 
     var search_query = 'SELECT * FROM reports'
-    var where_clause = 'WHERE '
+    var where_clause = ' WHERE'
     var where_count = 0
+    var values = []
     
     if(data) {
-
-        callback(null, data)
-        // if(data['category'])
-        // {
-        //     where_clause = where_clause + "category = " + data['category']
-        //     where_count++
-        // }
-        // if(data['neighborhood'])
-        // {
-        //     if(where_count > 0)
-        //     {
-        //         where_clause = where_clause + " AND "
-        //     }
-        //     where_clause = where_clause + "neighborhood = " 
-        // }
+        
+        for(const [key, value] of Object.entries(data))
+        {
+            if(where_count > 0)
+            {
+                where_clause = where_clause + " AND "
+            }
+            where_clause = where_clause + " " + key + " = ?"
+            where_count++
+            values.push(value)
+        }
+        search_query = search_query + where_clause
     }
 
-    callback(null, where_clause)
-
-    // db.query(search_query, function(err, result) {
-    //     if(err) {
-    //         console.log("Error querying database : " + err)
-    //         callback(err, null)
-    //     }
-    //     else {
-    //         console.log("Results succesfully retrieved")
-    //         callback(null, result)
-    //     }
-    // })
+    db.query(search_query, values, function(err, result) {
+        if(err) {
+            console.log("Error querying database : " + err)
+            callback(err, null)
+        }
+        else {
+            console.log("Results succesfully retrieved")
+            callback(null, result)
+        }
+    })
 }
