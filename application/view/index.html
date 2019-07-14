@@ -12,40 +12,40 @@
 </head>
 
 <body>
-	<div align="center">
-		<h1>CSC 648 Team 2</h1>
-		<h2>Summer 2019</h2>
-		<div></div>
-		<h1>About</h1>
+  <div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#team">Team</a>
+  <a href="#about">About</a>
+  <div class="login-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Username" name="username">
+      <input type="text" placeholder="Password" name="psw">
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  </div>
 
-		<p>This is a website where users can browse through environmental hazards in San Francisco and report any hazards that they find</p>
+  <div class="header">
+    <form>
+      <h1>Safe SF</h1>
+      <h2>Lets Start your search</h1>
+      <div class="form-box">
+        <div class="dropdown">
+  <button class="dropbtn">Categories</button>
+  <div class="dropdown-content">
+    <a href="#">Park</a>
+    <a href="#">Trail</a>
+    <a href="#">Beach</a>
+  </div>
+</div>
+        <input class="search-field location" name="location" type="text" placeholder="location"/>
+        <button class="search-btn" type="button">search</button>
+</div>
+</div>
 
-		<p>VVV Click on a developer's name to learn more about them VVV</p>
-
-		<div class="big-btn"><button onclick="goToPage('davids')">David Stillwagon (Ryan)</button></div>
-		<div class="big-btn"><button onclick="goToPage('harshs')">Harshveer Saini (Harsh)</button></div>
-		<div class="big-btn"><button onclick="goToPage('tristans')">Tristan Mclennan</button></div>
-		<div class="big-btn"><button onclick="goToPage('lidiyas')">Lidiya Jebessa</button></div>
-		<div class="big-btn"><button onclick="goToPage('sunnys')">Sunny Srijan</button></div>
-		<div class="big-btn"><button onclick="goToPage('alexs')">Alex Wolski</button></div>
-		<div class="big-btn"><button onclick="goToPage('evans')">Evan Guan</button></div>
-	</div>
 
 
-	<script>
-		function goToPage(page) {
-			var xmlReq = new XMLHttpRequest();
 
-			xmlReq.onload = function() {
-				if (xmlReq.status == 200)
-					window.location.href = page + ".html";
-			}
-
-			xmlReq.open('GET', '/' + page, true);
-			xmlReq.responseType = "document";
-			xmlReq.send();
-		}
-	</script>
 </body>
 
 </html>
