@@ -12,15 +12,25 @@ exports.getResults = function(data, callback) {
     
     if(data) {
         
-        for(const [key, value] of Object.entries(data))
+        for(var [key, value] of Object.entries(data))
         {
             if(where_count > 0)
             {
                 where_clause = where_clause + " AND "
             }
-            where_clause = where_clause + " " + key + " = ?"
-            where_count++
-            values.push(value)
+            if(key === 'user_entry')
+            {
+                where_clause += " report_details = ?"
+                where_count++
+                value = "%" + value + "%"
+                values.push(value)
+            }
+            else
+            {
+                where_clause = where_clause + " " + key + " = ?"
+                where_count++
+                values.push(value)
+            }
         }
         if(where_count > 0)
         {
