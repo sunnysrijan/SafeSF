@@ -20,7 +20,7 @@ exports.getResults = function(data, callback) {
             }
             if(key === 'user_entry')
             {
-                where_clause += " report_details = ?"
+                where_clause += " report_details LIKE ?"
                 where_count++
                 value = "%" + value + "%"
                 values.push(value)
