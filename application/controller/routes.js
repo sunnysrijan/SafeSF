@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const router = express.Router()
 var path = require('path')
 
+const db_categories = require('./categories.js')
 const db_search = require('./search.js')
 
 router.use(bodyParser.urlencoded({
@@ -60,6 +61,23 @@ router.get('/search', (req, res) => {
         else
         {
             console.log("Retrieved Search Results from the Database")
+            res.status(200)
+            res.send(result)
+        }
+    })
+})
+
+router.get('/categories', (req, res) => {
+    db_categories.getCategories(function(err, result){
+        if(err)
+        {
+            console.log('Error retrieving search results: ' + err)
+            res.sendStatus(503)
+        }
+        else
+        {
+            console.log("Retrieved Search Results from the Database")
+            res.status(200)
             res.send(result)
         }
     })

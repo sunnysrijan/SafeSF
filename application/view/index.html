@@ -11,7 +11,7 @@
     <link href="css/index.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="getCategories()">
     <div class="topnav">
         <a class="active" href="/index">Home</a>
         <a href="/team">Team</a>
@@ -32,11 +32,8 @@
             <h2>Lets Start your search</h1>
             <div class="form-box">
                 <div class="dropdown">
-                    <button class="dropbtn">Categories</button>
-                    <div class="dropdown-content">
-                        <a href="#">Park</a>
-                        <a href="#">Trail</a>
-                        <a href="#">Beach</a>
+                    <button class="dropbtn" id="categoryButton">Categories</button>
+                    <div class="dropdown-content" id="categoryDropDown">
                     </div>
                 </div>
 
@@ -48,47 +45,72 @@
         <div id="table">
         </div>
     </div>
-    
+
     <script>
+        function getCategories() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200)
+                    populateCategories(xmlReq.response);
+            }
+
+            xmlReq.open('GET', '/categories', true);
+            xmlReq.responseType = "json";
+            xmlReq.send();
+        }
+
+        function populateCategories(jsonData) {
+            var dropDown = document.getElementById("categoryDropDown");
+
+            for(var i = 0; i < jsonData.length; i++)
+            {
+                var div = document.createElement("div");
+                div.innerHTML = "<a href='#'>" + jsonData[i].category + "</a>";
+                dropDown.appendChild(div);
+            }
+        }
+
     	function search() {
     		var xmlReq = new XMLHttpRequest();
 
 			xmlReq.onload = function() {
 				if (xmlReq.status == 200)
-				{
-					var response = xmlReq.response;
-                    var table = document.createElement("table");
-
-					for(var i = 0; i < Math.ceil(response.length/5); i++)
-                    {
-                        var row = table.insertRow(-1);
-
-                        for(var j = 0; j < 5; j++)
-                        {
-                            var cell = row.insertCell(-1);
-
-                            if(i*5 + j < response.length)
-                            {
-                                var report = response[i*5 + j];
-                                cell.innerHTML = "<div class='card'><div>" + report.category + "</div><div>" +
-                                                  report.report_details + "</div><div>" +
-                                                  report.location_id + "</div><div>" +
-                                                  report.report_insert_date + "</div><div>" +
-                                                  report.report_status + "</div></div>";
-                            }
-                        }
-                    }
-
-                    var tableContainer = document.getElementById("table");
-                    tableContainer.innerHTML = "";
-                    tableContainer.appendChild(table);
-				}
+                    createTable(xmlReq.response);
 			}
 
 			xmlReq.open('GET', '/search', true);
 			xmlReq.responseType = "json";
 			xmlReq.send({ "category" : "All", "neighborhood" : "All", "park_name" : "All", "user_entry" : "" });
     	}
+
+        function createTable(jsonData) {
+            var table = document.createElement("table");
+
+            for(var i = 0; i < Math.ceil(jsonData.length/5); i++)
+            {
+                var row = table.insertRow(-1);
+
+                for(var j = 0; j < 5; j++)
+                {
+                    var cell = row.insertCell(-1);
+
+                    if(i*5 + j < jsonData.length)
+                    {
+                        var report = jsonData[i*5 + j];
+                        cell.innerHTML = "<div class='card'><div>" + report.category + "</div><div>" +
+                                          report.report_details + "</div><div>" +
+                                          report.location_id + "</div><div>" +
+                                          report.report_insert_date + "</div><div>" +
+                                          report.report_status + "</div></div>";
+                    }
+                }
+            }
+
+            var tableContainer = document.getElementById("table");
+            tableContainer.innerHTML = "";
+            tableContainer.appendChild(table);
+        }
     </script>
 </body>
 
