@@ -48,7 +48,7 @@
         <div id="table">
         </div>
     </div>
-
+    
     <script>
     	function search() {
     		var xmlReq = new XMLHttpRequest();
@@ -70,11 +70,11 @@
                             if(i*5 + j < response.length)
                             {
                                 var report = response[i*5 + j];
-                                cell.innerHTML = "<div>" + report.category + "</div><div>" +
+                                cell.innerHTML = "<div class='card'><div>" + report.category + "</div><div>" +
                                                   report.report_details + "</div><div>" +
                                                   report.location_id + "</div><div>" +
                                                   report.report_insert_date + "</div><div>" +
-                                                  report.report_status + "</div>";
+                                                  report.report_status + "</div></div>";
                             }
                         }
                     }
