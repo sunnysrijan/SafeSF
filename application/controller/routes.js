@@ -6,6 +6,7 @@ var path = require('path')
 
 const db_categories = require('./categories.js')
 const db_search = require('./search.js')
+const db_locations = require('./locations.js')
 
 router.use(bodyParser.urlencoded({
     extended: false
@@ -69,6 +70,22 @@ router.get('/search', (req, res) => {
 
 router.get('/categories', (req, res) => {
     db_categories.getCategories(function(err, result){
+        if(err)
+        {
+            console.log('Error retrieving search results: ' + err)
+            res.sendStatus(503)
+        }
+        else
+        {
+            console.log("Retrieved Search Results from the Database")
+            res.status(200)
+            res.send(result)
+        }
+    })
+})
+
+router.get('/locations', (req, res) => {
+    db_locations.getLocations(function(err, result){
         if(err)
         {
             console.log('Error retrieving search results: ' + err)

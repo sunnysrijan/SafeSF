@@ -11,7 +11,7 @@
     <link href="css/index.css" rel="stylesheet">
 </head>
 
-<body onload="getCategories()">
+<body onload="getCategories(); getLocations()">
     <div class="topnav">
         <a class="active" href="/index">Home</a>
         <a href="/team">Team</a>
@@ -37,7 +37,13 @@
                     </div>
                 </div>
 
-                <input class="search-field location" name="location" type="text" placeholder="location"/>
+                <div class="dropdown">
+                    <button class="dropbtn" id="locationButton">Locations</button>
+                    <div class="dropdown-content" id="locationDropDown">
+                    </div>
+                </div>
+
+                <input class="search-field search" name="location" type="text" placeholder="search"/>
                 <button class="search-btn" type="button" onclick="search()">search</button>
             </div>
         </form>
@@ -52,7 +58,7 @@
 
             xmlReq.onload = function() {
                 if (xmlReq.status == 200)
-                    populateCategories(xmlReq.response);
+                    populateDropdown(xmlReq.response, "category");
             }
 
             xmlReq.open('GET', '/categories', true);
@@ -60,28 +66,59 @@
             xmlReq.send();
         }
 
-        function populateCategories(jsonData) {
-            var dropDown = document.getElementById("categoryDropDown");
+        function getLocations() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200)
+                    populateDropdown(xmlReq.response, "location");
+            }
+
+            xmlReq.open('GET', '/locations', true);
+            xmlReq.responseType = "json";
+            xmlReq.send();
+        }
+
+        function populateDropdown(jsonData, field) {
+            if(field === "category")
+                var dropDown = document.getElementById("categoryDropDown");
+            else if(field === "location")
+                var dropDown = document.getElementById("locationDropDown");
 
             var div = document.createElement("div");
-            div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectCategory('None')\">None</a>";
+            div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('None', '" + field + "')\">None</a>";
             dropDown.appendChild(div);
 
             for(var i = 0; i < jsonData.length; i++)
             {
+                if(field === "category")
+                    var selection = jsonData[i].category;
+                else if(field === "location")
+                    var selection = jsonData[i].location;
+
                 div = document.createElement("div");
-                div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectCategory('" + jsonData[i].category + "')\">" + jsonData[i].category + "</a>";
+                div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('" + selection + "', '" + field + "')\">" + selection + "</a>";
                 dropDown.appendChild(div);
             }
         }
 
-        function selectCategory(category) {
-            var categoryButton = document.getElementById("categoryButton");
+        function selectDropdown(selection, field) {
+            if(field === "category")
+                var dropDownButton = "categoryButton";
+            else if(field === "location")
+                var dropDownButton = "locationButton";
 
-            if(category === "None")
-                categoryButton.innerHTML = "Categories";
+            var button = document.getElementById(dropDownButton);
+
+            if(selection === "None")
+            {
+                if(field === "category")
+                    button.innerHTML = "Categories";
+                else if(field === "location")
+                    button.innerHTML = "Locations";
+            }
             else
-                categoryButton.innerHTML = category;
+                button.innerHTML = selection;
         }
 
     	function search() {
