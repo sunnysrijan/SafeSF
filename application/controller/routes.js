@@ -65,5 +65,15 @@ router.get('/search', (req, res) => {
     })
 })
 
+router.get('/team', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/team.html'))
+})
+
+router.get('/about', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/about.html'))
+})
+
 
 module.exports = router
