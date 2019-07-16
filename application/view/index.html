@@ -63,12 +63,25 @@
         function populateCategories(jsonData) {
             var dropDown = document.getElementById("categoryDropDown");
 
+            var div = document.createElement("div");
+            div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectCategory('None')\">None</a>";
+            dropDown.appendChild(div);
+
             for(var i = 0; i < jsonData.length; i++)
             {
-                var div = document.createElement("div");
-                div.innerHTML = "<a href='#'>" + jsonData[i].category + "</a>";
+                div = document.createElement("div");
+                div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectCategory('" + jsonData[i].category + "')\">" + jsonData[i].category + "</a>";
                 dropDown.appendChild(div);
             }
+        }
+
+        function selectCategory(category) {
+            var categoryButton = document.getElementById("categoryButton");
+
+            if(category === "None")
+                categoryButton.innerHTML = "Categories";
+            else
+                categoryButton.innerHTML = category;
         }
 
     	function search() {
