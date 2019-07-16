@@ -13,7 +13,7 @@ exports.getResults = function(data, callback) {
 
     //sets up the basics for the query 
     var search_table = 'reports'
-    var order_by_field = 'report_insert_date'
+    var order_by_field = 'insert_date'
 
     db_query.buildSearchQuery(search_table, order_by_field, data).then(function(query){
         db.query(query[0], query[1], function(err, result) {
