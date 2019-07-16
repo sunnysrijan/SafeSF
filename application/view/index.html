@@ -39,11 +39,31 @@
   </div>
 </div>
         <input class="search-field location" name="location" type="text" placeholder="location"/>
-        <button class="search-btn" type="button">search</button>
+        <button class="search-btn" type="button" onclick="search()">search</button>
 </div>
 </div>
 
+    <script>
+    	function search() {
+    		var xmlReq = new XMLHttpRequest();
 
+			xmlReq.onload = function() {
+				if (xmlReq.status == 200)
+				{
+					var response = xmlReq.response;
+					alert(response[0].report_id);
+					alert(response[0].category);
+					alert(response[0].park_id);
+					alert(response[0].report_details);
+					alert(response[0].report_user_id);
+				}
+			}
+
+			xmlReq.open('GET', '/search', true);
+			xmlReq.responseType = "json";
+			xmlReq.send({ "category" : "All", "neighborhood" : "All", "park_name" : "All", "user_entry" : "" });
+    	}
+    </script>
 
 
 </body>
