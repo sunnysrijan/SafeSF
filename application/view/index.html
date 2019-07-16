@@ -53,12 +53,18 @@
     </div>
 
     <script>
+        var categories;
+        var locations;
+
         function getCategories() {
             var xmlReq = new XMLHttpRequest();
 
             xmlReq.onload = function() {
                 if (xmlReq.status == 200)
-                    populateDropdown(xmlReq.response, "category");
+                {
+                    categories = xmlReq.response
+                    populateDropdown(categories, "category");
+                }
             }
 
             xmlReq.open('GET', '/categories', true);
@@ -71,7 +77,10 @@
 
             xmlReq.onload = function() {
                 if (xmlReq.status == 200)
-                    populateDropdown(xmlReq.response, "location");
+                {
+                    locations = xmlReq.response
+                    populateDropdown(locations, "location");
+                }
             }
 
             xmlReq.open('GET', '/locations', true);
@@ -134,10 +143,10 @@
 			xmlReq.send({ "category" : "All", "neighborhood" : "All", "park_name" : "All", "user_entry" : "" });
     	}
 
-        function createTable(jsonData) {
+        function createTable(searchResults) {
             var table = document.createElement("table");
 
-            for(var i = 0; i < Math.ceil(jsonData.length/5); i++)
+            for(var i = 0; i < Math.ceil(searchResults.length/5); i++)
             {
                 var row = table.insertRow(-1);
 
@@ -145,12 +154,17 @@
                 {
                     var cell = row.insertCell(-1);
 
-                    if(i*5 + j < jsonData.length)
+                    if(i*5 + j < searchResults.length)
                     {
-                        var report = jsonData[i*5 + j];
-                        cell.innerHTML = "<div class='card'><div>" + report.category_id + "</div><div>" +
+                        var report = searchResults[i*5 + j];
+                        var category = categories[parseInt(report.category_id) - 1].category;
+
+                        if(locations[parseInt(report.location_id) - 1] != null)
+                            var location = locations[parseInt(report.location_id) - 1].location;
+
+                        cell.innerHTML = "<div class='card'><div>" + category + "</div><div>" +
                                           report.details + "</div><div>" +
-                                          report.location_id + "</div><div>" +
+                                          location + "</div><div>" +
                                           report.insert_date + "</div><div>" +
                                           report.status + "</div></div>";
                     }
