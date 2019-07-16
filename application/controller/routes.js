@@ -7,6 +7,7 @@ var path = require('path')
 const db_categories = require('./categories.js')
 const db_search = require('./search.js')
 const db_locations = require('./locations.js')
+const image = require('./images.js')
 
 router.use(bodyParser.urlencoded({
     extended: false
@@ -96,6 +97,22 @@ router.get('/locations', (req, res) => {
             console.log("Retrieved Search Results from the Database")
             res.status(200)
             res.send(result)
+        }
+    })
+})
+
+router.get('/images', (req, res) => {
+    image.getImage(req.query, function(err, result){
+        if(err)
+        {
+            console.log('Error retrieving picture: ' + err)
+            res.sendStatus(503)
+        }
+        else
+        {
+            console.log('Succesfully retrieved image')
+            res.status(200)
+            res.sendFile(path.resolve(result))
         }
     })
 })
