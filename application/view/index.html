@@ -12,36 +12,42 @@
 </head>
 
 <body>
-  <div class="topnav">
-  <a class="active" href="/index">Home</a>
-  <a href="/team">Team</a>
-  <a href="/about">About</a>
-  <div class="login-container">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Username" name="username">
-      <input type="text" placeholder="Password" name="psw">
-      <button type="submit">Login</button>
-    </form>
-  </div>
-  </div>
+    <div class="topnav">
+        <a class="active" href="/index">Home</a>
+        <a href="/team">Team</a>
+        <a href="/about">About</a>
 
-  <div class="header">
-    <form>
-      <h1>Safe SF</h1>
-      <h2>Lets Start your search</h1>
-      <div class="form-box">
-        <div class="dropdown">
-  <button class="dropbtn">Categories</button>
-  <div class="dropdown-content">
-    <a href="#">Park</a>
-    <a href="#">Trail</a>
-    <a href="#">Beach</a>
-  </div>
-</div>
-        <input class="search-field location" name="location" type="text" placeholder="location"/>
-        <button class="search-btn" type="button" onclick="search()">search</button>
-</div>
-</div>
+        <div class="login-container">
+            <form action="/action_page.php">
+                <input type="text" placeholder="Username" name="username">
+                <input type="text" placeholder="Password" name="psw">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="header">
+        <form>
+            <h1>Safe SF</h1>
+            <h2>Lets Start your search</h1>
+            <div class="form-box">
+                <div class="dropdown">
+                    <button class="dropbtn">Categories</button>
+                    <div class="dropdown-content">
+                        <a href="#">Park</a>
+                        <a href="#">Trail</a>
+                        <a href="#">Beach</a>
+                    </div>
+                </div>
+
+                <input class="search-field location" name="location" type="text" placeholder="location"/>
+                <button class="search-btn" type="button" onclick="search()">search</button>
+            </div>
+        </form>
+
+        <div id="table">
+        </div>
+    </div>
 
     <script>
     	function search() {
@@ -51,11 +57,31 @@
 				if (xmlReq.status == 200)
 				{
 					var response = xmlReq.response;
-					alert(response[0].report_id);
-					alert(response[0].category);
-					alert(response[0].park_id);
-					alert(response[0].report_details);
-					alert(response[0].report_user_id);
+                    var table = document.createElement("table");
+
+					for(var i = 0; i < Math.ceil(response.length/5); i++)
+                    {
+                        var row = table.insertRow(-1);
+
+                        for(var j = 0; j < 5; j++)
+                        {
+                            var cell = row.insertCell(-1);
+
+                            if(i*5 + j < response.length)
+                            {
+                                var report = response[i*5 + j];
+                                cell.innerHTML = "<div>" + report.category + "</div><div>" +
+                                                  report.report_details + "</div><div>" +
+                                                  report.location_id + "</div><div>" +
+                                                  report.report_insert_date + "</div><div>" +
+                                                  report.report_status + "</div>";
+                            }
+                        }
+                    }
+
+                    var tableContainer = document.getElementById("table");
+                    tableContainer.innerHTML = "";
+                    tableContainer.appendChild(table);
 				}
 			}
 
@@ -64,8 +90,6 @@
 			xmlReq.send({ "category" : "All", "neighborhood" : "All", "park_name" : "All", "user_entry" : "" });
     	}
     </script>
-
-
 </body>
 
 </html>
