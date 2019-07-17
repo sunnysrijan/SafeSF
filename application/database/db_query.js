@@ -25,7 +25,7 @@ exports.buildSearchQuery = function(table, order, params){
                 //this parameter must have a % LIKE wrapped around it
                 if(key === 'user_entry')
                 {
-                    where_clause += " report_details LIKE ?"
+                    where_clause += " details LIKE ?"
                     where_count++
                     value = "%" + value + "%"
                     values.push(value)
