@@ -28,7 +28,11 @@
 
     <div class="header">
         <form>
-            <h1>Safe SF</h1>
+        	<div>
+	            <h1>Safe SF</h1>
+	            <h1>Team 2</h1>
+            </div>
+            
             <h2>Lets Start your search</h1>
             <div class="form-box">
                 <div class="dropdown">
@@ -139,9 +143,9 @@
                     createTable(xmlReq.response);
 			}
 
-			xmlReq.open('GET', '/search', true);
+			xmlReq.open('GET', '/search' + getSearchParams(), true);
 			xmlReq.responseType = "json";
-			xmlReq.send(getSearchParams());
+			xmlReq.send(null);
     	}
 
     	function getSearchParams() {
@@ -153,35 +157,33 @@
 
     		var user_entry = document.getElementById("searchBox").value;
 
-    		var requestJson = "{ "
+    		var requestParam = "?"
     		var firstParam = true;
 
     		if(category != "Categories")
     		{
-    			requestJson += "\"category_id\" : \"" + category_id + "\"";
+    			requestParam += "category_id=" + category_id;
     			firstParam = false;
     		}
 
     		if(location != "Locations")
     		{
 	    		if(!firstParam)
-	    			requestJson += ", ";
+	    			requestParam += "&";
 
-    			requestJson += "\"location_id\" : \"" + location_id + "\"";
+    			requestParam += "location_id=" + location_id;
     			firstParam = false;
     		}
 
     		if(user_entry != "")
     		{
 	    		if(!firstParam)
-	    			requestJson += ", ";
+	    			requestParam += "&";
 	    		
-    			requestJson += "\"user_entry\" : \"" + user_entry + "\"";
+    			requestParam += "user_entry=" + user_entry;
     		}
 
-    		requestJson += " }";
-
-    		return requestJson;
+    		return requestParam;
     	}
 
     	function getIdOfValue(jsonData, field, value) {
