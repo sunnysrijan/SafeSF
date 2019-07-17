@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <input class="search-field search" name="location" type="text" placeholder="search"/>
+                <input class="search-field search" id="searchBox" name="location" type="text" placeholder="search"/>
                 <button class="search-btn" type="button" onclick="search()">search</button>
             </div>
         </form>
@@ -131,6 +131,7 @@
         }
 
     	function search() {
+    		alert(getSearchParams());
     		var xmlReq = new XMLHttpRequest();
 
 			xmlReq.onload = function() {
@@ -140,7 +141,43 @@
 
 			xmlReq.open('GET', '/search', true);
 			xmlReq.responseType = "json";
-			xmlReq.send({ "category" : "All", "neighborhood" : "All", "park_name" : "All", "user_entry" : "" });
+			xmlReq.send(getSearchParams());
+    	}
+
+    	function getSearchParams() {
+    		var category = document.getElementById("categoryButton").innerHTML;
+    		var location = document.getElementById("locationButton").innerHTML;
+    		var user_entry = document.getElementById("searchBox").value;
+
+    		var requestJson = "{ "
+    		var firstParam = true;
+
+    		if(category != "Categories")
+    		{
+    			requestJson += "\"categories\" : \"" + category + "\"";
+    			firstParam = false;
+    		}
+
+    		if(location != "Locations")
+    		{
+	    		if(!firstParam)
+	    			requestJson += ", ";
+
+    			requestJson += "\"locations\" : \"" + location + "\"";
+    			firstParam = false;
+    		}
+
+    		if(user_entry != "")
+    		{
+	    		if(!firstParam)
+	    			requestJson += ", ";
+	    		
+    			requestJson += "\"user_entry\" : \"" + user_entry + "\"";
+    		}
+
+    		requestJson += " }";
+
+    		return requestJson;
     	}
 
         function createTable(searchResults) {
@@ -159,10 +196,13 @@
                         var report = searchResults[i*5 + j];
                         var category = categories[parseInt(report.category_id) - 1].category;
 
-                        if(locations[parseInt(report.location_id) - 1] != null)
+                        if(locations[parseInt(report.location_id) - 1] == null)
+                        	var location = "";
+                        else
                             var location = locations[parseInt(report.location_id) - 1].location;
 
-                        cell.innerHTML = "<div class='card'><div>" + category + "</div><div>" +
+                        cell.innerHTML = "<div class='card'><div>" +
+                                          category + "</div><div>" +
                                           report.details + "</div><div>" +
                                           location + "</div><div>" +
                                           report.insert_date + "</div><div>" +
