@@ -146,7 +146,11 @@
 
     	function getSearchParams() {
     		var category = document.getElementById("categoryButton").innerHTML;
+    		var category_id = getIdOfValue(categories, "category", category);
+
     		var location = document.getElementById("locationButton").innerHTML;
+    		var location_id = getIdOfValue(locations, "location", location);
+
     		var user_entry = document.getElementById("searchBox").value;
 
     		var requestJson = "{ "
@@ -154,7 +158,7 @@
 
     		if(category != "Categories")
     		{
-    			requestJson += "\"categories\" : \"" + category + "\"";
+    			requestJson += "\"categories\" : \"" + category_id + "\"";
     			firstParam = false;
     		}
 
@@ -163,7 +167,7 @@
 	    		if(!firstParam)
 	    			requestJson += ", ";
 
-    			requestJson += "\"locations\" : \"" + location + "\"";
+    			requestJson += "\"locations\" : \"" + location_id + "\"";
     			firstParam = false;
     		}
 
@@ -178,6 +182,19 @@
     		requestJson += " }";
 
     		return requestJson;
+    	}
+
+    	function getIdOfValue(jsonData, field, value) {
+    		for(var i = 0; i < jsonData.length; i++) {
+    			if(field === "category") {
+    				if(jsonData[i].category === value)
+    					return jsonData[i].category_id;
+    			}
+    			else if(field === "location") {
+    				if(jsonData[i].location === value)
+    					return jsonData[i].location_id;
+    			}
+    		}
     	}
 
         function createTable(searchResults) {
