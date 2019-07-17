@@ -158,7 +158,7 @@
 
     		if(category != "Categories")
     		{
-    			requestJson += "\"categories\" : \"" + category_id + "\"";
+    			requestJson += "\"category_id\" : \"" + category_id + "\"";
     			firstParam = false;
     		}
 
@@ -167,7 +167,7 @@
 	    		if(!firstParam)
 	    			requestJson += ", ";
 
-    			requestJson += "\"locations\" : \"" + location_id + "\"";
+    			requestJson += "\"location_id\" : \"" + location_id + "\"";
     			firstParam = false;
     		}
 
