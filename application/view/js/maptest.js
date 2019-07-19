@@ -28,7 +28,12 @@ function setCurLng(newLng) {
   curLatLng.lng = Number(newLng);
 }
 
-function setNewLatLng(newLat, newLng) {
+function setNewCenterLatLng(newLat, newLng) {
+  setCurLat(Number(newLat));
+  setCurLng(Number(newLng));
+}
+
+function setNewCenterPlaceName(placeName) {
   setCurLat(Number(newLat));
   setCurLng(Number(newLng));
 }
@@ -77,39 +82,36 @@ function addMarkerToMap(newMarkerCoords) {
   /* Check to see if the var we get is a string.
   If it is, try to convert it to a coordinate. */
   if(typeof(newMarkerCoords) === 'string') {
-    newMarkerCoords = geocodeAddress(newMarkerCoords);
+    var numberMarkerCoords = geocodePlaceName(newMarkerCoords, function(results) {
+      console.log('numberMarkerCoords: ', results);
+      /* Now, create the new marker. */
+      marker = new google.maps.Marker({
+        position: results,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        map: this.map
+      });
+    }
+  );
   }
-  /* Now, create the new marker. */
-  marker = new google.maps.Marker({
-    position: newMarkerCoords,
-    icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-    map: this.map
-  });
-
-  /* Testing using coordinates in a for loop. TEST OUTPUT OK. */
-  /*
-  for (i = 0; i < 5; i++)
-  {
-    var curCoord = this.curLatLong;
+  else {
+    /* Now, create the new marker. */
     marker = new google.maps.Marker({
-      position: {lat: getCurLat() + (i * 0.0001), lng: getCurLng() + (i * 0.0001)},
-      map: map
+      position: newMarkerCoords,
+      icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+      map: this.map
     });
   }
-  */
 }
 
-/* Uses Google's geocoding service to return the coordinates of a string placename. */
-function geocodeAddress(locationNameString) {
+/* Uses Google's async geocoding service to return the coordinates of a string placename. */
+function geocodePlaceName(locationNameString, callback) {
   var locationName = String(locationNameString);
   geocoder.geocode({'address': locationName}, function(results, status) {
     if (status === 'OK') {
       // this.map.setCenter(results[0].geometry.location); // Recenter the map on the new marker.
-      this.marker = new google.maps.Marker({
-        position: results[0].geometry.location,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-        map: this.map,
-      });
+      var results = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}
+      console.log(results);
+      callback(results);
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
