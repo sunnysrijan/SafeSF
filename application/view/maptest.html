@@ -25,10 +25,12 @@
     <div id="map"></div>
     <div>
       <!--- Clicking the button moves the pin and recenters the map on it. --->
-      <button onclick="setNewLatLng(37.787993, -122.505875); updateMap();">Move pin location</button>
+      <label>Update map center coordinates, move map, and create new markers using both coordinates and place name:</label>
+      <button onclick="setNewLatLng(37.787993, -122.505875); updateMap();">Go!</button>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
     async defer></script>
+
   </body>
 </html>
