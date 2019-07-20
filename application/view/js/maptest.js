@@ -82,18 +82,16 @@ function addMarkerToMap(newMarkerCoords) {
   /* Check to see if the var we get is a string.
   If it is, try to convert it to a coordinate. */
   if(typeof(newMarkerCoords) === 'string') {
-    var numberMarkerCoords = geocodePlaceName(newMarkerCoords, function(results) {
-      console.log('numberMarkerCoords: ', results);
+    geocodePlaceName(newMarkerCoords).then(function(resultCoords) {
+      console.log('numberMarkerCoords: ', resultCoords);
       /* Now, create the new marker. */
       marker = new google.maps.Marker({
-        position: results,
+        position: resultCoords,
         icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         map: this.map
       });
-    }
-  );
-  }
-  else {
+    });
+  } else {
     /* Now, create the new marker. */
     marker = new google.maps.Marker({
       position: newMarkerCoords,
@@ -104,16 +102,18 @@ function addMarkerToMap(newMarkerCoords) {
 }
 
 /* Uses Google's async geocoding service to return the coordinates of a string placename. */
-function geocodePlaceName(locationNameString, callback) {
-  var locationName = String(locationNameString);
-  geocoder.geocode({'address': locationName}, function(results, status) {
-    if (status === 'OK') {
-      // this.map.setCenter(results[0].geometry.location); // Recenter the map on the new marker.
-      var results = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}
-      console.log(results);
-      callback(results);
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
+function geocodePlaceName(locationNameString) {
+  return new Promise(function(resolve, reject) {
+    var locationName = String(locationNameString);
+    geocoder.geocode({'address': locationName}, function(results, status) {
+      if (status === 'OK') {
+        // this.map.setCenter(results[0].geometry.location); // Recenter the map on the new marker.
+        var results = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}
+        console.log(results);
+        resolve(results);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
   });
 }
