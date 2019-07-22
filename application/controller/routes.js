@@ -8,6 +8,7 @@ const db_categories = require('./categories.js')
 const db_search = require('./search.js')
 const db_locations = require('./locations.js')
 const image = require('./images.js')
+const reports = require('./reports.js')
 
 router.use(bodyParser.urlencoded({
     extended: false
@@ -63,6 +64,22 @@ router.get('/search', (req, res) => {
         else
         {
             console.log("Retrieved Search Results from the Database")
+            res.status(200)
+            res.send(result)
+        }
+    })
+})
+
+router.post('reports', (req, res) => {
+    reports.createReport(req.query, function(err, result){
+        console.log(res.query)
+        if(err)
+        {
+            console.log('Error creating reports: ' + err)
+            res.sendStatus(503)
+        }
+        else
+        {
             res.status(200)
             res.send(result)
         }
