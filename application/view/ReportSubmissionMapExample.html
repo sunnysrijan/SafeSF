@@ -15,16 +15,18 @@
         padding: 0;
       }
     </style>
-    <script type="text/javascript" src="js/reportpagemapexample.js"></script>
+    <script type="text/javascript" src="js/ReportSubmissionMapExample.js"></script>
   </head>
   <body>
 
     <div style="text-align:center">
-      <h4>Homepage Map Example</h4>
+      <h4>Report Submission Page Map Example</h4>
     </div>
 
     <!--- This element holds the map. --->
     <div id="map"></div>
+    <p>Dynamic updating in paragraph element below. See the console log to see the javascript variable being updated.</p>
+    <p id="currentCoords"></p>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
     async defer></script>
