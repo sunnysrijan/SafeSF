@@ -4,7 +4,7 @@ Course: CSc 648 Software Engineering Summer 2019 Team 2
 */
 
 // The current saved coordinates of the center of the map.
-var curLatLng = {lat: 37.783, lng: -122.416}
+var curLatLng = {lat: 37.7749, lng: -122.4194}
 // The map object itself.
 var map;
 // A list of marker objects.
@@ -43,48 +43,18 @@ function initMap() {
   /* Function calls to get the lat/lng of the place we are interested in. SF by default. */
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLatLng,
-    zoom: 12.1,
-    mapTypeId: 'roadmap'
-  });
-
-  /* We can initialize the geocoder after we have a map */
-  this.geocoder = new google.maps.Geocoder();
-
-  /* Then a marker is placed at the lat/lng. */
-  marker = new google.maps.Marker({position: {lat: getCurLat(), lng: getCurLng()}, map: map});
-  console.log('Marker 1 added.')
-  marker = new google.maps.Marker({position: {lat: getCurLat() + .001, lng: getCurLng() + .001}, map: this.map});
-  console.log('Marker 2 added.')
-  marker = new google.maps.Marker({position: {lat: getCurLat() + .002, lng: getCurLng() + .002}, map: map});
-  console.log('Marker 3 added.')
-}
-
-/* Essentially the same as initializing the map, but with a different zoom level and hybrid view. */
-function updateMap() {
-  /* Function calls to get the lat/lng of the place we are interested in. SF by default. */
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: curLatLng,
-    zoom: 18,
+    zoom: 12,
     mapTypeId: 'hybrid'
   });
-  /* Then a marker is placed at the lat/lng. */
-  marker = new google.maps.Marker({
-    position: {lat: getCurLat(), lng: getCurLng()},
-    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-    map: map
-  });
-  console.log('Map updated.')
-  addExistingReportMarkersToMap('Mile Rock Beach, San Francisco');
+  /* We can initialize the geocoder after we have a map */
+  this.geocoder = new google.maps.Geocoder();
 }
 
 /*
 Adds a marker to the map, given coordinates or place name.
 Will potentially change to use a foreach internally to post all relevant markers.
 */
-function addExistingReportMarkersToMap(newMarkerCoords) {
-  var newMarker;    // Temp var that holds the new marker that we will add.
-  var markerCoords = {lat: 0, lng: 0}; // The resolved coordinates of the marker.
-
+function addExistingReportMarkersToMap() {
   // This data will be collected from the json returned by a DB query.
   var infoWindowTitle;          // The title of the report from the DB query json.
   var infoWindowHazardType;     // The type of hazard of the report from the DB query json.
@@ -93,6 +63,7 @@ function addExistingReportMarkersToMap(newMarkerCoords) {
   var infoWindowReportURL;      // The full url of the report.
                                 // Likely will just be the report id appended to boilerplate url.
   var infoWindowContentString;  // The string of html that will be in the popup for the marker on-click.
+  var markerIcon;               // The url of the image to use for the marker icon.
 
   /* TODO:  Create functions to read json return from the DB and parse into the relevant vars.
             Do this before attempting to parse the coordinates, as that is an asyncronous api call.
@@ -104,6 +75,7 @@ function addExistingReportMarkersToMap(newMarkerCoords) {
   infoWindowThumbnail = 'images/example-infowindow-thumbnail.png';
   infoWindowSummary = 'Large oil slick on intersection of Holloway and 19th avenue.';
   infoWindowReportURL = 'https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple';
+  markerIcon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
 
   // Create the content string. It is essentially pure html.
   infoWindowContentString =
@@ -138,13 +110,11 @@ function addExistingReportMarkersToMap(newMarkerCoords) {
   If it is, try to convert it to a coordinate. */
   if(typeof(newMarkerCoords) === 'string') {
     geocodePlaceNameToLatLng(newMarkerCoords).then(function(resultCoords) {
-      markerCoords = resultCoords;
-
-      console.log('markerCoords: ', markerCoords);
+      console.log('resultCoords: ', resultCoords);
       /* Now, create the new marker. */
       marker = new google.maps.Marker({
-        position: markerCoords,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        position: resultCoords,
+        icon: markerIcon,
         title: infoWindowHazardType,
         map: this.map
       });
@@ -154,13 +124,11 @@ function addExistingReportMarkersToMap(newMarkerCoords) {
       });
     });
   } else {
-    markerCoords = newMarkerCoords;
-
-    console.log('markerCoords: ', markerCoords);
+    console.log('resultCoords: ', resultCoords);
     // Now, create the new marker.
     marker = new google.maps.Marker({
-      position: markerCoords,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+      position: resultCoords,
+      icon: markerIcon,
       title: infoWindowHazardType,
       map: this.map
     });
