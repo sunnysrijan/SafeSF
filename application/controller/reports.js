@@ -44,6 +44,7 @@ exports.createReport = function(params, callback){
         }
         else {
             console.log("Results succesfully retrieved")
+            result.report_id = params["report_id"]
             callback(null, result)
         }
 
