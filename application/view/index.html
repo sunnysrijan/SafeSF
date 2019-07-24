@@ -9,10 +9,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript" src="js/map-report.js"></script>
+    <style>
+        #map {height: 100%; width: 60%;}
+        </style>
 </head>
 
 <body onload="getCategories(); getLocations()">
     <div class="topnav">
+            <div style="background:whitesmoke;margin: 0px">
+                    <h2 style="text-align:center">This is a Test website</h2>
+            </div>
+                
         <a class="active" href="/index">Home</a>
         <a href="/team">Team</a>
         <a href="/about">About</a>
@@ -29,8 +37,8 @@
     <div class="header">
         <form>
         	<div>
-	            <h1>Safe SF</h1>
-	            <h1>Team 2</h1>
+	            <h1>Safe SF         Team 2</h1>
+	            
             </div>
             
             <h2>Lets Start your search</h1>
@@ -52,7 +60,11 @@
             </div>
         </form>
 
-        <div id="table">
+        <div class="split_left" id="table">
+        </div>
+        <div class="split_right" id="map">
+                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
+                async defer></script>
         </div>
     </div>
 
@@ -214,17 +226,13 @@
         function createTable(searchResults) {
             var table = document.createElement("table");
 
-            for(var i = 0; i < Math.ceil(searchResults.length/5); i++)
+            for(var i = 0; i < Math.ceil(searchResults.length); i++)
             {
                 var row = table.insertRow(-1);
 
-                for(var j = 0; j < 5; j++)
-                {
-                    var cell = row.insertCell(-1);
+                var cell = row.insertCell(-1);
 
-                    if(i*5 + j < searchResults.length)
-                    {
-                        var report = searchResults[i*5 + j];
+                        var report = searchResults[i];
                         var category = getValueOfId(categories, "category_id", report.category_id);
                         var image = "report_images/" + report.report_id + ".jpg";
 
@@ -241,8 +249,8 @@
                                           report.insert_date + "</div><div>" +
                                           report.status + "</div></div>";
                     }
-                }
-            }
+            
+             
 
             var tableContainer = document.getElementById("table");
             tableContainer.innerHTML = "";
