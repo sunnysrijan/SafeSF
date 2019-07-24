@@ -13,24 +13,23 @@ var map;
 var marker;
 
 // Includes casting to enforce typing, just in case.
+// Takes a hash entry, formatted as {lat: float, lng: float}
+// See associated html for example of calling this function with two numbers.
 function setNewCenterLatLng(newLatLng) {
-  setCurLat(Number(newLatLng.lat()));
-  setCurLng(Number(newLatLng.lng()));
+  curLatLng.lat = Number(newLatLng.lat);
+  curLatLng.lng = Number(newLatLng.lng);
 }
 
-/* Function locates the map div and fills it with the map. */
+// Function locates the map div and fills it with the map.
 function initMap() {
-  /* Function calls to get the lat/lng of the place we are interested in. SF by default. */
+  // Initiate map centered on SF by default.
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLatLng,
     zoom: 12,
     mapTypeId: 'hybrid'
   });
 
-  /* We can initialize the geocoder after we have a map */
-  this.geocoder = new google.maps.Geocoder();
-
-  /* Finally, create the draggable marker at the center of the map. */
+  // Finally, create the draggable marker at the center of the map.
   marker = new google.maps.Marker({
     title: 'Place me where the hazard is please!',
     position: curLatLng,
