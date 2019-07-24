@@ -138,8 +138,9 @@ router.get('/login', (req, res) => {
 	auth.login(req.body, function(err, result) {
         if(err)
         {
-            console.log('Error logging in: ' + err)
-            res.sendStatus(503)
+            console.log('Error logging in: ' + err.message)
+            res.status(503)
+            res.send(err.message)
         }
         else
         {

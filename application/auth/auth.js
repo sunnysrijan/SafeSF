@@ -9,7 +9,7 @@ exports.register = function(data, callback) {
                 return callback(err);
             }
             else {
-                var values = [ [uuid(), data.username, data.email, data.password] ]
+                var values = [ [uuid(), data.username, data.email, hash] ]
                 
                 db.query("INSERT INTO users (user_id, display_name, email, password) VALUES ?", [values], function (err, result, fields) {
                     if(err)
@@ -23,5 +23,19 @@ exports.register = function(data, callback) {
 }
 
 exports.login = function(data, callback) {
-    console.log(data.username)
+    db.query("SELECT * FROM users WHERE display_name = ?", data.username, function (err, result, fields) {
+        if(!result)
+            callback(new Error('That usename is not registered'))
+        else
+        {
+            bcrypt.compare(data.password, result[0].password, function(err, res) {
+                console.log(res)
+
+                if(res)
+                    return callback(null)
+                else
+                    return callback(new Error('That password is incorrect'))
+            })
+        }
+    })
 }
