@@ -123,7 +123,8 @@ router.post('/register', (req, res) => {
         if(err)
         {
             console.log('Error registering: ' + err)
-            res.sendStatus(503)
+            res.status(503)
+            res.send(err.sqlMessage)
         }
         else
         {
