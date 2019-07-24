@@ -14,8 +14,8 @@ var marker;
 
 // Includes casting to enforce typing, just in case.
 function setNewCenterLatLng(newLatLng) {
-  setCurLat(Number(newLatLng.lat()));
-  setCurLng(Number(newLatLng.lng()));
+  curLatLng.lat = Number(newLatLng.lat);
+  curLatLng.lng = Number(newLatLng.lng);
 }
 
 /* Function locates the map div and fills it with the map. */
