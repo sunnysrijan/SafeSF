@@ -1,4 +1,5 @@
 const db = require('../auth/db_config.js')
+const uuid = require('uuid/v1');
 var bcrypt = require('bcryptjs')
 
 exports.register = function(data, callback) {
@@ -11,7 +12,7 @@ exports.register = function(data, callback) {
                 });
             }
             else {
-                var values = [ [6, data.username, data.email, data.password] ];
+                var values = [ [uuid(), data.username, data.email, data.password] ];
                 
                 db.query("INSERT INTO users (user_id, display_name, email, password) VALUES ?", [values], function (err, result, fields) {
                     if(err) {
