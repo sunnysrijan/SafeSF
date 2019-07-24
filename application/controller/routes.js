@@ -8,6 +8,7 @@ const db_categories = require('./categories.js')
 const db_search = require('./search.js')
 const db_locations = require('./locations.js')
 const image = require('./images.js')
+const auth = require('../auth/auth.js')
 
 router.use(bodyParser.urlencoded({
     extended: false
@@ -101,7 +102,7 @@ router.get('/locations', (req, res) => {
     })
 })
 
-router.get('/images', (req, res) => {
+router.post('/images', (req, res) => {
     image.getImage(req.query, function(err, result){
         if(err)
         {
@@ -115,6 +116,36 @@ router.get('/images', (req, res) => {
             res.sendFile(path.resolve(result))
         }
     })
+})
+
+router.post('/register', (req, res) => {
+	auth.register(req.body, function(err, result) {
+        if(err)
+        {
+            console.log('Error registering: ' + err)
+            res.sendStatus(503)
+        }
+        else
+        {
+            console.log('Succesfully registered')
+            res.status(200)
+        }
+	})
+})
+
+router.get('/login', (req, res) => {
+	auth.login(req.body, function(err, result) {
+        if(err)
+        {
+            console.log('Error logging in: ' + err)
+            res.sendStatus(503)
+        }
+        else
+        {
+            console.log('Succesfully logged in')
+            res.status(200)
+        }
+	})
 })
 
 router.get('/team', (req, res) => {
