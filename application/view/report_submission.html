@@ -3,33 +3,33 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Submit a Report</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <head>
+        <title>Submit a Report</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        #map {margin: 0 auto 0 auto; height: 500px; width: 100%; }
-        html, body {
-          height: 100%;
-          margin: 0;
-          padding: 0;
-        }
-    </style>
+        <style>
+            #map {margin: 0 auto 0 auto; height: 500px; width: 100%; }
+            html, body {
+              height: 100%;
+              margin: 0;
+              padding: 0;
+            }
+        </style>
+        <script type="text/javascript" src="js/ReportSubmissionMapExample.js"></script>
+      
+    </head>
 
-    <script type="text/javascript" src="js/ReportSubmissionMapExample.js"></script>
-  </head>
-
-  <body>
+  <body onload="getCategories(); getLocations()">
     <div class="container" id="form-container">
       <div class="row">
           <div class="col-xl-8 offset-xl-2">
 
               <div style="text-align:center">
-                <hr>
-                <h2>Report Submission Page</h2>
-                <hr>
+                  <hr>
+                  <h2>Report Submission Page</h2>
+                  <hr>
               </div>
 
           <!--  This form takes in hazard details and meta-data from the user. The request object is 
@@ -45,12 +45,8 @@
                                         <strong style='color: red'>*</strong>  
                                     </label>
  
-                                    <select class="form-control" name="category_id" id="category" equired="required">
+                                    <select class="form-control" name="category_id" id="categoryDropDown" equired="required">
                                       <option>Please Select One</option>
-                                      <option>oil</option>
-                                      <option>animal</option>
-                                      <option>street</option>
-                                      <option>pothole</option>
                                     </select>
                                   </div>
 
@@ -58,11 +54,8 @@
 
                                 <div class="form-group">
                                     <label for="dropdown-content">Neighborhood</label>
-                                    <select class="form-control" name="location_id"id="neighborhood">
+                                    <select class="form-control" name="location_id"id="locationDropDown">
                                       <option>Please Select One (Optional)</option>
-                                      <option>mission</option>
-                                      <option>sunset</option>
-                                      <option>richmond</option>
                                     </select>
                                   </div>
 
@@ -155,6 +148,87 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
             async defer></script>
+
+    <script>
+
+        var categories;
+        var locations;
+
+        function getCategories() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200)
+                {
+                    categories = xmlReq.response
+                    console.log(categories);
+                    populateDropdown(categories, "category");
+                }
+            }
+
+            xmlReq.open('GET', '/categories', true);
+            xmlReq.responseType = "json";
+            xmlReq.send();
+        }
+
+        function getLocations() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200)
+                {
+                    locations = xmlReq.response
+                    console.log(locations);
+                    populateDropdown(locations, "location");
+                }
+            }
+
+            xmlReq.open('GET', '/locations', true);
+            xmlReq.responseType = "json";
+            xmlReq.send();
+        }
+
+        function populateDropdown(data, field) {
+          console.log(`field is ${field}`);
+          
+            if(field === "category")
+                var dropDown = document.getElementById("categoryDropDown");
+            else if(field === "location")
+                var dropDown = document.getElementById("locationDropDown");
+
+            // const data = JSON.parse(request.responseText);
+            let option;
+
+            for (let i = 0; i < data.length; i++) {
+                option = document.createElement('option');
+                if(field === "category") {
+                    option.text = data[i].category;
+                    option.value = data[i].category_id;
+                } else if(field === "location") {
+                    option.text = data[i].location;
+                    option.value = data[i].location_id;
+                  }
+                dropDown.add(option);
+            }
+            
+            // var div = document.createElement("div");
+            // div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('None', '" + field + "')\">None</a>";
+            // dropDown.appendChild(div);
+
+            // for(var i = 0; i < jsonData.length; i++)
+            // {
+            //     if(field === "category")
+            //         var selection = jsonData[i].category;
+            //     else if(field === "location")
+            //         var selection = jsonData[i].location;
+
+            //     div = document.createElement("div");
+            //     div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('" + selection + "', '" + field + "')\">" + selection + "</a>";
+            //     dropDown.appendChild(div);
+            // }
+        }
+    
+    </script>
 
   </body>
 </html>
