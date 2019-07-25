@@ -74,25 +74,55 @@ router.get('/search', (req, res) => {
     })
 })
 
+/*
+    Reports Endpoints
+*/
+
+// endpoint for POSTing reports
 router.post('/reports', (req, res) => {
-    console.log("reports endpoint")
-    // reports.createReport(req.query, function(err, result){
-    //     console.log(res.query)
-    //     if(err)
-    //     {
-    //         console.log('Error creating reports: ' + err)
-    //         res.status(503)
-    //         res.send('Error creating reports\n')
-    //     }
-    //     else
-    //     {
-    //         res.status(200)
-    //         res.send(result)
-    //     }
-    // })
-    console.log(req.body)
+    console.log("POST: reports endpoint")
+    console.log(res.body);
+    reports.createReport(req.query, function(err, result){
+        console.log(res.query)
+        if(err)
+        {
+            console.log('Error creating report: ' + err)
+            res.status(503)
+            res.send('Error creating report\n')
+        }
+        else
+        {
+            res.status(200)
+            res.send(result)
+        }
+    })
 })
 
+router.get('/reports', (req, res) => {
+    console.log("GET: reports endpoint")
+    reports.getReport(req.query, function(err, result){
+        console.log(res.query)
+        if(err)
+        {
+            console.log('Error retrieving report: ' + err)
+            res.status(503)
+            res.send("Error retrieving report\n")
+        }
+        else
+        {
+            res.status(200)
+            res.send(result)
+        }
+    })
+})
+
+
+
+/*
+    Dropdown endpoints
+*/
+
+// Endpoint for filling categories dropdown menu
 router.get('/categories', (req, res) => {
     db_categories.getCategories(function(err, result){
         if(err)
@@ -108,7 +138,7 @@ router.get('/categories', (req, res) => {
         }
     })
 })
-
+// Endpoint for filling locations dropdown menu
 router.get('/locations', (req, res) => {
     db_locations.getLocations(function(err, result){
         if(err)
@@ -125,6 +155,9 @@ router.get('/locations', (req, res) => {
     })
 })
 
+/*
+    TODO: currently unassigned endpoints. need to be assigned
+*/
 router.get('/images', (req, res) => {
     image.getImage(req.query, function(err, result){
         if(err)

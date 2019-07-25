@@ -50,3 +50,23 @@ exports.createReport = function(params, callback){
 
     })
 }
+
+exports.getReport = function(params, callback) {
+
+    var select_table = "reports"
+    var select_query = `SELECT * from ${select_table} WHERE report_id = ?`
+
+    db.query(select_query, params["report_id"], function(err, result){
+
+        if(err) {
+            console.log("Error querying database : " + err)
+            console.log(select_query)
+            console.log(params["report_id"])
+            callback(err, null)
+        }
+        else{
+            console.log("Report successfully retrieved")
+            callback(null, result)
+        }
+    } )
+}

@@ -37,6 +37,31 @@ response template
         }
     ]
 
+# GET : /reports
+request template
+
+    {
+        "report_id" : {report_id}
+    }
+    
+ response template
+
+    {
+        "report_id": "1563847194954",
+        "insert_date": "2019-07-23T09:59:55.000Z",
+        "update_date": null,
+        "category_id": "1",
+        "details": "test_details",
+        "status": "unassigned",
+        "assigned_to": null,
+        "location_id": "1",
+        "park_id": "1",
+        "image_ref": "test_image",
+        "loc_lat": 0,
+        "loc_long": 0,
+        "user_id": "1"
+    }
+    
 # POST : /reports 
 request template
 
