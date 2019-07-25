@@ -9,33 +9,11 @@ var curLatLng = {lat: 37.7749, lng: -122.4194}
 var map;
 // A list of marker objects.
 var marker;
-// The geocoder object.
-var geocoder;
 
-function getCurLat() {
-  return Number(curLatLng.lat);
-}
-
-function getCurLng() {
-  return Number(curLatLng.lng);
-}
-
-function setCurLat(newLat) {
-  curLatLng.lat = Number(newLat);
-}
-
-function setCurLng(newLng) {
-  curLatLng.lng = Number(newLng);
-}
-
-function setNewCenterLatLng(newLat, newLng) {
-  setCurLat(Number(newLat));
-  setCurLng(Number(newLng));
-}
-
-function setNewCenterPlaceName(placeName) {
-  setCurLat(Number(newLat));
-  setCurLng(Number(newLng));
+// Includes casting to enforce typing, just in case.
+function setNewCenterLatLng(newLatLng) {
+  curLatLng.lat = Number(newLatLng.lat);
+  curLatLng.lng = Number(newLatLng.lng);
 }
 
 /* Function locates the map div and fills it with the map. */
@@ -46,8 +24,6 @@ function initMap() {
     zoom: 12,
     mapTypeId: 'hybrid'
   });
-  /* We can initialize the geocoder after we have a map */
-  this.geocoder = new google.maps.Geocoder();
 }
 
 /*
@@ -58,12 +34,13 @@ function addExistingReportMarkersToMap() {
   // This data will be collected from the json returned by a DB query.
   var infoWindowTitle;          // The title of the report from the DB query json.
   var infoWindowHazardType;     // The type of hazard of the report from the DB query json.
-  var infoWindowThumbnail;      // The url of the thumbnail image of the report from the DB query json.
-  var infoWindowSummary;        // The breif/truncated summary of the report from the DB query json.
+  var infoWindowThumbnail;      // The thumbnail image of the report from the DB query json.
+  var infoWindowSummary;        // The brief/truncated summary of the report from the DB query json.
   var infoWindowReportURL;      // The full url of the report.
                                 // Likely will just be the report id appended to boilerplate url.
   var infoWindowContentString;  // The string of html that will be in the popup for the marker on-click.
   var markerIcon;               // The url of the image to use for the marker icon.
+                                // Icons from Google: https://sites.google.com/site/gmapsdevelopment/
 
   /* TODO:  Create functions to read json return from the DB and parse into the relevant vars.
             Do this before attempting to parse the coordinates, as that is an asyncronous api call.
@@ -137,21 +114,4 @@ function addExistingReportMarkersToMap() {
       infowindow.open(map, marker);
     });
   }
-}
-
-/* Uses Google's async geocoding service to return the coordinates of a string placename. */
-function geocodePlaceNameToLatLng(locationNameString) {
-  return new Promise(function(resolve, reject) {
-    var locationName = String(locationNameString);
-    geocoder.geocode({'address': locationName}, function(results, status) {
-      if (status === 'OK') {
-        // this.map.setCenter(results[0].geometry.location); // Recenter the map on the new marker.
-        var results = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}
-        console.log(results);
-        resolve(results);
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-  });
 }
