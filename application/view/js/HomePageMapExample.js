@@ -27,15 +27,15 @@ function initMap() {
 
   setNewCenterLatLng({lat: 37.720993, lng: -122.475373});
 
-  addExistingReportMarkersToMap();
+  addExistingReportMarkerToMap();
 }
 
 /*
 Adds a marker to the map, given coordinates or place name.
 Modify the parameters to send this function data to use:
-function addExistingReportMarkersToMap(reportTitle, reportHazardType, reportThumbnail, reportSummary, reportID, markerCoords, markerIconURL)
+function addExistingReportMarkerToMap(reportTitle, reportHazardType, reportThumbnail, reportSummary, reportID, markerCoords, markerIconURL)
 */
-function addExistingReportMarkersToMap() {
+function addExistingReportMarkerToMap() {
   // This data will be collected from the json returned by a DB query.
   var infoWindowTitle;          // The title of the report from the DB query json.
   var infoWindowHazardType;     // The type of hazard of the report from the DB query json.
