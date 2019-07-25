@@ -38,13 +38,15 @@ function initMap() {
   });
 
   // Initialize the readout element.
-  document.getElementById('currentCoords').innerHTML = '<p>Marker dropped: Current Lat: ' +
-    marker.position.lat().toFixed(5) + ' Current Lng: ' + marker.position.lng().toFixed(3) + '</p>';
+  // document.getElementById('currentCoords').innerHTML 
+  document.forms["results-form"].elements['loc_lat'].value = marker.position.lat().toFixed(5);
+  document.forms["results-form"].elements['loc_long'].value = marker.position.lng().toFixed(3);
 
   // Add listners to the marker so we can trigger changes to values and move the map.
   google.maps.event.addListener(marker, 'dragend', function(evt) {
-    document.getElementById('currentCoords').innerHTML = '<p>Marker dropped: Current Lat: ' +
-      evt.latLng.lat().toFixed(5) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+    // document.getElementById('currentCoords').innerHTML 
+    document.forms["results-form"].elements['loc_lat'].value = evt.latLng.lat().toFixed(5);
+    document.forms["results-form"].elements['loc_long'].value = evt.latLng.lng().toFixed(3);
     setNewCenterLatLng(marker.position);
 
     this.map.setCenter(marker.position);

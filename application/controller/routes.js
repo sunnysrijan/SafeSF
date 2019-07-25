@@ -15,42 +15,46 @@ router.use(bodyParser.urlencoded({
 }))
 router.use(bodyParser.json())
 
-
+router.get('/submit_report', (req, res) => {
+    console.log("GET request made for /submit_report endpoint")
+    res.status(200)
+    res.sendFile(path.resolve('view/report_submission.html'))
+})
 
 router.get('/davids', (req, res) => {
     console.log("GET request made for /davids endpoint")
     res.status(200)
-    res.sendFile(path.resolve('view/davids.html'))
+    res.sendFile(path.resolve('view/team_pages/davids.html'))
 })
 
 router.get('/harshs', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/harshs.html'))
+    res.sendFile(path.resolve('view/team_pages/harshs.html'))
 })
 
 router.get('/tristans', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/tristans.html'))
+    res.sendFile(path.resolve('view/team_pages/tristans.html'))
 })
 
 router.get('/lidiyas', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/lidiyas.html'))
+    res.sendFile(path.resolve('view/team_pages/lidiyas.html'))
 })
 
 router.get('/sunnys', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/sunnys.html'))
+    res.sendFile(path.resolve('view/team_pages/sunnys.html'))
 })
 
 router.get('/alexs', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/alexs.html'))
+    res.sendFile(path.resolve('view/team_pages/alexs.html'))
 })
 
 router.get('/evans', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/evans.html'))
+    res.sendFile(path.resolve('view/team_pages/evans.html'))
 })
 
 router.get('/search', (req, res) => {
@@ -72,20 +76,21 @@ router.get('/search', (req, res) => {
 
 router.post('/reports', (req, res) => {
     console.log("reports endpoint")
-    reports.createReport(req.query, function(err, result){
-        console.log(res.query)
-        if(err)
-        {
-            console.log('Error creating reports: ' + err)
-            res.status(503)
-            res.send('Error creating reports\n')
-        }
-        else
-        {
-            res.status(200)
-            res.send(result)
-        }
-    })
+    // reports.createReport(req.query, function(err, result){
+    //     console.log(res.query)
+    //     if(err)
+    //     {
+    //         console.log('Error creating reports: ' + err)
+    //         res.status(503)
+    //         res.send('Error creating reports\n')
+    //     }
+    //     else
+    //     {
+    //         res.status(200)
+    //         res.send(result)
+    //     }
+    // })
+    console.log(req.body)
 })
 
 router.get('/categories', (req, res) => {
