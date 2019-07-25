@@ -108,5 +108,7 @@ function addExistingReportMarkersToMap() {
 
   marker.addListener('click', function() {
     infowindow.open(map, marker);
+    this.map.zoom = 18;
+    this.map.center = marker.position;
   });
 }
