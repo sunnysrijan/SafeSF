@@ -122,7 +122,7 @@ router.post('/images', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-	auth.register(req.body, function(err) {
+	auth.register(req.query, function(err) {
         if(err)
         {
             console.log('Error registering: ' + err)
@@ -138,7 +138,7 @@ router.post('/register', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-	auth.login(req.body, function(err, result) {
+	auth.login(req.query, function(err, result) {
         if(err)
         {
             console.log('Error logging in: ' + err.message)
