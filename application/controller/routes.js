@@ -52,10 +52,7 @@ router.get('/evans', (req, res) => {
     res.status(200)
     res.sendFile(path.resolve('view/evans.html'))
 })
-router.get('/signUp', (req, res) => {
-    res.status(200)
-    res.sendFile(path.resolve('view/signUp.html'))
-})
+
 router.get('/search', (req, res) => {
     db_search.getResults(req.query, function(err, result){
         console.log(req.query)
@@ -121,7 +118,17 @@ router.post('/images', (req, res) => {
     })
 })
 
-router.post('/register', (req, res) => {
+router.get('/register', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/register.html'))
+})
+
+router.get('/login', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/login.html'))
+})
+
+router.post('/requestRegister', (req, res) => {
 	auth.register(req.query, function(err) {
         if(err)
         {
@@ -137,7 +144,7 @@ router.post('/register', (req, res) => {
 	})
 })
 
-router.get('/login', (req, res) => {
+router.get('/requestLogin', (req, res) => {
 	auth.login(req.query, function(err, result) {
         if(err)
         {
