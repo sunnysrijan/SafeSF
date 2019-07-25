@@ -90,6 +90,8 @@ span.psw {
       xmlReq.onload = function() {
         if (xmlReq.status == 200)
           window.location.href =  "index.html";
+        else
+          alert(xmlReq.response);
       }
 
       xmlReq.open('GET', '/requestLogin' + getParams(), true);
