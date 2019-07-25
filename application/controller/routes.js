@@ -51,7 +51,10 @@ router.get('/evans', (req, res) => {
     res.status(200)
     res.sendFile(path.resolve('view/evans.html'))
 })
-
+router.get('/signUp', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/signUp.html'))
+})
 router.get('/search', (req, res) => {
     db_search.getResults(req.query, function(err, result){
         console.log(req.query)
