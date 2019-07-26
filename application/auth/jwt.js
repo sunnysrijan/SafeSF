@@ -36,7 +36,6 @@ exports.verifyToken = function(data, callback) {
 		issuer:  'SafeSF',
 		subject:  'user',
 		audience:  'http://ec2-34-220-99-220.us-west-2.compute.amazonaws.com/',
-		expiresIn:  '12h',
 		algorithm:  ['RS256']
 	};
 

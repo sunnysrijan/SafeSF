@@ -79,7 +79,12 @@ exports.authenticate = function(cookieList, callback) {
         else {
             jwt.verifyToken(token, function(err, decodedToken) {
                 if(err)
-                    callback(err, {"authenticated": false, "username": null})
+                {
+                    if(err.message === 'jwt expired')
+                        callback(err, {"authenticated": false, "username": null, "errMessage": "Your session has expired. Please log in again."})
+                    else
+                        callback(err, {"authenticated": false, "username": null})
+                }
                 else
                 {
                     db.query("SELECT * FROM users WHERE display_name = ?", decodedToken.username, function (err, result, fields) {

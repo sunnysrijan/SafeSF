@@ -59,7 +59,7 @@
     <script>
         var categories;
         var locations;
-        
+
         function checkCookie() {
         	var cookies = document.cookie.split(';');
         	var cookiePresent = false;
@@ -97,6 +97,9 @@
 		        		document.getElementById("loginBtn").style.visibility = 'visible';
 		        		document.getElementById("registerBtn").style.visibility = 'visible';
 		        		document.getElementById("logoutBtn").style = 'display: none';
+
+		        		if(xmlReq.response.errMessage)
+		        			alert(xmlReq.response.errMessage)
 	                }
                 }
             }
