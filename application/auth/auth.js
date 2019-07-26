@@ -1,6 +1,8 @@
-const db = require('../auth/db_config.js')
-const uuid = require('uuid/v1');
+const db = require('./db_config.js')
+const jwt = require('./jwt.js')
+const uuid = require('uuid/v1')
 var bcrypt = require('bcryptjs')
+var cookie = require('cookie');
 
 exports.register = function(data, callback) {
     bcrypt.genSalt(function(err, salt) {
@@ -34,16 +36,19 @@ exports.register = function(data, callback) {
 exports.login = function(data, callback) {
     db.query("SELECT * FROM users WHERE display_name = ?", data.username, function (err, result, fields) {
         if(!result || !result.length)
-            callback(new Error('That usename is not registered'))
+            callback(new Error('That usename is not registered'), null)
         else
         {
             bcrypt.compare(data.password, result[0].password, function(err, res) {
-                console.log(res)
+                console.log('passwords match: ', res)
 
                 if(res)
-                    return callback(null)
+                {
+                    var token = jwt.createToken(data)
+                    return callback(null, token)
+                }
                 else
-                    return callback(new Error('That password is incorrect'))
+                    return callback(new Error('That password is incorrect'), null)
             })
         }
     })

@@ -98,10 +98,10 @@ a {
 
   <script>
     function register() {
-      var username = document.getElementById("username").value;
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("psw").value;
-      var passwordRepeat = document.getElementById("psw-repeat").value;
+      var username = document.getElementById("username").value
+      var email = document.getElementById("email").value
+      var password = document.getElementById("psw").value
+      var passwordRepeat = document.getElementById("psw-repeat").value
 
       if(username === "")
         alert("Please enter a username")
@@ -121,13 +121,13 @@ a {
 
       xmlReq.onload = function() {
         if (xmlReq.status == 200)
-          window.location.href =  "index.html";
+          window.location.href =  "index.html"
         else
-          alert(xmlReq.response);
+          alert(xmlReq.response)
       }
 
-      xmlReq.open('POST', '/requestRegister' + '?username=' + username + '&email=' + email + '&password=' + password, true);
-      xmlReq.send(null);
+      xmlReq.open('POST', '/requestRegister' + '?username=' + username + '&email=' + email + '&password=' + password, true)
+      xmlReq.send(null)
     }
   </script>
 

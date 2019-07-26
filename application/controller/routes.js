@@ -2,8 +2,7 @@ const express = require('express')
 const https = require('https')
 const bodyParser = require('body-parser')
 const router = express.Router()
-var path = require('path')
-
+const path = require('path')
 const db_categories = require('./categories.js')
 const db_search = require('./search.js')
 const db_locations = require('./locations.js')
@@ -129,10 +128,10 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/requestRegister', (req, res) => {
-	auth.register(req.query, function(err) {
+	auth.register(req.query, function(err, token) {
         if(err)
         {
-            console.log('Error registering: ' + err)
+            console.log('Error registering: ', err.message)
             res.status(503)
             res.send(err.message)
         }
@@ -145,19 +144,26 @@ router.post('/requestRegister', (req, res) => {
 })
 
 router.get('/requestLogin', (req, res) => {
-	auth.login(req.query, function(err, result) {
+	auth.login(req.query, function(err, token) {
         if(err)
         {
-            console.log('Error logging in: ' + err.message)
+            console.log('Error logging in: ', err.message)
             res.status(503)
             res.send(err.message)
         }
         else
         {
             console.log('Succesfully logged in')
+            res.cookie('accessToken', token)
             res.sendStatus(200)
         }
 	})
+})
+
+router.get('/requestLogout', (req, res) => {
+    console.log('Logged out')
+    res.clearCookie('accessToken');
+    res.sendStatus(200)
 })
 
 router.get('/team', (req, res) => {

@@ -21,6 +21,7 @@
             <form action="/action_page.php">
                 <a href="/login" type="submit">Login</a>
                 <a href="/register" type="submit">Register</a>
+                <button onclick="logout()">Logout</button>
             </form>
         </div>
     </div>
@@ -246,6 +247,18 @@
             var tableContainer = document.getElementById("table");
             tableContainer.innerHTML = "";
             tableContainer.appendChild(table);
+        }
+
+        function logout() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200)
+                    window.location.href = "index.html";
+            }
+
+            xmlReq.open('GET', '/requestLogout', true);
+            xmlReq.send(null);
         }
     </script>
 </body>
