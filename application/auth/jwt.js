@@ -7,23 +7,43 @@ exports.createToken = function(data, callback) {
 	var privateKey  = fs.readFileSync(__dirname + path.normalize('/private.key'), 'utf8');
 
 	var payload = {
+		username: data.username,
 		password: data.password
 	};
 
-	var signOptions = {
+	var tokenOptions = {
 		issuer:  'SafeSF',
-		subject:  data.username,
+		subject:  'user',
 		audience:  'http://ec2-34-220-99-220.us-west-2.compute.amazonaws.com/',
 		expiresIn:  '12h',
 		algorithm:  'RS256'
 	};
 
-	var token = jwt.sign(payload, privateKey, signOptions);
-	console.log('token: ', token)
-	
-	return token
+	jwt.sign(payload, privateKey, tokenOptions, function(err, token) {
+		if(err)
+			callback(err, null)
+		else {
+			console.log('token: ', token)
+			callback(null, token)
+		}
+	});
 }
 
 exports.verifyToken = function(data, callback) {
-	var publicKey  = fs.readFileSync('./public.key', 'utf8');
+	var publicKey  = fs.readFileSync(__dirname + path.normalize('/public.key'), 'utf8');
+
+	var tokenOptions = {
+		issuer:  'SafeSF',
+		subject:  'user',
+		audience:  'http://ec2-34-220-99-220.us-west-2.compute.amazonaws.com/',
+		expiresIn:  '12h',
+		algorithm:  ['RS256']
+	};
+
+	jwt.verify(data, publicKey, tokenOptions, function(err, result) {
+		if(err)
+			callback(err, null)
+		else
+			callback(null, result)
+	})
 }

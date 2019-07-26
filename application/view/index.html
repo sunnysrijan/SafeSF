@@ -11,7 +11,7 @@
     <link href="css/index.css" rel="stylesheet">
 </head>
 
-<body onload="getCategories(); getLocations()">
+<body onload="requestAccess(); getCategories(); getLocations()">
     <div class="topnav">
         <a class="active" href="/index">Home</a>
         <a href="/team">Team</a>
@@ -59,6 +59,33 @@
     <script>
         var categories;
         var locations;
+
+        function requestAccess() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200)
+                {
+                    alert('authenticated: ' + xmlReq.response.authenticated)
+                }
+            }
+
+            xmlReq.open('GET', '/requestAccess', true);
+            xmlReq.responseType = "json";
+            xmlReq.send(null);
+        }
+
+        function logout() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200)
+                    window.location.href = "index.html";
+            }
+
+            xmlReq.open('GET', '/requestLogout', true);
+            xmlReq.send(null);
+        }
 
         function getCategories() {
             var xmlReq = new XMLHttpRequest();
@@ -247,18 +274,6 @@
             var tableContainer = document.getElementById("table");
             tableContainer.innerHTML = "";
             tableContainer.appendChild(table);
-        }
-
-        function logout() {
-            var xmlReq = new XMLHttpRequest();
-
-            xmlReq.onload = function() {
-                if (xmlReq.status == 200)
-                    window.location.href = "index.html";
-            }
-
-            xmlReq.open('GET', '/requestLogout', true);
-            xmlReq.send(null);
         }
     </script>
 </body>
