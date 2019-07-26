@@ -98,6 +98,25 @@ a {
 
   <script>
     function register() {
+      var username = document.getElementById("username").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("psw").value;
+      var passwordRepeat = document.getElementById("psw-repeat").value;
+
+      if(username === "")
+        alert("Please enter a username")
+      else if(email === "")
+        alert("Please enter an email")
+      else if(password === "")
+        alert("Please enter a password")
+      else if(passwordRepeat === "")
+        alert("Please repeat your password")
+      else if(password != passwordRepeat)
+        alert("The passwords do not match. Please re-enter your password")
+
+      if(username === "" || email === "" || password === "" || passwordRepeat === "" || password != passwordRepeat)
+        return
+
       var xmlReq = new XMLHttpRequest();
 
       xmlReq.onload = function() {
@@ -107,16 +126,8 @@ a {
           alert(xmlReq.response);
       }
 
-      xmlReq.open('POST', '/requestRegister' + getParams(), true);
+      xmlReq.open('POST', '/requestRegister' + '?username=' + username + '&email=' + email + '&password=' + password, true);
       xmlReq.send(null);
-    }
-
-    function getParams() {
-      var username = document.getElementById("username").value;
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("psw").value;
-
-      return '?username=' + username + '&email=' + email + '&password=' + password;
     }
   </script>
 

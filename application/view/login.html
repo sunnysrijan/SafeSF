@@ -92,6 +92,17 @@
 
     <script>
       function login() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("psw").value;
+
+        if(username === "")
+          alert("Please enter a username")
+        else if(password === "")
+          alert("Please enter a password")
+
+        if(username === "" || password === "")
+          return
+
         var xmlReq = new XMLHttpRequest();
 
         xmlReq.onload = function() {
@@ -101,17 +112,9 @@
             alert(xmlReq.response);
         }
 
-        xmlReq.open('GET', '/requestLogin' + getParams(), true);
+        xmlReq.open('GET', '/requestLogin' + '?username=' + username + '&password=' + password, true);
         xmlReq.send(null);
       }
-
-      function getParams() {
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("psw").value;
-
-        return '?username=' + username + '&password=' + password;
-      }
-      
     </script>
   </body>
 </html>
