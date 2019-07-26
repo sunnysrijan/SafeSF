@@ -159,13 +159,13 @@ router.get('/requestAccess', (req, res) => {
         if(err) {
             console.log('Error verifying access. Deleting Cookie: ', err.message)
             res.clearCookie('accessToken')
-            res.status(503)
-            res.send({"authenticated": false})
+            res.status(200)
+            res.send(result)
         }
         else {
-            console.log('User authenticated: ', result)
+            console.log(result.username, ' authenticated: ', result.authenticated)
             res.status(200)
-            res.send({"authenticated": result})
+            res.send(result)
         }
     })
 })

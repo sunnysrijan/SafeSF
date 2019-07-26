@@ -23,7 +23,7 @@ exports.createToken = function(data, callback) {
 		if(err)
 			callback(err, null)
 		else {
-			console.log('token: ', token)
+			console.log('Access token generated')
 			callback(null, token)
 		}
 	});

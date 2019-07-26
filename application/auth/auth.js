@@ -68,31 +68,29 @@ exports.login = function(data, callback) {
     })
 }
 
-exports.authenticate = function(cookie, callback) {
-    if(cookie == null)
-        callback(null, false)
+exports.authenticate = function(cookieList, callback) {
+    if(cookieList == null)
+        callback(new Error('Can\'t authenticate user. No cookies.'), {"authenticated": false, "username": null})
     else {
-        var token = exports.parseCookie(cookie)
+        var token = exports.parseCookie(cookieList)
 
         if(token == null)
-            callback(null, false)
+            callback(new Error('Can\'t authenticate user. No access token cookie.'), {"authenticated": false, "username": null})
         else {
             jwt.verifyToken(token, function(err, decodedToken) {
-                console.log('Authenticating ', decodedToken.username)
-
                 if(err)
-                    callback(err, null)
+                    callback(err, {"authenticated": false, "username": null})
                 else
                 {
                     db.query("SELECT * FROM users WHERE display_name = ?", decodedToken.username, function (err, result, fields) {
                         if(!result || !result.length)
-                            callback(new Error('Can\'t authenticate user. Username does not exist.'), null)
+                            callback(new Error('Can\'t authenticate user. Username does not exist.'), {"authenticated": false, "username": null})
                         else {
                             bcrypt.compare(decodedToken.password, result[0].password, function(err, res) {
                                 if(res)
-                                    callback(null, true)
+                                    callback(null, {"authenticated": true, "username": decodedToken.username})
                                 else
-                                    callback(new Error('Can\'t authenticate user. Password is incorrect.'), null)
+                                    callback(new Error('Can\'t authenticate user. Password is incorrect.'), {"authenticated": false, "username": null})
                             })
                         }
                     })
@@ -102,17 +100,10 @@ exports.authenticate = function(cookie, callback) {
     }
 }
 
-exports.parseCookie = function(cookie) {
-    var startIndex = cookie.indexOf('accessToken') + 12
+exports.parseCookie = function(cookieList) {
+    var cookieArray = cookieList.split(';');
 
-    if(startIndex === -1)
-        return null
-
-    var endIndex = startIndex
-
-    for(; endIndex < cookie.length; endIndex++)
-        if(cookie.charAt(endIndex) === ';')
-            break
-
-    return cookie.substring(startIndex, endIndex)
+    for(var i = 0; i < cookieArray.length; i++)
+        if(cookieArray[i].startsWith('accessToken='))
+            return cookieArray[i].substring(12, cookieArray[i].length)
 }
