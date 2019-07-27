@@ -28,7 +28,7 @@ exports.register = function(data, callback) {
                     }
                     else
                     {
-                        var tokenData = { 'username': data.username, 'password': data.password }
+                        var tokenData = { 'username': data.username, 'password': data.password, 'remember': true }
 
                         jwt.createToken(tokenData, function(err, token) {
                             if(err) {

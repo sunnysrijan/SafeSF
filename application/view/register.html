@@ -126,7 +126,9 @@ a {
           alert(xmlReq.response)
       }
 
-      xmlReq.open('POST', '/requestRegister' + '?username=' + username + '&email=' + email + '&password=' + password, true)
+      var params = '?username=' + username + '&email=' + email + '&password=' + password
+
+      xmlReq.open('POST', '/requestRegister' + params, true)
       xmlReq.send(null)
     }
   </script>
