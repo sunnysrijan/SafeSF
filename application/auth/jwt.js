@@ -19,7 +19,7 @@ exports.createToken = function(data, callback) {
 	};
 
 	if(data.remember === 'false')
-		tokenOptions.expiresIn = '1h'
+		tokenOptions.expiresIn = '10m'
 
 	jwt.sign(payload, privateKey, tokenOptions, function(err, token) {
 		if(err)

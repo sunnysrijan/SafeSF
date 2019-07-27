@@ -155,7 +155,7 @@ router.get('/requestLogout', (req, res) => {
 })
 
 router.get('/requestAccess', (req, res) => {
-    auth.authenticate(req.headers.cookie, function(err, result) {
+    auth.authenticate(req.headers.cookie, function(err, result, token) {
         if(err) {
             console.log('Error verifying access. Deleting Cookie: ', err.message)
             res.clearCookie('accessToken')
@@ -164,6 +164,10 @@ router.get('/requestAccess', (req, res) => {
         }
         else {
             console.log(result.username, ' authenticated: ', result.authenticated)
+
+            if(token)
+                res.cookie('accessToken', token, { overwrite: true })
+
             res.status(200)
             res.send(result)
         }
