@@ -12,6 +12,14 @@ var map;
 // The draggable marker.
 var marker;
 
+// The coordinates indicating the nodes of a polygon that outline San Francisco.
+var sanFranciscoOutlineCoords = [
+    {lat: 37.808061, lng: -122.525104},
+    {lat: 37.704889, lng: -122.512095},
+    {lat: 37.704889, lng: -122.339398},
+    {lat: 37.857020, lng: -122.355358}
+  ];
+
 // Includes casting to enforce typing, just in case.
 function setNewCenterLatLng(newLatLng) {
   curLatLng.lat = Number(newLatLng.lat);
@@ -51,6 +59,12 @@ function initMap() {
     this.map.setCenter(marker.position);
     marker.setMap(map);
 
+    // Check to see if the marker is dropped down in a valid location.
+    var markerInSF = isMarkerInSanFrancisco(curLatLng, sanFranciscoOutlineCoords);
+    var outputText = "true" ? markerInSF : "false";
+    document.getElementById('isMarkerInSF').innerHTML = '<p>Marker is in general vicinity of San Francisco: ' +
+      outputText + '</p>';
+
     console.log(curLatLng);
   });
 
@@ -58,4 +72,12 @@ function initMap() {
     document.getElementById('currentCoords').innerHTML = '<p>Currently dragging marker...</p>';
     curLatLng = marker.position;
   });
+}
+
+// This function determines whether a marker is in San Francisco.
+// Receives lat/lng hash and outline poly.
+// Returns true/false.
+function isMarkerInSanFrancisco(latLng, outlineCoords) {
+  var boundsPoly = new google.maps.Polygon({paths: outlineCoords});
+  return google.maps.geometry.poly.containsLocation(latLng, boundsPoly);
 }
