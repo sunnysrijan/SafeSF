@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Report</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/ReportViewMapExample.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SF Safe</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/index">Home</a></li>
+        <li class="active"><a href="/team">Team</a></li>
+        <li class="active"><a href="/about">About</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <div class="jumbotron">
+      <p id="report_id">
+        <p1 class="text-danger">Report ID: </p1><br>
+        <p1 class="text-primary">Report Location: </p1><br>
+        <p2 class="text-primary">Time submitted: </p2><br>
+        <p3 class="text-primary">Incident Status: </p3><br>
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Location</h3>
+        <div id="map"></div>
+        <script>
+          var curLatLng = {
+            lat: 37.7749,
+            lng: -122.4194
+          }
+          var map;
+          var marker;
+
+          function setNewCenterLatLng(newLatLng) {
+            curLatLng.lat = Number(newLatLng.lat);
+            curLatLng.lng = Number(newLatLng.lng);
+          }
+
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: curLatLng,
+              zoom: 16, // Bigger number = higher zoom. Float values accepted.
+              draggable: false, // Make the map undraggagle.
+              mapTypeId: 'hybrid'
+            });
+
+            marker = new google.maps.Marker({
+              title: 'This is where the hazard is!',
+              position: curLatLng,
+              draggable: false,
+              map: this.map
+            });
+          }
+          initMap();
+        </script>
+
+      </div>
+      <div class="col-sm-6">
+        <h3>Image</h3>
+        <img class="img-responsive" src="images/garbage.jpg" alt="image">
+
+      </div>
+    </div>
+    <div class="jumbotron">
+      <p1>Details: </p1>
+    </div>
+  </div>
