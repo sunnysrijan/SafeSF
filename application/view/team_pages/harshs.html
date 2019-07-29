@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>
+    CSC 648 - Harshveer Saini
+</title>
+</head>
+<body>
+	<div class="big-btn"><button onclick="home()">Back</button></div>
+    <h2>Harshveer Saini</h2>
+    <img src="images/Harshveer.JPG" width="476" height="480">
+    <p>hsaini@mail.sfsu.edu</p>
+    <a href="https://github.com/harsh0914">Github</a>
+
+    <script>
+    	function home() {
+    					var xmlReq = new XMLHttpRequest();
+
+			xmlReq.onload = function() {
+				if (xmlReq.status == 200)
+					window.location.href = "index.html";
+			}
+
+			xmlReq.open('GET', '/', true);
+			xmlReq.responseType = "document";
+			xmlReq.send();
+    	}
+    </script>
+</body>
+</html>

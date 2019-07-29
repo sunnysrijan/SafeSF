@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>
+    CSC 648 - David Stillwagon
+</title>
+</head>
+<body>
+	<div class="big-btn"><button onclick="home()">Back</button></div>
+    <h2>David Stillwagon</h2>
+    <img src="images/david.jpg" width="476" height="480">
+    <p>stillwagonryan@gmail.com</p>
+    <a href="https://github.com/ryanstills">Github</a>
+
+    <script>
+    	function home() {
+    					var xmlReq = new XMLHttpRequest();
+
+			xmlReq.onload = function() {
+				if (xmlReq.status == 200)
+					window.location.href = "index.html";
+			}
+
+			xmlReq.open('GET', '/', true);
+			xmlReq.responseType = "document";
+			xmlReq.send();
+    	}
+    </script>
+</body>
+</html>

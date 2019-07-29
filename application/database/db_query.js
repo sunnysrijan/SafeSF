@@ -1,4 +1,3 @@
-const db = require('../auth/db_config.js')
 
 exports.buildSearchQuery = function(table, order, params){
 

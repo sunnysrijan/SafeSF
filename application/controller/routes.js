@@ -7,12 +7,19 @@ const db_categories = require('./categories.js')
 const db_search = require('./search.js')
 const db_locations = require('./locations.js')
 const image = require('./images.js')
+const reports = require('./reports.js')
 const auth = require('../auth/auth.js')
 
 router.use(bodyParser.urlencoded({
     extended: false
 }))
 router.use(bodyParser.json())
+
+router.get('/submit_report', (req, res) => {
+    console.log("GET request made for /submit_report endpoint")
+    res.status(200)
+    res.sendFile(path.resolve('view/report_submission.html'))
+})
 
 router.get('/search', (req, res) => {
     db_search.getResults(req.query, function(err, result) {
@@ -29,6 +36,55 @@ router.get('/search', (req, res) => {
     })
 })
 
+/*
+    Reports Endpoints
+*/
+
+// endpoint for POSTing reports
+router.post('/reports', (req, res) => {
+    console.log("POST: reports endpoint")
+    console.log(res.body);
+    reports.createReport(req.query, function(err, result){
+        console.log(res.query)
+        if(err)
+        {
+            console.log('Error creating report: ' + err)
+            res.status(503)
+            res.send('Error creating report\n')
+        }
+        else
+        {
+            res.status(200)
+            res.send(result)
+        }
+    })
+})
+
+router.get('/reports', (req, res) => {
+    console.log("GET: reports endpoint")
+    reports.getReport(req.query, function(err, result){
+        console.log(res.query)
+        if(err)
+        {
+            console.log('Error retrieving report: ' + err)
+            res.status(503)
+            res.send("Error retrieving report\n")
+        }
+        else
+        {
+            res.status(200)
+            res.send(result)
+        }
+    })
+})
+
+
+
+/*
+    Dropdown endpoints
+*/
+
+// Endpoint for filling categories dropdown menu
 router.get('/categories', (req, res) => {
     db_categories.getCategories(function(err, result) {
         if(err) {
@@ -42,7 +98,7 @@ router.get('/categories', (req, res) => {
         }
     })
 })
-
+// Endpoint for filling locations dropdown menu
 router.get('/locations', (req, res) => {
     db_locations.getLocations(function(err, result){
         if(err) {
@@ -57,7 +113,10 @@ router.get('/locations', (req, res) => {
     })
 })
 
-router.post('/images', (req, res) => {
+/*
+    TODO: currently unassigned endpoints. need to be assigned
+*/
+router.get('/images', (req, res) => {
     image.getImage(req.query, function(err, result){
         if(err) {
             console.log('Error retrieving image: ' + err)

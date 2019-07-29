@@ -1,3 +1,21 @@
+.split_left {
+  width:40%;
+  left:0;
+  z-index: 1;
+  overflow-x: hidden;
+  position: absolute;
+  padding-top: 20px}
+
+.split_right{
+  margin-top: 30px;
+  width:60%;
+  right:0;
+  z-index: 1;
+  position: absolute;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
 .topnav {
   overflow: hidden;
   background-color: #e9e9e9;
@@ -98,7 +116,7 @@ h1 {
 .card{
   border-radius: 25px;
   background: #73AD21;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   height: 100%;
 }
@@ -159,10 +177,10 @@ h1 {
 
 table {
   width: 95%;
-  margin: 2.5%;
+  margin: 1%;
 }
 
 td {
   vertical-align: middle;
-  padding: 2em;
+  padding: 10px;
 }
