@@ -22,8 +22,11 @@ var sanFranciscoOutlineCoords = [
 
 // Includes casting to enforce typing, just in case.
 function setNewCenterLatLng(newLatLng) {
-  curLatLng.lat = Number(newLatLng.lat);
-  curLatLng.lng = Number(newLatLng.lng);
+  // console.log("Setting new center on: " + newLatLng.lat() + ", " + newLatLng.lng());
+  this.curLatLng.lat = parseFloat(newLatLng.lat());
+  this.curLatLng.lng = parseFloat(newLatLng.lng());
+
+  // console.log("Finished setting curLatLng: " + this.curLatLng.lat + ", " + this.curLatLng.lng);
 }
 
 /* Function locates the map div and fills it with the map. */
@@ -46,24 +49,27 @@ function initMap() {
     map: this.map
   });
 
-  // Initialize the readout element.
+  // Initialize the readout elements.
   document.getElementById('currentCoords').innerHTML = '<p>Marker dropped: Current Lat: ' +
-    marker.position.lat().toFixed(5) + ' Current Lng: ' + marker.position.lng().toFixed(3) + '</p>';
+    marker.position.lat().toFixed(5) + ' Current Lng: ' + marker.position.lng().toFixed(5) + '</p>';
+  document.getElementById('isMarkerInSF').innerHTML = '<p>Marker is in general vicinity of San Francisco: ' +
+    true + '</p>';
 
   // Add listners to the marker so we can trigger changes to values and move the map.
   google.maps.event.addListener(marker, 'dragend', function(evt) {
     document.getElementById('currentCoords').innerHTML = '<p>Marker dropped: Current Lat: ' +
-      evt.latLng.lat().toFixed(5) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+      evt.latLng.lat().toFixed(5) + ' Current Lng: ' + evt.latLng.lng().toFixed(5) + '</p>';
     setNewCenterLatLng(marker.position);
 
     this.map.setCenter(marker.position);
     marker.setMap(map);
 
     // Check to see if the marker is dropped down in a valid location.
-    var markerInSF = isMarkerInSanFrancisco(curLatLng, sanFranciscoOutlineCoords);
-    var outputText = "true" ? markerInSF : "false";
+    // We send two Numbers, lat and lng.
+    var markerInSF = isMarkerInPolygonBoundary(curLatLng.lat, curLatLng.lng, sanFranciscoOutlineCoords);
+    var boolMarkerInSF = "true" ? markerInSF : "false";
     document.getElementById('isMarkerInSF').innerHTML = '<p>Marker is in general vicinity of San Francisco: ' +
-      outputText + '</p>';
+      boolMarkerInSF + '</p>';
 
     console.log(curLatLng);
   });
@@ -74,10 +80,19 @@ function initMap() {
   });
 }
 
-// This function determines whether a marker is in San Francisco.
-// Receives lat/lng hash and outline poly.
+// This function determines whether a marker is in a specified polygon.
+// Receives lat/lng and set of polygon nodes.
+// var sanFranciscoOutlineCoords = [
+//     {lat: 37.808061, lng: -122.525104},
+//     {lat: 37.704889, lng: -122.512095},
+//     {lat: 37.704889, lng: -122.339398},
+//     {lat: 37.857020, lng: -122.355358}
+//   ];
 // Returns true/false.
-function isMarkerInSanFrancisco(latLng, outlineCoords) {
+function isMarkerInPolygonBoundary(markerLat, markerLng, outlineCoords) {
   var boundsPoly = new google.maps.Polygon({paths: outlineCoords});
-  return google.maps.geometry.poly.containsLocation(latLng, boundsPoly);
+  var googleLatLngDatatype = new google.maps.LatLng(markerLat, markerLng);
+  // console.log("our lat lng var: " + markerLat + ", " + markerLng);
+  // console.log("google lat lng var: " + googleLatLngDatatype);
+  return google.maps.geometry.poly.containsLocation(googleLatLngDatatype, boundsPoly);
 }
