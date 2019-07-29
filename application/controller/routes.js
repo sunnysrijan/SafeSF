@@ -82,8 +82,8 @@ router.get('/search', (req, res) => {
 router.post('/reports', (req, res) => {
     console.log("POST: reports endpoint")
     console.log(res.body);
-    reports.createReport(req.query, function(err, result){
-        console.log(res.query)
+    reports.createReport(req.body, function(err, result){
+        console.log(res.body)
         if(err)
         {
             console.log('Error creating report: ' + err)
