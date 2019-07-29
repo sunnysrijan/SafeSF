@@ -23,10 +23,8 @@ exports.getResults = function(data, callback) {
                 console.log("Error querying database : " + err)
                 callback(err, null)
             }
-            else {
-                console.log("Results succesfully retrieved")
+            else
                 callback(null, result)
-            }
         })
     })
 }
