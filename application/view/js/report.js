@@ -22,3 +22,9 @@ function initMap() {
     map: this.map
   });
 }
+
+function resizeMap() {
+  var rowHeight = document.getElementById('report-image').offsetHeight;
+  console.log("row height: " + document.getElementById('report-image').offsetHeight);
+  document.getElementById('map').style.height = rowHeight + "px";
+}
