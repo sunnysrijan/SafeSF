@@ -15,7 +15,7 @@
         </style>
 </head>
 
-<body onload="getCategories(); getLocations()">
+<body onload="checkCookie(); requestAccess(); getCategories(); getLocations()">
     <div class="topnav">
             <div style="background:whitesmoke;margin: 0px">
                     <h2 style="text-align:center">This is a Test website</h2>
@@ -27,9 +27,9 @@
 
         <div class="login-container">
             <form action="/action_page.php">
-                <input type="text" placeholder="Username" name="username">
-                <input type="text" placeholder="Password" name="psw">
-                <button type="submit">Login</button>
+                <a href="/login" type="submit" id="loginBtn" style="visibility: hidden">Login</a>
+                <a href="/register" type="submit" id="registerBtn" style="visibility: hidden">Register</a>
+                <button type="button" onclick="logout()" id="logoutBtn" style="display: none">Logout</button>
             </form>
         </div>
     </div>
@@ -72,12 +72,72 @@
         var categories;
         var locations;
 
-        function getCategories() {
+        function checkCookie() {
+        	var cookies = document.cookie.split(';');
+        	var cookiePresent = false;
+
+        	for(var i = 0; i < cookies.length; i++) {
+        		if(cookies[i].startsWith('accessToken=')) {
+            		cookiePresent = true;
+        			break;
+        		}
+        	}
+
+        	if(cookiePresent) {
+			    document.getElementById("loginBtn").style.visibility = 'hidden';
+        		document.getElementById("registerBtn").style.visibility = 'hidden';
+        		document.getElementById("logoutBtn").style = 'display: block';
+        	}
+        	else {
+        		document.getElementById("loginBtn").style.visibility = 'visible';
+        		document.getElementById("registerBtn").style.visibility = 'visible';
+        		document.getElementById("logoutBtn").style = 'display: none';
+        	}
+        }
+
+        function requestAccess() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200) {
+                	if(xmlReq.response.authenticated) {
+                		document.getElementById("loginBtn").style.visibility = 'hidden';
+                		document.getElementById("registerBtn").style.visibility = 'hidden';
+                		document.getElementById("logoutBtn").style = 'display: block';
+	                }
+	                else {
+		        		document.getElementById("loginBtn").style.visibility = 'visible';
+		        		document.getElementById("registerBtn").style.visibility = 'visible';
+		        		document.getElementById("logoutBtn").style = 'display: none';
+
+		        		if(xmlReq.response.errMessage)
+		        			alert(xmlReq.response.errMessage)
+	                }
+                }
+            }
+
+            xmlReq.open('GET', '/requestAccess', true);
+            xmlReq.responseType = "json";
+            xmlReq.send(null);
+        }
+
+        function logout() {
             var xmlReq = new XMLHttpRequest();
 
             xmlReq.onload = function() {
                 if (xmlReq.status == 200)
-                {
+                    window.location.href = "index.html";
+            }
+
+            xmlReq.open('GET', '/requestLogout', true);
+            xmlReq.send(null);
+        }
+
+        function getCategories() {
+            var xmlReq = new XMLHttpRequest();
+
+            xmlReq.onload = function() {
+                if (xmlReq.status == 200) {
                     categories = xmlReq.response
                     populateDropdown(categories, "category");
                 }
@@ -92,8 +152,7 @@
             var xmlReq = new XMLHttpRequest();
 
             xmlReq.onload = function() {
-                if (xmlReq.status == 200)
-                {
+                if (xmlReq.status == 200) {
                     locations = xmlReq.response
                     populateDropdown(locations, "location");
                 }
@@ -114,8 +173,7 @@
             div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('None', '" + field + "')\">None</a>";
             dropDown.appendChild(div);
 
-            for(var i = 0; i < jsonData.length; i++)
-            {
+            for(var i = 0; i < jsonData.length; i++) {
                 if(field === "category")
                     var selection = jsonData[i].category;
                 else if(field === "location")
@@ -135,8 +193,7 @@
 
             var button = document.getElementById(dropDownButton);
 
-            if(selection === "None")
-            {
+            if(selection === "None") {
                 if(field === "category")
                     button.innerHTML = "Categories";
                 else if(field === "location")
@@ -171,14 +228,12 @@
     		var requestParam = "?"
     		var firstParam = true;
 
-    		if(category != "Categories")
-    		{
+    		if(category != "Categories") {
     			requestParam += "category_id=" + category_id;
     			firstParam = false;
     		}
 
-    		if(location != "Locations")
-    		{
+    		if(location != "Locations") {
 	    		if(!firstParam)
 	    			requestParam += "&";
 
@@ -186,8 +241,7 @@
     			firstParam = false;
     		}
 
-    		if(user_entry != "")
-    		{
+    		if(user_entry != "") {
 	    		if(!firstParam)
 	    			requestParam += "&";
 	    		
