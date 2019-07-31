@@ -4,7 +4,8 @@
   z-index: 1;
   overflow-x: hidden;
   position: absolute;
-  padding-top: 20px}
+  padding-top: 20px;
+height: 90%}
 
 .split_right{
   margin-top: 30px;
@@ -14,6 +15,7 @@
   position: absolute;
   overflow-x: hidden;
   padding-top: 20px;
+  height: 90%
 }
 
 .topnav {

@@ -37,11 +37,11 @@
     <div class="header">
         <form>
         	<div>
-	            <h1>Safe SF         Team 2</h1>
+	            <h1>Safe SF Team 2</h1>
 	            
             </div>
             
-            <h2>Lets Start your search</h1>
+            <h2>Search for reported hazards here</h1>
             <div class="form-box">
                 <div class="dropdown">
                     <button class="dropbtn" id="categoryButton">Categories</button>
@@ -295,8 +295,9 @@
                         else
                             var location = getValueOfId(locations, "location_id", report.location_id);
 
-                        cell.innerHTML = "<div class='card'>" +
-                                          "<img class='cardImage' src='" + image + "'><div>" +
+                        cell.innerHTML = "<div class='card'style='height:170px; margin-left:4px'>" +
+                                        "<div class='split_left' style='heigth:170px; padding-left:4px'> <img class='cardImage' height=150px width=150px src='" + image + "'></div>"+
+                                          "<div class='split_right' style='padding-left:14px align-text:center'> <div>" +
                                           category + "</div><div>" +
                                           report.details + "</div><div>" +
                                           location + "</div><div>" +
