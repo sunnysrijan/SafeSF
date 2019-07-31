@@ -8,8 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/ReportViewMapExample.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+  <script type="text/javascript" src="js/report.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18"></script>
   <style>
     * {
@@ -24,7 +23,7 @@
   </style>
 </head>
 
-<body>
+<body onresize="resizeMap()" onload=" resizeMap()">
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -56,44 +55,28 @@
     <div class="row">
       <div class="col-sm-6">
         <h3>Image</h3>
+<<<<<<< HEAD
         <img class="img-responsive" src="images/garbage.jpg" alt="image">
       </div>
 
       <div class="col-sm-6">
+=======
+        <img id="report-image" class="img-responsive" src="images/garbage.jpg" alt="image">
+      </div>
+
+      <div class="col-sm-6" style="height: this.rowHeight">
+>>>>>>> b11f611fe355d4f8132b6503cd063f0f7bd983bf
         <h3>Location</h3>
 
         <div id="map"></div>
         <script>
-          var curLatLng = {
-            lat: 37.7749,
-            lng: -122.4194
-          }
-          var map;
-          var marker;
-
-          function setNewCenterLatLng(newLatLng) {
-            curLatLng.lat = Number(newLatLng.lat);
-            curLatLng.lng = Number(newLatLng.lng);
-          }
-
-          function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-              center: curLatLng,
-              zoom: 16, // Bigger number = higher zoom. Float values accepted.
-              draggable: false, // Make the map undraggagle.
-              mapTypeId: 'hybrid'
-            });
-
-            marker = new google.maps.Marker({
-              title: 'This is where the hazard is!',
-              position: curLatLng,
-              draggable: false,
-              map: this.map
-            });
-          }
           initMap();
         </script>
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b11f611fe355d4f8132b6503cd063f0f7bd983bf
     </div>
     <hr>
     <div class="jumbotron">

@@ -39,10 +39,10 @@ function initMap() {
 
 function showStartCoords() {
   document.getElementById('startCoords').innerHTML = '<p>Default LatLng (San Francisco): ' +
-    curLatLng.lat.toFixed(5) + ', ' + curLatLng.lng.toFixed(5) + '</p>';
+    curLatLng.lat + ', ' + curLatLng.lng + '</p>';
 }
 
 function showReportCoords() {
   document.getElementById('reportCoords').innerHTML = '<p>Report LatLng (SFSU): ' +
-    curLatLng.lat.toFixed(5) + ', ' + curLatLng.lng.toFixed(5) + '</p>';
+    curLatLng.lat + ', ' + curLatLng.lng + '</p>';
 }
