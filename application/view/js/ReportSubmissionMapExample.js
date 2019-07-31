@@ -11,6 +11,13 @@ var curLatLng = {lat: 37.7749, lng: -122.4194}
 var map;
 // The draggable marker.
 var marker;
+// The coordinates indicating the nodes of a polygon that outline San Francisco.
+var sanFranciscoOutlineCoords = [
+    {lat: 37.808061, lng: -122.525104},
+    {lat: 37.704889, lng: -122.512095},
+    {lat: 37.704889, lng: -122.339398},
+    {lat: 37.857020, lng: -122.355358}
+  ];
 
 // Includes casting to enforce typing, just in case.
 // Takes a hash entry, formatted as {lat: float, lng: float}
@@ -38,15 +45,15 @@ function initMap() {
   });
 
   // Initialize the readout element.
-  // document.getElementById('currentCoords').innerHTML 
-  document.forms["results-form"].elements['loc_lat'].value = marker.position.lat().toFixed(5);
-  document.forms["results-form"].elements['loc_long'].value = marker.position.lng().toFixed(3);
+  // document.getElementById('currentCoords').innerHTML
+  document.forms["results-form"].elements['loc_lat'].value = marker.position.lat();
+  document.forms["results-form"].elements['loc_long'].value = marker.position.lng();
 
   // Add listners to the marker so we can trigger changes to values and move the map.
   google.maps.event.addListener(marker, 'dragend', function(evt) {
-    // document.getElementById('currentCoords').innerHTML 
-    document.forms["results-form"].elements['loc_lat'].value = evt.latLng.lat().toFixed(5);
-    document.forms["results-form"].elements['loc_long'].value = evt.latLng.lng().toFixed(3);
+    // document.getElementById('currentCoords').innerHTML
+    document.forms["results-form"].elements['loc_lat'].value = evt.latLng.lat();
+    document.forms["results-form"].elements['loc_long'].value = evt.latLng.lng();
     setNewCenterLatLng(marker.position);
 
     this.map.setCenter(marker.position);
@@ -59,4 +66,23 @@ function initMap() {
     document.getElementById('currentCoords').innerHTML = '<p>Currently dragging marker...</p>';
     curLatLng = marker.position;
   });
+}
+
+
+// This function determines whether a marker is in a specified polygon.
+// USAGE: var markerInSF = isMarkerInPolygonBoundary(curLatLng.lat, curLatLng.lng, sanFranciscoOutlineCoords);
+// Receives lat/lng and set of polygon nodes.
+// var sanFranciscoOutlineCoords = [
+//     {lat: 37.808061, lng: -122.525104},
+//     {lat: 37.704889, lng: -122.512095},
+//     {lat: 37.704889, lng: -122.339398},
+//     {lat: 37.857020, lng: -122.355358}
+//   ];
+// Returns true/false.
+function isMarkerInPolygonBoundary(markerLat, markerLng, outlineCoords) {
+  var boundsPoly = new google.maps.Polygon({paths: outlineCoords});
+  var googleLatLngDatatype = new google.maps.LatLng(markerLat, markerLng);
+  // console.log("our lat lng var: " + markerLat + ", " + markerLng);
+  // console.log("google lat lng var: " + googleLatLngDatatype);
+  return google.maps.geometry.poly.containsLocation(googleLatLngDatatype, boundsPoly);
 }
