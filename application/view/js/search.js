@@ -163,8 +163,8 @@ function createTable(searchResults) {
                 else
                     var location = getValueOfId(locations, "location_id", report.location_id);
 
-                cell.innerHTML = "<div onclick=\"viewReports('" + report.report_id + "')\" class='card'>" +
-                                  "<img class='cardImage' src='" + image + "'><div>" +
+                cell.innerHTML = "<div onclick=\"viewReports('" + report.report_id + "')\" class='card' style='height=180px'><div class= 'split_right_card'>" +
+                                  "<img class='cardImage' style='height:160px' src='" + image + "'></div><div class='split_left_card'><div>" +
                                   category + "</div><div>" +
                                   report.details + "</div><div>" +
                                   location + "</div><div>" +
