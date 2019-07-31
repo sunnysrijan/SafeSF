@@ -21,7 +21,7 @@
                     <h2 style="text-align:center">This is a Test website</h2>
             </div>
                 
-        <a class="active" href="/index">Home</a>
+        <a class="active" href="/">Home</a>
         <a href="/team">Team</a>
         <a href="/about">About</a>
 
@@ -126,7 +126,7 @@
 
             xmlReq.onload = function() {
                 if (xmlReq.status == 200)
-                    window.location.href = "index.html";
+                    window.location.href = "/";
             }
 
             xmlReq.open('GET', '/requestLogout', true);
