@@ -302,7 +302,7 @@
                         else
                             var location = getValueOfId(locations, "location_id", report.location_id);
 
-                        cell.innerHTML = "<div class='card'>" +
+                        cell.innerHTML = "<div onclick=\"viewReports('" + report.report_id + "')\" class='card'>" +
                                           "<img class='cardImage' src='" + image + "'><div>" +
                                           category + "</div><div>" +
                                           report.details + "</div><div>" +
@@ -316,6 +316,10 @@
             var tableContainer = document.getElementById("table");
             tableContainer.innerHTML = "";
             tableContainer.appendChild(table);
+        }
+
+        function viewReports(report_id) {
+        	window.location.href = "/reportDetails?report_id=" + report_id;
         }
     </script>
 </body>
