@@ -19,10 +19,13 @@ exports.createReport = function(params, callback){
 
         for(var [field, value] of Object.entries(params))
         {
-            fields.push(field)
-            values.push(value)
-            field_placeholders += "??,"
-            value_placeholders += "?,"
+            if(field != 'image_ref')
+            {
+                fields.push(field)
+                values.push(value)
+                field_placeholders += "??,"
+                value_placeholders += "?,"
+            }
         
         }
 
@@ -35,22 +38,21 @@ exports.createReport = function(params, callback){
     }
     placeholder_replacement = fields.concat(values)
 
-    callback(null, placeholder_replacement)
-    // db.query(insert_query, placeholder_replacement, function(err, result){
+    db.query(insert_query, placeholder_replacement, function(err, result){
         
-    //     if(err) {
-    //         console.log("Error querying database : " + err)
-    //         console.log(insert_query)
-    //         console.log(placeholder_replacement)
-    //         callback(err, null)
-    //     }
-    //     else {
-    //         console.log("Results succesfully retrieved")
-    //         result.report_id = params["report_id"]
-    //         callback(null, result)
-    //     }
+        if(err) {
+            console.log("Error querying database : " + err)
+            console.log(insert_query)
+            console.log(placeholder_replacement)
+            callback(err, null)
+        }
+        else {
+            console.log("Results succesfully retrieved")
+            result.report_id = params["report_id"]
+            callback(null, result)
+        }
 
-    // })
+    })
 }
 
 exports.getReport = function(params, callback) {
