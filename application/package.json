@@ -17,8 +17,15 @@
   },
   "homepage": "https://github.com/CSC-648-SFSU/csc648-su19-TeamNN-AlexWolski#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.4.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.17.1",
-    "node": "^12.4.0"
+    "node": "^12.4.0",
+    "nodemon": "^1.19.1",
+    "path": "^0.12.7",
+    "sharp": "^0.22.1",
+    "uuid": "^3.3.2"
   }
 }

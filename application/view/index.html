@@ -9,43 +9,67 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript" src="js/map-report.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
+    <style>
+        #map {height: 100%; width: 60%;}
+    </style>
 </head>
 
-<body>
-	<div align="center">
-		<h1>CSC 648 Team 2</h1>
-		<h2>Summer 2019</h2>
-		<div></div>
-		<h1>About</h1>
+<body onload="checkCookie(); requestAccess(); getCategories(); getLocations()">
+    <div class="topnav">
+            <div style="background:whitesmoke;margin: 0px">
+                    <h2 style="text-align:center">This is a Test website</h2>
+            </div>
+                
+        <a class="active" href="/">Home</a>
+        <a href="/team">Team</a>
+        <a href="/about">About</a>
 
-		<p>This is a website where users can browse through environmental hazards in San Francisco and report any hazards that they find</p>
+        <div class="login-container">
+            <form action="/action_page.php">
+                <a href="/login" type="submit" id="loginBtn" style="visibility: hidden">Login</a>
+                <a href="/register" type="submit" id="registerBtn" style="visibility: hidden">Register</a>
+                <button type="button" onclick="logout()" id="logoutBtn" style="display: none">Logout</button>
+                <button type="button" disabled id="welcomeBox" style="display: none">Hello!</butotn>
+            </form>
+        </div>
+    </div>
 
-		<p>VVV Click on a developer's name to learn more about them VVV</p>
+    <div class="header">
+        <form>
+        	<div>
+	            <h1>Safe SF - Team 2</h1>
+	            
+            </div>
+            
+            <h2>Lets Start your search</h1>
+            <div class="form-box">
+                <div class="dropdown">
+                    <button class="dropbtn" id="categoryButton">Categories</button>
+                    <div class="dropdown-content" id="categoryDropDown">
+                    </div>
+                </div>
 
-		<div class="big-btn"><button onclick="goToPage('davids')">David Stillwagon (Ryan)</button></div>
-		<div class="big-btn"><button onclick="goToPage('harshs')">Harshveer Saini (Harsh)</button></div>
-		<div class="big-btn"><button onclick="goToPage('tristans')">Tristan Mclennan</button></div>
-		<div class="big-btn"><button onclick="goToPage('lidiyas')">Lidiya Jebessa</button></div>
-		<div class="big-btn"><button onclick="goToPage('sunnys')">Sunny Srijan</button></div>
-		<div class="big-btn"><button onclick="goToPage('alexs')">Alex Wolski</button></div>
-		<div class="big-btn"><button onclick="goToPage('evans')">Evan Guan</button></div>
-	</div>
+                <div class="dropdown">
+                    <button class="dropbtn" id="locationButton">Locations</button>
+                    <div class="dropdown-content" id="locationDropDown">
+                    </div>
+                </div>
 
+                <input class="search-field search" id="searchBox" name="location" type="text" placeholder="search"/>
+                <button class="search-btn" type="button" onclick="search()">search</button>
+                <a href="/submitReport" class="submitReport">Create New Report</a>
+            </div>
+        </form>
 
-	<script>
-		function goToPage(page) {
-			var xmlReq = new XMLHttpRequest();
-
-			xmlReq.onload = function() {
-				if (xmlReq.status == 200)
-					window.location.href = page + ".html";
-			}
-
-			xmlReq.open('GET', '/' + page, true);
-			xmlReq.responseType = "document";
-			xmlReq.send();
-		}
-	</script>
+        <div class="split_left" id="table"></div>
+        <div class="split_right" id="map">
+                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
+                async defer></script>
+        </div>
+    </div>
 </body>
 
 </html>

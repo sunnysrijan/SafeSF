@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Report</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/report.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body onresize="resizeMap();" onload=" resizeMap(); getCategories(); getLocations(); getReport();">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">SF Safe</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/index">Home</a></li>
+        <li class="active"><a href="/team">Team</a></li>
+        <li class="active"><a href="/about">About</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="jumbotron">
+      <p id="report_id">
+        <p1 class="text-danger">Hazard type: </p1><text id="hazard-type"></text><br>
+        <p2 class="text-primary">Report location: </p2><text id="hazard-location"></text><br>
+        <p3 class="text-primary">Time submitted: </p3><text id="report-date"></text><br>
+        <p4 class="text-primary">Last updated: </p4><text id="report-update-date"></text><br>
+        <p5 class="text-primary">Report status: </p5><text id="report-status"></text><br>
+        <p6 class="text-primary">Report ID: </p6><text id="report-id"></text><br>
+      </p>
+    </div>
+    <div class="row">
+
+      <div class="col-sm-6">
+        <h3>Image</h3>
+        <img id="report-image" class="img-responsive" src="images/garbage.jpg" alt="image">
+      </div>
+
+      <div class="col-sm-6">
+        <h3>Location</h3>
+        <div id="map"></div>
+        <script>
+          initMap();
+          getSearchParams();
+        </script>
+      </div>
+
+    </div>
+    <div class="jumbotron">
+      <p1 id="report-details">Details: </p1>
+    </div>
+  </div>
+</body>
