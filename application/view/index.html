@@ -10,6 +10,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link href="css/index.css" rel="stylesheet">
     <script type="text/javascript" src="js/map-report.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
     <style>
         #map {height: 100%; width: 60%;}
         </style>
@@ -21,7 +23,7 @@
                     <h2 style="text-align:center">This is a Test website</h2>
             </div>
                 
-        <a class="active" href="/index">Home</a>
+        <a class="active" href="/">Home</a>
         <a href="/team">Team</a>
         <a href="/about">About</a>
 
@@ -30,6 +32,7 @@
                 <a href="/login" type="submit" id="loginBtn" style="visibility: hidden">Login</a>
                 <a href="/register" type="submit" id="registerBtn" style="visibility: hidden">Register</a>
                 <button type="button" onclick="logout()" id="logoutBtn" style="display: none">Logout</button>
+                <button type="button" disabled id="welcomeBox" style="display: none">Hello!</butotn>
             </form>
         </div>
     </div>
@@ -37,7 +40,11 @@
     <div class="header">
         <form>
         	<div>
+<<<<<<< HEAD
 	            <h1>Safe SF Team 2</h1>
+=======
+	            <h1>Safe SF - Team 2</h1>
+>>>>>>> 0c4778bdfc90fdd5951e16e71435453be7bfec4e
 	            
             </div>
             
@@ -60,8 +67,7 @@
             </div>
         </form>
 
-        <div class="split_left" id="table">
-        </div>
+        <div class="split_left" id="table"></div>
         <div class="split_right" id="map">
                 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
                 async defer></script>
@@ -69,6 +75,7 @@
     </div>
 
     <script>
+<<<<<<< HEAD
         var categories;
         var locations;
 
@@ -310,6 +317,10 @@
             var tableContainer = document.getElementById("table");
             tableContainer.innerHTML = "";
             tableContainer.appendChild(table);
+=======
+        function viewReports(report_id) {
+        	window.location.href = "/reportDetails?report_id=" + report_id;
+>>>>>>> 0c4778bdfc90fdd5951e16e71435453be7bfec4e
         }
     </script>
 </body>

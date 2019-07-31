@@ -45,18 +45,21 @@ function getReport() {
       populateFields(xmlReq.response);
   }
 
-  xmlReq.open('GET', "/reports?report_id=" + this.location.href.split("/").pop(), true);
+  xmlReq.open('GET', "/reports?report_id=" + this.location.href.split("=").pop(), true);
+  console.log("Request report_id param: " + this.location.href.split("=").pop());
   xmlReq.responseType = "json";
   xmlReq.send(null);
 }
 
 // Finds the report_id (in the page's url) and returns it.
+/*
 function getSearchParams() {
   // Get the report id from the url.
   var requestParam = "?report_id=" + this.location.href.split("/").pop();
   console.log("Request param: " + requestParam);
   return requestParam;
 }
+*/
 
 // This function takes the given report and fills out the tagged elements in the html.
 function populateFields(reportResults) {
@@ -82,7 +85,7 @@ function populateFields(reportResults) {
   document.getElementById('report-details').innerHTML = reportDetails;
 
   // Set the map marker and move the map.
-  var reportCoords = {lat: report.loc_lat, lng: report.loc_lng};
+  var reportCoords = {lat: report.loc_lat, lng: report.loc_long};
   marker.setPosition(reportCoords);
   this.map.setCenter(marker.position);
   marker.setMap(map);

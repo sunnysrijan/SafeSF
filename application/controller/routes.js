@@ -15,11 +15,28 @@ router.use(bodyParser.urlencoded({
 }))
 router.use(bodyParser.json())
 
-router.get('/submit_report', (req, res) => {
-    console.log("GET request made for /submit_report endpoint")
+/*
+    Page requests
+*/
+
+router.get('/register', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/report_submission.html'))
+    res.sendFile(path.resolve('view/register.html'))
 })
+
+router.get('/login', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/login.html'))
+})
+
+router.get('/reportDetails', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/report.html'))
+})
+
+/*
+    Search
+*/
 
 router.get('/search', (req, res) => {
     db_search.getResults(req.query, function(err, result) {
@@ -41,7 +58,7 @@ router.get('/search', (req, res) => {
 */
 
 // endpoint for POSTing reports
-router.post('/reports', (req, res) => {
+router.post('/report', (req, res) => {
     console.log("POST: reports endpoint")
     console.log(res.body);
     reports.createReport(req.query, function(err, result){
@@ -60,7 +77,7 @@ router.post('/reports', (req, res) => {
     })
 })
 
-router.get('/reports', (req, res) => {
+router.get('/report', (req, res) => {
     console.log("GET: reports endpoint")
     reports.getReport(req.query, function(err, result){
         console.log(res.query)
@@ -130,16 +147,6 @@ router.get('/images', (req, res) => {
     })
 })
 
-router.get('/register', (req, res) => {
-    res.status(200)
-    res.sendFile(path.resolve('view/register.html'))
-})
-
-router.get('/login', (req, res) => {
-    res.status(200)
-    res.sendFile(path.resolve('view/login.html'))
-})
-
 router.post('/requestRegister', (req, res) => {
 	auth.register(req.query, function(err, token) {
         if(err) {
@@ -194,11 +201,6 @@ router.get('/requestAccess', (req, res) => {
             res.send(result)
         }
     })
-})
-
-router.get('/about', (req, res) => {
-    res.status(200)
-    res.sendFile(path.resolve('view/about.html'))
 })
 
 module.exports = router
