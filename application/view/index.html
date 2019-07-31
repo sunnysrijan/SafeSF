@@ -21,7 +21,7 @@
                     <h2 style="text-align:center">This is a Test website</h2>
             </div>
                 
-        <a class="active" href="/index">Home</a>
+        <a class="active" href="/">Home</a>
         <a href="/team">Team</a>
         <a href="/about">About</a>
 
@@ -30,6 +30,7 @@
                 <a href="/login" type="submit" id="loginBtn" style="visibility: hidden">Login</a>
                 <a href="/register" type="submit" id="registerBtn" style="visibility: hidden">Register</a>
                 <button type="button" onclick="logout()" id="logoutBtn" style="display: none">Logout</button>
+                <button type="button" disabled id="welcomeBox" style="display: none">Hello!</butotn>
             </form>
         </div>
     </div>
@@ -37,7 +38,7 @@
     <div class="header">
         <form>
         	<div>
-	            <h1>Safe SF         Team 2</h1>
+	            <h1>Safe SF - Team 2</h1>
 	            
             </div>
             
@@ -86,11 +87,14 @@
         	if(cookiePresent) {
 			    document.getElementById("loginBtn").style.visibility = 'hidden';
         		document.getElementById("registerBtn").style.visibility = 'hidden';
+        		document.getElementById("welcomeBox").innerText  = 'Welcome!';
+        		document.getElementById("welcomeBox").style = 'display: block';
         		document.getElementById("logoutBtn").style = 'display: block';
         	}
         	else {
         		document.getElementById("loginBtn").style.visibility = 'visible';
         		document.getElementById("registerBtn").style.visibility = 'visible';
+        		document.getElementById("welcomeBox").style = 'display: none';
         		document.getElementById("logoutBtn").style = 'display: none';
         	}
         }
@@ -103,11 +107,14 @@
                 	if(xmlReq.response.authenticated) {
                 		document.getElementById("loginBtn").style.visibility = 'hidden';
                 		document.getElementById("registerBtn").style.visibility = 'hidden';
+                		document.getElementById("welcomeBox").innerText  = 'Welcome ' + xmlReq.response.username + '!';
+                		document.getElementById("welcomeBox").style = 'display: block';
                 		document.getElementById("logoutBtn").style = 'display: block';
 	                }
 	                else {
 		        		document.getElementById("loginBtn").style.visibility = 'visible';
 		        		document.getElementById("registerBtn").style.visibility = 'visible';
+		        		document.getElementById("welcomeBox").style = 'display: none';
 		        		document.getElementById("logoutBtn").style = 'display: none';
 
 		        		if(xmlReq.response.errMessage)
@@ -126,7 +133,7 @@
 
             xmlReq.onload = function() {
                 if (xmlReq.status == 200)
-                    window.location.href = "index.html";
+                    window.location.href = "/";
             }
 
             xmlReq.open('GET', '/requestLogout', true);

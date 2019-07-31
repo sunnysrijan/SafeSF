@@ -196,9 +196,4 @@ router.get('/requestAccess', (req, res) => {
     })
 })
 
-router.get('/about', (req, res) => {
-    res.status(200)
-    res.sendFile(path.resolve('view/about.html'))
-})
-
 module.exports = router
