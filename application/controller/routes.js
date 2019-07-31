@@ -15,11 +15,33 @@ router.use(bodyParser.urlencoded({
 }))
 router.use(bodyParser.json())
 
-router.get('/submit_report', (req, res) => {
-    console.log("GET request made for /submit_report endpoint")
+/*
+    Page requests
+*/
+
+router.get('/register', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/report_submission.html'))
+    res.sendFile(path.resolve('view/register.html'))
 })
+
+router.get('/login', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/login.html'))
+})
+
+router.get('/reportDetails', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/report.html'))
+})
+
+router.get('/submitReport', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/reportSubmission.html'))
+})
+
+/*
+    Search
+*/
 
 router.get('/search', (req, res) => {
     db_search.getResults(req.query, function(err, result) {
@@ -41,7 +63,7 @@ router.get('/search', (req, res) => {
 */
 
 // endpoint for POSTing reports
-router.post('/reports', (req, res) => {
+router.post('/report', (req, res) => {
     console.log("POST: reports endpoint")
     reports.createReport(req.body, function(err, result){
         if(err)
@@ -58,7 +80,7 @@ router.post('/reports', (req, res) => {
     })
 })
 
-router.get('/reports', (req, res) => {
+router.get('/report', (req, res) => {
     console.log("GET: reports endpoint")
     reports.getReport(req.query, function(err, result){
         console.log(res.query)
@@ -126,16 +148,6 @@ router.get('/images', (req, res) => {
             res.sendFile(path.resolve(result))
         }
     })
-})
-
-router.get('/register', (req, res) => {
-    res.status(200)
-    res.sendFile(path.resolve('view/register.html'))
-})
-
-router.get('/login', (req, res) => {
-    res.status(200)
-    res.sendFile(path.resolve('view/login.html'))
 })
 
 router.post('/requestRegister', (req, res) => {
