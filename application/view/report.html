@@ -23,7 +23,7 @@
   </style>
 </head>
 
-<body onresize="resizeMap()" onload=" resizeMap()">
+<body onresize="resizeMap();" onload=" resizeMap(); getCategories(); getLocations(); getReport();">
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -41,14 +41,15 @@
     </div>
   </nav>
 
-
   <div class="container">
     <div class="jumbotron">
       <p id="report_id">
-        <p1 class="text-danger">Report ID: </p1><br>
-        <p1 class="text-primary">Report Location: </p1><br>
-        <p2 class="text-primary">Time submitted: </p2><br>
-        <p3 class="text-primary">Incident Status: </p3><br>
+        <p1 class="text-danger">Hazard type: </p1><text id="hazard-type"></text><br>
+        <p2 class="text-primary">Report location: </p2><text id="hazard-location"></text><br>
+        <p3 class="text-primary">Time submitted: </p3><text id="report-date"></text><br>
+        <p4 class="text-primary">Last updated: </p4><text id="report-update-date"></text><br>
+        <p5 class="text-primary">Report status: </p5><text id="report-status"></text><br>
+        <p6 class="text-primary">Report ID: </p6><text id="report-id"></text><br>
       </p>
     </div>
     <div class="row">
@@ -57,16 +58,18 @@
         <img id="report-image" class="img-responsive" src="images/garbage.jpg" alt="image">
       </div>
 
-      <div class="col-sm-6" style="height: this.rowHeight">
+      <div class="col-sm-6">
         <h3>Location</h3>
         <div id="map"></div>
         <script>
           initMap();
+          getSearchParams();
         </script>
       </div>
 
     </div>
     <div class="jumbotron">
-      <p1>Details: </p1>
+      <p1 id="report-details">Details: </p1>
     </div>
   </div>
+</body>
