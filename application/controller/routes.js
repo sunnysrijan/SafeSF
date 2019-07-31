@@ -18,7 +18,7 @@ router.use(bodyParser.json())
 router.get('/submit_report', (req, res) => {
     console.log("GET request made for /submit_report endpoint")
     res.status(200)
-    res.sendFile(path.resolve('application/view/report_submission.html'))
+    res.sendFile(path.resolve('view/report_submission.html'))
 })
 
 router.get('/search', (req, res) => {
