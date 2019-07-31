@@ -8,7 +8,7 @@ exports.createReport = function(params, callback){
     var value_placeholders = " VALUES("
 
     var insert_query = `INSERT INTO ${insert_table}`
-
+    console.log(params)
     var fields = []
     var values = []
     var placeholder_replacement = []
@@ -16,11 +16,15 @@ exports.createReport = function(params, callback){
     if(params)
     {
         params["report_id"] = new Date().getTime()
+        params["park_id"] = 1 // this is for testing purposes 
 
         for(var [field, value] of Object.entries(params))
         {
-            if(field != 'image_ref')
+            if(field == 'image_ref' || field == 'remember')
             {
+               continue
+            }
+            else{
                 fields.push(field)
                 values.push(value)
                 field_placeholders += "??,"
