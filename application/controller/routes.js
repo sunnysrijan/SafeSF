@@ -34,6 +34,11 @@ router.get('/reportDetails', (req, res) => {
     res.sendFile(path.resolve('view/report.html'))
 })
 
+router.get('/submitReport', (req, res) => {
+    res.status(200)
+    res.sendFile(path.resolve('view/reportSubmission.html'))
+})
+
 /*
     Search
 */

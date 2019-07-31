@@ -170,11 +170,13 @@ function createTable(searchResults) {
                                   location + "</div><div>" +
                                   report.insert_date + "</div><div>" +
                                   report.status + "</div></div>";
-            }
-    
-     
+    }
 
     var tableContainer = document.getElementById("table");
     tableContainer.innerHTML = "";
     tableContainer.appendChild(table);
+}
+
+function viewReports(report_id) {
+    window.location.href = "/reportDetails?report_id=" + report_id;
 }

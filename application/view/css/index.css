@@ -4,8 +4,7 @@
   z-index: 1;
   overflow-x: hidden;
   position: absolute;
-  padding-top: 20px;
-height: 90%}
+  padding-top: 20px}
 
 .split_right{
   margin-top: 30px;
@@ -15,7 +14,6 @@ height: 90%}
   position: absolute;
   overflow-x: hidden;
   padding-top: 20px;
-  height: 90%
 }
 
 .topnav {
@@ -96,7 +94,6 @@ height: 90%}
 
 .header{
 	height: 100vh;
-	background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(images/Background.jpg);
 	background-size: cover;
 	background-position: center;
 	align-items: center;font-family: sans-serif;
@@ -176,6 +173,20 @@ h1 {
   margin-right: auto;
 }
 
+.submitReport {
+  background-color: #00d10a;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  position: absolute;
+  right: 100px;
+}
+
+.submitReport:hover {
+  text-decoration: none;
+  color: white;
+}
 
 table {
   width: 95%;
