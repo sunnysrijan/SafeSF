@@ -23,8 +23,8 @@ var sanFranciscoOutlineCoords = [
 // Takes a hash entry, formatted as {lat: float, lng: float}
 // See associated html for example of calling this function with two numbers.
 function setNewCenterLatLng(newLatLng) {
-  curLatLng.lat = Number(newLatLng.lat);
-  curLatLng.lng = Number(newLatLng.lng);
+this.curLatLng.lat = parseFloat(newLatLng.lat());
+this.curLatLng.lng = parseFloat(newLatLng.lng());
 }
 
 // Function locates the map div and fills it with the map.
@@ -52,11 +52,11 @@ function initMap() {
   // Add listners to the marker so we can trigger changes to values and move the map.
   google.maps.event.addListener(marker, 'dragend', function(evt) {
     // document.getElementById('currentCoords').innerHTML
-    document.forms["results-form"].elements['loc_lat'].value = evt.latLng.lat();
-    document.forms["results-form"].elements['loc_long'].value = evt.latLng.lng();
+    document.forms["results-form"].elements['loc_lat'].value = evt.latLng.lat().toFixed(7);
+    document.forms["results-form"].elements['loc_long'].value = evt.latLng.lng().toFixed(7);
     setNewCenterLatLng(marker.position);
 
-    this.map.setCenter(marker.position);
+    this.map.setCenter({lat: curLatLng.lat, lng: curLatLng.lng});
     marker.setMap(map);
 
     console.log(curLatLng);
