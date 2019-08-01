@@ -177,8 +177,8 @@ function createTable(searchResults) {
       report.status + "</div></div>";
 
     // Add marker for map using this result.
-    // addReportMarkerToMap(reportHazardType, reportThumbnail, reportDetails, reportID, markerLat, markerLng)
-    addReportMarkerToMap(category, image, report.details, report.report_id, report.loc_lat, report.loc_long);
+    // addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng)
+    addReportMarkerToMap(category, report.category_id, image, report.details, report.report_id, report.loc_lat, report.loc_long);
   }
 
   var tableContainer = document.getElementById("table");
@@ -190,24 +190,26 @@ function viewReports(report_id) {
   window.location.href = "/reportDetails?report_id=" + report_id;
 }
 
-/*
-Written by: Evan Guan
-Course: CSc 648 Software Engineering Summer 2019 Team 2
-*/
-
 // Includes casting to enforce typing, just in case.
 function setNewCenterLatLng(newLatLng) {
   curLatLng.lat = Number(newLatLng.lat);
   curLatLng.lng = Number(newLatLng.lng);
 }
 
-/* Function locates the map div and fills it with the map. */
+// Function locates the map div and fills it with the map.
 function initMap() {
-  /* Function calls to get the lat/lng of the place we are interested in. SF by default. */
+  // Function calls to get the lat/lng of the place we are interested in. SF by default.
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLatLng,
     zoom: 12,
-    mapTypeId: 'hybrid'
+    mapTypeId: 'hybrid',
+    // This styling removes points of interest to declutter the map.
+    styles: [{
+      "featureType": "poi",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }]
   });
 
   setNewCenterLatLng({
@@ -216,60 +218,31 @@ function initMap() {
   });
 }
 
-/*
-Adds a marker to the map, given coordinates or place name.
-Modify the parameters to send this function data to use:
-function addReportMarkerToMap(reportHazardType, reportThumbnail, reportDetails, reportID, markerLat, markerLng, markerIconURL)
-*/
-function addReportMarkerToMap(reportHazardType, reportThumbnail, reportDetails, reportID, markerLat, markerLng) {
-  // This data will be collected from the json returned by a DB query.
-  var infoWindowTitle; // The title of the report from the DB query json.
-  var infoWindowReportHazardType; // The type of hazard of the report from the DB query json.
-  var infoWindowReportThumbnail; // The thumbnail image of the report from the DB query json.
-  var infoWindowReportDetails; // The brief/truncated summary of the report from the DB query json.
-  var infoWindowReportURL; // The full url of the report.
+// Adds a marker to the map using given coordinates.
+// Additionally adds an infowindow popup to the marker with data from the parameters.
+function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng) {
+// Get data from report and add it to variables to construct the html of the infowindow.
+  var infoWindowReportCategory = reportCategory; // The type of hazard of the report from the DB query json.
+  var infoWindowReportThumbnail = reportThumbnail; // The thumbnail image of the report from the DB query json.
+  var infoWindowReportDetails = reportDetails; // The details/comment of the report from the DB query json.
+  var infoWindowReportURL = '/reports?report_id=' + reportID; // The full url of the report.
   // Likely will just be the report id appended to boilerplate url.
-  var newMarkerCoords = {
-    lat: 37.720993,
-    lng: -122.475373
-  }; // The hash {lat: float, lng:float} for the coordinates. See var curLatLng above for formatting.
-  var newMarkerIconURL; // The url of the image to use for the marker icon.
+  var newMarkerCoords = (markerLat != null && markerLng != null) ? {
+    lat: markerLat,
+    lng: markerLng
+  } : {
+    lat: 37.7749,
+    lng: -122.4194
+  } // The hash {lat: float, lng:float} for the coordinates. See var curLatLng above for formatting.
+  var newMarkerIconURL = getMarkerIconURL(reportCategoryID); // Get the marker icon given the category_id of the current report.
   // Icons from Google: https://sites.google.com/site/gmapsdevelopment/
 
-  var infoWindowContentString; // The string of html that will be in the popup for the marker on-click.
-
-  // Hard coded example.
-
-  /*
-  infoWindowTitle = 'Generic Title Here';
-  infoWindowReportHazardType = 'Oil Hazard Alert';
-  infoWindowReportThumbnail = 'images/example-infowindow-thumbnail.png';
-  infoWindowReportDetails = 'Large oil slick on intersection of Holloway and 19th avenue.';
-  infoWindowReportURL = 'https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple';
-  markerCoords = curLatLng;
-  markerIconURL = 'http://maps.google.com/mapfiles/ms/micons/caution.png';
-  //*/
-
-  //console.log("Report ID: " + reportID + " " + markerLat + ", " + markerLng);
-  // Dynamic code
-  //*
-  // infoWindowTitle = reportTitle;
-  infoWindowReportHazardType = reportHazardType + ' Alert';
-  infoWindowReportThumbnail = reportThumbnail;
-  infoWindowReportDetails = reportDetails;
-  infoWindowReportURL = '/reports?report_id=' + reportID;
-  newMarkerCoords = (markerLat != null && markerLng != null) ? {lat: markerLat, lng: markerLng} : {lat: 37.7749, lng: -122.4194}
-  newMarkerIconURL = 'http://maps.google.com/mapfiles/ms/micons/caution.png';
-  //*/
-
-  //console.log("Report ID: " + reportID + " " + newMarkerCoords);
-
-  // Create the content string. It is essentially pure html.
-  infoWindowContentString =
+  // The string of html that will be in the popup for the marker on-click. It is essentially pure html.
+  var infoWindowContentString =
     '<div id="content">' +
     '<div id="bodyContent">' +
     '<p>' +
-    '<b>' + infoWindowReportHazardType + '</b><br>' +
+    '<b>' + infoWindowReportCategory + '</b><br>' +
     infoWindowReportDetails + '<br>' +
     '</p>' +
     '<p>' +
@@ -295,17 +268,22 @@ function addReportMarkerToMap(reportHazardType, reportThumbnail, reportDetails, 
   var newMarker = new google.maps.Marker({
     position: newMarkerCoords,
     icon: newMarkerIconURL,
-    title: infoWindowReportHazardType,
+    title: infoWindowReportCategory,
     map: map
   });
 
   //* Close infowindow behavior.
   google.maps.event.addListener(infowindow, 'closeclick', function() {
+    // Pan the map back to the center of SF and zoom out.
+    map.panTo({
+      lat: 37.7749,
+      lng: -122.4194
+    });
     map.setZoom(12);
   });
   //*/
 
-  // Click marker behavior.
+  // Click on marker behavior.
   newMarker.addListener('click', function() {
     infowindow.open(this.map, newMarker);
     map.panTo(newMarker.position);
@@ -313,4 +291,41 @@ function addReportMarkerToMap(reportHazardType, reportThumbnail, reportDetails, 
   });
 
   markers.push(newMarker);
+}
+
+// Given a hazard category (Number (int)), returns a string with an icon url.
+function getMarkerIconURL(reportCategory) {
+  var categoryAsInt;
+
+  // Cast the category_id as an int and check range.
+  try {
+    categoryAsInt = parseInt(reportCategory);
+    if (categoryAsInt < 0)
+      throw ("category_id(int) < 0, expected int >= 0.")
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+
+  var baseURL = 'http://maps.google.com/mapfiles/ms/micons/';
+
+  // Assign and return the icon URL.
+  switch (categoryAsInt) {
+    case 1:
+      return baseURL + "purple-dot.png";
+      break;
+    case 2:
+      return baseURL + "orange-dot.png";
+      break;
+    case 3:
+      return baseURL + "ltblue-dot.png";
+      break;
+    case 4:
+      return baseURL + "red-dot.png";
+      break;
+    case 5:
+      return baseURL + "green-dot.png";
+      break;
+    default:
+  }
 }
