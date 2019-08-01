@@ -17,6 +17,7 @@ exports.createReport = function(params, callback){
     {
         params["report_id"] = new Date().getTime()
         params["park_id"] = 1 // this is for testing purposes 
+        params["user_id"] = '52a885e0-ae55-11e9-bcaf-9fea80b280db'
 
         for(var [field, value] of Object.entries(params))
         {
