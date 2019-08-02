@@ -3,6 +3,15 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-144569863-2');
+    </script>
     <title>Index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -10,13 +19,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link href="css/index.css" rel="stylesheet">
     <script type="text/javascript" src="js/auth.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18"></script>
     <script type="text/javascript" src="js/search.js"></script>
     <style>
-        #map {height: 100%; width: 60%;}
+        #map {height: 75%; width: 60%;}
     </style>
 </head>
 
-<body onload="checkCookie(); requestAccess(); getCategories(); getLocations()">
+<body onload="checkCookie(); requestAccess(); getCategories(); getLocations(); initMap();">
     <div class="topnav">
             <div style="background:whitesmoke;margin: 0px">
                     <h2 style="text-align:center">This is a Test website</h2>
@@ -65,8 +75,6 @@
 
         <div class="split_left" id="table"></div>
         <div class="split_right" id="map">
-                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
-                async defer></script>
         </div>
     </div>
 </body>

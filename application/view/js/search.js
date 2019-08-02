@@ -9,6 +9,15 @@ var curLatLng = {
 var map;
 // An array of marker objects.
 var markers = [];
+// Ref to the last opened infoWindow. Used for keeping the map uncluttered.
+var lastOpenedInfowindow = null;
+// The boundaries of the map.
+var SAN_FRANCISCO_MAP_BOUNDS = {
+        north: 37.84,
+        south: 37.70,
+        west: -122.53,
+        east: -122.35,
+      };
 
 function getCategories() {
   var xmlReq = new XMLHttpRequest();
@@ -201,7 +210,12 @@ function initMap() {
   // Function calls to get the lat/lng of the place we are interested in. SF by default.
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLatLng,
-    zoom: 12,
+    // The map boundaries.
+    restriction: {
+      latLngBounds: SAN_FRANCISCO_MAP_BOUNDS,
+      strictBounds: false,
+    },
+    zoom: 12.2,
     mapTypeId: 'hybrid',
     // This styling removes points of interest to declutter the map.
     styles: [{
@@ -219,9 +233,9 @@ function initMap() {
 }
 
 // Adds a marker to the map using given coordinates.
-// Additionally adds an infowindow popup to the marker with data from the parameters.
+// Additionally adds an infoWindow popup to the marker with data from the parameters.
 function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng) {
-// Get data from report and add it to variables to construct the html of the infowindow.
+// Get data from report and add it to variables to construct the html of the infoWindow.
   var infoWindowReportCategory = reportCategory; // The type of hazard of the report from the DB query json.
   var infoWindowReportThumbnail = reportThumbnail; // The thumbnail image of the report from the DB query json.
   var infoWindowReportDetails = reportDetails; // The details/comment of the report from the DB query json.
@@ -238,7 +252,7 @@ function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail,
   // Icons from Google: https://sites.google.com/site/gmapsdevelopment/
 
   // The string of html that will be in the popup for the marker on-click. It is essentially pure html.
-  var infoWindowContentString =
+  infoWindowContentString =
     '<div id="content">' +
     '<div id="bodyContent">' +
     '<p>' +
@@ -259,9 +273,11 @@ function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail,
     '</div>' +
     '</div>';
 
-  // Create a new infowindow object for this marker.
-  var infowindow = new google.maps.InfoWindow({
-    content: infoWindowContentString
+  // Create a new infoWindow object for this marker.
+  var infoWindow = new google.maps.InfoWindow({
+    content: infoWindowContentString,
+    pixelOffset: 15,
+    maxWidth: 400
   });
 
   // Now, create the new marker.
@@ -272,8 +288,8 @@ function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail,
     map: map
   });
 
-  //* Close infowindow behavior.
-  google.maps.event.addListener(infowindow, 'closeclick', function() {
+  // Close infoWindow behavior.
+  google.maps.event.addListener(infoWindow, 'closeclick', function() {
     // Pan the map back to the center of SF and zoom out.
     map.panTo({
       lat: 37.7749,
@@ -281,11 +297,18 @@ function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail,
     });
     map.setZoom(12);
   });
-  //*/
 
   // Click on marker behavior.
   newMarker.addListener('click', function() {
-    infowindow.open(this.map, newMarker);
+    // Close the previously opened infoWindow if one has been opened.
+    if(lastOpenedInfowindow) {
+      lastOpenedInfowindow.close();
+    }
+    // Set the previous infoWindow to this one.
+    lastOpenedInfowindow = infoWindow;
+
+    // Open the infoWindow popup, pan to it, and zoom.
+    infoWindow.open(this.map, newMarker);
     map.panTo(newMarker.position);
     map.setZoom(18);
   });
