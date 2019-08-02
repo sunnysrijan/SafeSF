@@ -13,10 +13,10 @@ var markers = [];
 var lastOpenedInfowindow = null;
 // The boundaries of the map.
 var SAN_FRANCISCO_MAP_BOUNDS = {
-        north: 37.84,
-        south: 37.70,
-        west: -122.53,
-        east: -122.35,
+        north: 37.89,
+        south: 37.65,
+        west: -122.58,
+        east: -122.30,
       };
 
 function getCategories() {
@@ -213,7 +213,7 @@ function initMap() {
     // The map boundaries.
     restriction: {
       latLngBounds: SAN_FRANCISCO_MAP_BOUNDS,
-      strictBounds: false,
+      strictBounds: true,
     },
     zoom: 12.2,
     mapTypeId: 'hybrid',
@@ -276,7 +276,6 @@ function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail,
   // Create a new infoWindow object for this marker.
   var infoWindow = new google.maps.InfoWindow({
     content: infoWindowContentString,
-    pixelOffset: 15,
     maxWidth: 400
   });
 
@@ -290,12 +289,12 @@ function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail,
 
   // Close infoWindow behavior.
   google.maps.event.addListener(infoWindow, 'closeclick', function() {
-    // Pan the map back to the center of SF and zoom out.
+    // Zoom out and pan back to SF center.
+    map.setZoom(12);
     map.panTo({
       lat: 37.7749,
       lng: -122.4194
     });
-    map.setZoom(12);
   });
 
   // Click on marker behavior.
@@ -307,10 +306,10 @@ function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail,
     // Set the previous infoWindow to this one.
     lastOpenedInfowindow = infoWindow;
 
-    // Open the infoWindow popup, pan to it, and zoom.
+    // Open the infoWindow popup, zoom in, and pan to it.
     infoWindow.open(this.map, newMarker);
-    map.panTo(newMarker.position);
     map.setZoom(18);
+    map.panTo(newMarker.position);
   });
 
   markers.push(newMarker);
