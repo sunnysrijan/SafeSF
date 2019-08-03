@@ -9,17 +9,36 @@ var thisReportID; // This report's unique ID.
 var categories; // Holds the categories from the database.
 var locations; // Holds the location names from the database.
 
+// Includes casting to enforce typing, just in case.
+// Takes a hash entry, formatted as {lat: float, lng: float}
+// See associated html for example of calling this function with two numbers.
 function setNewCenterLatLng(newLatLng) {
-  curLatLng.lat = Number(newLatLng.lat);
-  curLatLng.lng = Number(newLatLng.lng);
+  try {
+    if (newLatLng instanceof google.maps.LatLng) {
+      this.curLatLng.lat = parseFloat(newLatLng.lat());
+      this.curLatLng.lng = parseFloat(newLatLng.lng());
+    } else {
+      this.curLatLng.lat = parseFloat(newLatLng.lat);
+      this.curLatLng.lng = parseFloat(newLatLng.lng);
+    }
+  } catch (e) {
+
+  }
 }
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLatLng,
     zoom: 16, // Bigger number = higher zoom. Float values accepted.
+    streetViewControl: false, // Disable street view.
     draggable: false, // Make the map undraggagle.
-    mapTypeId: 'hybrid'
+    mapTypeId: 'hybrid',
+    styles: [{ // This styling removes points of interest to declutter the map.
+      "featureType": "poi",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }]
   });
 
   marker = new google.maps.Marker({
@@ -82,7 +101,10 @@ function populateFields(reportResults) {
   document.getElementById('report-details').innerHTML = reportDetails;
 
   // Set the map marker and move the map.
-  var reportCoords = {lat: report.loc_lat, lng: report.loc_lng};
+  var reportCoords = {
+    lat: report.loc_lat,
+    lng: report.loc_lng
+  };
   marker.setPosition(reportCoords);
   this.map.setCenter(marker.position);
   marker.setMap(map);

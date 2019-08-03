@@ -11,33 +11,44 @@ var markers = [];
 var lastOpenedInfowindow = null;
 // The boundaries of the map.
 var SAN_FRANCISCO_MAP_BOUNDS = {
-  north: 37.89,
-  south: 37.65,
-  west: -122.58,
-  east: -122.30,
+  north: 37.85,
+  south: 37.70,
+  west: -122.53,
+  east: -122.35,
 };
 
-
 // Includes casting to enforce typing, just in case.
+// Takes a hash entry, formatted as {lat: float, lng: float}
+// See associated html for example of calling this function with two numbers.
 function setNewCenterLatLng(newLatLng) {
-  curLatLng.lat = Number(newLatLng.lat);
-  curLatLng.lng = Number(newLatLng.lng);
+  try {
+    if (newLatLng instanceof google.maps.LatLng) {
+      this.curLatLng.lat = parseFloat(newLatLng.lat());
+      this.curLatLng.lng = parseFloat(newLatLng.lng());
+    } else {
+      this.curLatLng.lat = parseFloat(newLatLng.lat);
+      this.curLatLng.lng = parseFloat(newLatLng.lng);
+    }
+  } catch (e) {
+
+  }
 }
 
 // Function locates the map div and fills it with the map.
 function initMap() {
-  // Function calls to get the lat/lng of the place we are interested in. SF by default.
+  // Initiate map centered on SF by default.
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLatLng,
     // The map boundaries.
     restriction: {
       latLngBounds: SAN_FRANCISCO_MAP_BOUNDS,
-      strictBounds: true,
+      strictBounds: false,
     },
-    zoom: 12.2,
+    zoom: 12.2, // Bigger number = higher zoom. Float values accepted.
+    gestureHandling: 'greedy', // Enable mousewheel zoom.
+    streetViewControl: false, // Disable street view.
     mapTypeId: 'hybrid',
-    // This styling removes points of interest to declutter the map.
-    styles: [{
+    styles: [{ // This styling removes points of interest to declutter the map.
       "featureType": "poi",
       "stylers": [{
         "visibility": "off"
