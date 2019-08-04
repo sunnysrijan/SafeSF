@@ -42,13 +42,6 @@ function initMap() {
       }]
     }]
   });
-
-  marker = new google.maps.Marker({
-    title: 'This is where the hazard is!',
-    position: curLatLng,
-    draggable: false,
-    map: this.map
-  });
 }
 
 function resizeMap() {
@@ -109,13 +102,26 @@ function populateFields(reportResults) {
 
   console.log("Report coordinates: ", reportCoords.lat(), reportCoords.lng());
 
+  marker = new google.maps.Marker({
+    title: 'This is where the hazard is!',
+    position: reportCoords,
+    draggable: false,
+    map: this.map
+  });
+
   marker.setPosition(reportCoords);
   this.map.setCenter(reportCoords);
   marker.setMap(map);
 
-  // Set the image.
-  var image = "report_images/" + report.report_id + ".jpg";
-  document.getElementById('report-image').src = image;
+  // Set the image. Resize the map after loading the image.
+  var image = document.getElementById('report-image');
+  image.onload = function() {
+    resizeMap();
+  }
+  image.src = "report_images/" + report.report_id + ".jpg"
+  //document.getElementById('report-image').image = image;
+  // Resize the map since the new image may have a different size.
+  resizeMap();
 }
 
 // Gets predetermined hazard categories from the database.
