@@ -178,5 +178,5 @@ function createTable(searchResults) {
 }
 
 function viewReports(report_id) {
-  window.location.href = "/reportDetails?report_id=" + report_id;
+  window.location.href = "/report?report_id=" + report_id;
 }
