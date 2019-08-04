@@ -63,7 +63,12 @@ exports.createReport = function(params, callback){
 exports.getReport = function(params, callback) {
 
     var select_table = "reports"
-    var select_query = `SELECT * from ${select_table} WHERE report_id = ?`
+    var select_query = `
+      SELECT reports.*, parks.loc_lat AS park_loc_lat, parks.loc_long AS park_loc_long, categories.category, locations.location FROM ${select_table}
+      LEFT JOIN parks ON parks.park_id = reports.park_id
+      LEFT JOIN categories ON categories.category_id = reports.category_id
+      LEFT JOIN locations ON locations.location_id = reports.location_id
+      WHERE report_id = ?`
 
     db.query(select_query, params["report_id"], function(err, result){
 
@@ -75,6 +80,7 @@ exports.getReport = function(params, callback) {
         }
         else{
             console.log("Report successfully retrieved")
+            console.log(result)
             callback(null, result)
         }
     } )
