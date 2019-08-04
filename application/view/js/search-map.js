@@ -69,7 +69,7 @@ function addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail,
   var infoWindowReportCategory = reportCategory; // The type of hazard of the report from the DB query json.
   var infoWindowReportThumbnail = reportThumbnail; // The thumbnail image of the report from the DB query json.
   var infoWindowReportDetails = reportDetails; // The details/comment of the report from the DB query json.
-  var infoWindowReportURL = '/reports?report_id=' + reportID; // The full url of the report.
+  var infoWindowReportURL = '/report?report_id=' + reportID; // The full url of the report.
   // Likely will just be the report id appended to boilerplate url.
   var newMarkerCoords = (markerLat != null && markerLng != null) ? {
     lat: markerLat,

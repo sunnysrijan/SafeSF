@@ -45,7 +45,7 @@ function initMap() {
 }
 
 function resizeMap() {
-  var rowHeight = document.getElementById('report-image').offsetHeight;
+  var rowHeight = document.getElementById('report-image').offsetHeight > 400 ? document.getElementById('report-image').offsetHeight : 400;
   document.getElementById('map').style.height = rowHeight + "px";
 }
 

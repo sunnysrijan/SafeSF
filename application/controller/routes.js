@@ -75,7 +75,8 @@ router.post('/submitReport', (req, res) => {
         else
         {
             res.status(200)
-            res.send(result)
+            console.log(result);
+            res.redirect('report?report_id=' + result.report_id);
         }
     })
 })
