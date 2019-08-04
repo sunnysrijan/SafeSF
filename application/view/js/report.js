@@ -75,7 +75,6 @@ function getSearchParams() {
 function populateFields(reportResults) {
   // Make a local var for readability.
   var report = reportResults[0];
-  console.log(report);
 
   // Get the hazard category, hazard location, time of submission, report status, report_id, coordinates, and detailed comments.
   var hazardCategory = report.category;
@@ -95,13 +94,15 @@ function populateFields(reportResults) {
   document.getElementById('report-id').innerHTML = reportID;
   document.getElementById('report-details').innerHTML = reportDetails;
 
-  // Set the map marker and move the map.
+  // Setup report coordinates.
   var reportCoords = new google.maps.LatLng(
     report.loc_lat != null ? report.loc_lat : report.park_loc_lat,
     report.loc_long != null ? report.loc_long : report.park_loc_long
   )
+  setNewCenterLatLng(reportCoords);
 
-  console.log("Report coordinates: ", reportCoords.lat(), reportCoords.lng());
+  // Initialize the map and marker. Pan and zoom.
+  initMap();
 
   marker = new google.maps.Marker({
     title: 'This is where the hazard is!',
