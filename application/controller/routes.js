@@ -63,7 +63,7 @@ router.get('/search', (req, res) => {
 */
 
 // endpoint for POSTing reports
-router.post('/submit-report', (req, res) => {
+router.post('/submitReport', (req, res) => {
     console.log("POST: reports endpoint")
     reports.createReport(req.body, function(err, result){
         if(err)
@@ -80,7 +80,7 @@ router.post('/submit-report', (req, res) => {
     })
 })
 
-router.get('/get-report', (req, res) => {
+router.get('/getReport', (req, res) => {
     console.log("GET: reports endpoint")
     reports.getReport(req.query, function(err, result){
         console.log(res.query)
