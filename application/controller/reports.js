@@ -16,7 +16,7 @@ exports.createReport = function(params, callback){
     if(params)
     {
         params["report_id"] = new Date().getTime()
-        params["park_id"] = 1 // this is for testing purposes 
+        params["park_id"] = 1 // this is for testing purposes
         params["user_id"] = '52a885e0-ae55-11e9-bcaf-9fea80b280db'
 
         for(var [field, value] of Object.entries(params))
@@ -31,7 +31,7 @@ exports.createReport = function(params, callback){
                 field_placeholders += "??,"
                 value_placeholders += "?,"
             }
-        
+
         }
 
         field_placeholders = field_placeholders.substring(0, field_placeholders.length - 1)
@@ -44,7 +44,7 @@ exports.createReport = function(params, callback){
     placeholder_replacement = fields.concat(values)
 
     db.query(insert_query, placeholder_replacement, function(err, result){
-        
+
         if(err) {
             console.log("Error querying database : " + err)
             console.log(insert_query)

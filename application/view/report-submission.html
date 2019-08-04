@@ -9,7 +9,10 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
     gtag('js', new Date());
 
     gtag('config', 'UA-144569863-2');
@@ -52,7 +55,7 @@
 
               Posts a JSON object in the following format:
               {category_id, location_id, park_id, details, loc_lat, loc_long, user_id, image_ref}   -->
-        <form id="results-form" action="/reports" method="post" role="form">
+        <form id="results-form" action="/submitReport" method="post" role="form">
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
@@ -99,16 +102,16 @@
                                     We insert the appropriate value in through the DOM, then all the data is compiled and
                                     sent via form action -->
 
-              <div class="form-group" hidden>
-                <input type="number" step="0.0000001" class="form-control" name="loc_lat" id="loc_lat">
+              <div class="form-group">
+                <input type="hidden" step="0.000000001" class="form-control" name="loc_lat" id="loc_lat">
               </div>
 
-              <div class="form-group" hidden>
-                <input type="number" step="0.0000001" class="form-control" name="loc_long" id="loc_long">
+              <div class="form-group">
+                <input type="hidden" step="0.000000001" class="form-control" name="loc_long" id="loc_long">
               </div>
 
-              <div class="form-group" hidden>
-                <input type="number" step="0.0000001" class="form-control" name="user_id" id="user_id" value=1>
+              <div class="form-group">
+                <input type="hidden" step="0.000000001" class="form-control" name="user_id" id="user_id" value=1>
               </div>
 
               <div class="form-group">

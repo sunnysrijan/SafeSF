@@ -29,14 +29,14 @@ router.get('/login', (req, res) => {
     res.sendFile(path.resolve('view/login.html'))
 })
 
-router.get('/reportDetails', (req, res) => {
+router.get('/report', (req, res) => {
     res.status(200)
     res.sendFile(path.resolve('view/report.html'))
 })
 
 router.get('/submitReport', (req, res) => {
     res.status(200)
-    res.sendFile(path.resolve('view/reportSubmission.html'))
+    res.sendFile(path.resolve('view/report-submission.html'))
 })
 
 /*
@@ -63,7 +63,7 @@ router.get('/search', (req, res) => {
 */
 
 // endpoint for POSTing reports
-router.post('/reports', (req, res) => {
+router.post('/submit-report', (req, res) => {
     console.log("POST: reports endpoint")
     reports.createReport(req.body, function(err, result){
         if(err)
@@ -80,7 +80,7 @@ router.post('/reports', (req, res) => {
     })
 })
 
-router.get('/report', (req, res) => {
+router.get('/get-report', (req, res) => {
     console.log("GET: reports endpoint")
     reports.getReport(req.query, function(err, result){
         console.log(res.query)

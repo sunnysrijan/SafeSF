@@ -9,6 +9,8 @@ var thisReportID; // This report's unique ID.
 var categories; // Holds the categories from the database.
 var locations; // Holds the location names from the database.
 
+const urlParams = new URLSearchParams(window.location.search); // Parameter parser class.
+
 // Includes casting to enforce typing, just in case.
 // Takes a hash entry, formatted as {lat: float, lng: float}
 // See associated html for example of calling this function with two numbers.
@@ -51,7 +53,6 @@ function initMap() {
 
 function resizeMap() {
   var rowHeight = document.getElementById('report-image').offsetHeight;
-  // console.log("row height: " + document.getElementById('report-image').offsetHeight);
   document.getElementById('map').style.height = rowHeight + "px";
 }
 
@@ -60,11 +61,12 @@ function getReport() {
   var xmlReq = new XMLHttpRequest();
 
   xmlReq.onload = function() {
-    if (xmlReq.status == 200)
+    if (xmlReq.status == 200) {
       populateFields(xmlReq.response);
+    }
   }
 
-  xmlReq.open('GET', "/reports?report_id=" + this.location.href.split("/").pop(), true);
+  xmlReq.open('GET', "/getReport?report_id=" + getSearchParams(), true);
   xmlReq.responseType = "json";
   xmlReq.send(null);
 }
@@ -72,21 +74,20 @@ function getReport() {
 // Finds the report_id (in the page's url) and returns it.
 function getSearchParams() {
   // Get the report id from the url.
-  var requestParam = "?report_id=" + this.location.href.split("/").pop();
-  console.log("Request param: " + requestParam);
-  return requestParam;
+  var report_id = urlParams.get('report_id');
+  return report_id;
 }
 
 // This function takes the given report and fills out the tagged elements in the html.
 function populateFields(reportResults) {
   // Make a local var for readability.
-  var report = reportResults;
+  var report = reportResults[0];
 
   // Get the hazard category, hazard location, time of submission, report status, report_id, coordinates, and detailed comments.
-  var hazardCategory = getValueOfId(categories, "category_id", report.category_id);
-  var hazardLocation = (locations[parseInt(report.location_id) - 1] == null) ? "" : getValueOfId(locations, "location_id", report.location_id);
+  var hazardCategory = convertCategoryIDToString(report.category_id);
+  var hazardLocation = convertLocationIDToString(report.location_id);
   var reportDate = report.insert_date;
-  var reportUpdateDate = report.report_update_date;
+  var reportUpdateDate = report.report_update_date != null ? report.report_update_date : "No updates yet.";
   var reportStatus = report.status;
   var reportID = report.report_id;
   var reportDetails = report.details;
@@ -101,17 +102,20 @@ function populateFields(reportResults) {
   document.getElementById('report-details').innerHTML = reportDetails;
 
   // Set the map marker and move the map.
-  var reportCoords = {
-    lat: report.loc_lat,
-    lng: report.loc_lng
-  };
+  var reportCoords = new google.maps.LatLng(
+    report.loc_lat,
+    report.loc_long
+  );
+
+  console.log("Report coordinates: ", reportCoords.lat(), reportCoords.lng());
+
   marker.setPosition(reportCoords);
-  this.map.setCenter(marker.position);
+  this.map.setCenter(reportCoords);
   marker.setMap(map);
 
   // Set the image.
-  var image = "report_images/" + reportID + ".jpg";
-  document.getElementById('report-image').src = reportDetails;
+  var image = "report_images/" + report.report_id + ".jpg";
+  document.getElementById('report-image').src = image;
 }
 
 // Gets predetermined hazard categories from the database.
@@ -120,8 +124,7 @@ function getCategories() {
 
   xmlReq.onload = function() {
     if (xmlReq.status == 200) {
-      categories = xmlReq.response
-      populateDropdown(categories, "category");
+      categories = xmlReq.response;
     }
   }
 
@@ -136,12 +139,47 @@ function getLocations() {
 
   xmlReq.onload = function() {
     if (xmlReq.status == 200) {
-      locations = xmlReq.response
-      populateDropdown(locations, "location");
+      locations = xmlReq.response;
     }
   }
 
   xmlReq.open('GET', '/locations', true);
   xmlReq.responseType = "json";
   xmlReq.send();
+}
+
+// Converts the category_id of the report to a string using the categories table.
+function convertCategoryIDToString(category_id) {
+  var categoryAsString = null;
+
+  if(category_id == null) {
+    categoryAsString = "Invalid location.";
+    return categoryAsString;
+  }
+
+  categories.forEach(function (category) {
+    if (category.category_id == category_id) {
+      categoryAsString = category.category;
+    }
+  });
+
+  return categoryAsString == null ? "Invalid category." : categoryAsString;
+}
+
+// Converts the location_id of the report to a string using the locations table.
+function convertLocationIDToString(location_id) {
+  var locationAsString = null;
+
+  if(location_id == null) {
+    locationAsString = "Invalid location.";
+    return locationAsString;
+  }
+
+  locations.forEach(function (location) {
+    if (location.location_id == location_id) {
+      locationAsString = location.location;
+    }
+  });
+
+  return locationAsString == null ? "Invalid location." : locationAsString;
 }

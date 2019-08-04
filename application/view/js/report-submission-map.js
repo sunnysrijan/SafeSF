@@ -94,11 +94,6 @@ function initMap() {
     map: this.map
   });
 
-  // Initialize the readout element.
-  // document.getElementById('currentCoords').innerHTML
-  document.forms["results-form"].elements['loc_lat'].value = marker.position.lat();
-  document.forms["results-form"].elements['loc_long'].value = marker.position.lng();
-
   // Add listners to the marker so we can trigger changes to values and move the map.
   google.maps.event.addListener(marker, 'dragend', function(evt) {
     // Check bounds of marker. If the user tried to move the marker out of the viewable area of the map,
@@ -132,8 +127,8 @@ function initMap() {
     // DOM calls to set form values.
     document.getElementById('currentCoords').innerHTML = "<p>New coords: " + newLat.toFixed(7) + ", " + newLng.toFixed(7) +
       "; The marker in the vicinity of San Francisco: " + boolMarkerInSF + "</p>";
-    document.forms["results-form"].elements['loc_lat'].value = newLat.toFixed(7);
-    document.forms["results-form"].elements['loc_long'].value = newLng.toFixed(7);
+    document.forms["results-form"].elements['loc_lat'].value = newLat
+    document.forms["results-form"].elements['loc_long'].value = newLng;
 
     // Set the center of the map to be the same as the new marker position, if possible.
     setNewCenterLatLng(marker.position);
