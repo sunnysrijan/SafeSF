@@ -61,27 +61,25 @@ exports.createReport = function(params, callback){
 }
 
 exports.getReport = function(params, callback) {
-
-    var select_table = "reports"
+    var select_table = "reports";
     var select_query = `
-      SELECT reports.*, parks.loc_lat AS park_loc_lat, parks.loc_long AS park_loc_long, categories.category, locations.location FROM ${select_table}
+      SELECT reports.report_id, DATE_FORMAT(reports.insert_date, '%d %M %Y %h:%i%p') AS insert_date, reports.update_date, reports.status,
+        reports.assigned_to, reports.image_ref, reports.loc_lat, reports.loc_long, reports.details,
+        parks.loc_lat AS park_loc_lat, parks.loc_long AS park_loc_long, categories.category, locations.location FROM ${select_table}
       LEFT JOIN parks ON parks.park_id = reports.park_id
       LEFT JOIN categories ON categories.category_id = reports.category_id
       LEFT JOIN locations ON locations.location_id = reports.location_id
       WHERE report_id = ?`
 
     db.query(select_query, params["report_id"], function(err, result){
-
         if(err) {
-            console.log("Error querying database : " + err)
-            console.log(select_query)
-            console.log(params["report_id"])
-            callback(err, null)
-        }
-        else{
+            console.log("Error querying database : " + err);
+            console.log(select_query);
+            console.log(params["report_id"]);
+            callback(err, null);
+        } else {
             console.log("Report successfully retrieved")
-            console.log(result)
-            callback(null, result)
+            callback(null, result);
         }
-    } )
+    });
 }

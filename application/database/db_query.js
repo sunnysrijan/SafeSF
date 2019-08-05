@@ -1,16 +1,16 @@
 
 exports.buildSearchQuery = function(table, order, params){
 
-    var query = `SELECT * FROM ${table}`
+    var query = `SELECT *, DATE_FORMAT(reports.insert_date, '%d %M %Y %h:%i%p') AS insert_date FROM ${table}`
     var where_clause = ' WHERE'
     var order_clause = ` ORDER BY ${order} DESC`
     var where_count = 0
     var values = []
-    
+
     return new Promise(function(resolve, reject){
         //checks if any parameters have been sent
         //if not it grabs the whole list
-        if(params) 
+        if(params)
         {
             //for each parameter sent in it adds a condition to the where clause
             //values are pushed into the values array
