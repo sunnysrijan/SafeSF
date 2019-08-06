@@ -79,26 +79,25 @@ router.post('/submitReport', (req, res) => {
   var captchaToken = req.body['g-recaptcha-response'];
   delete req.body['g-recaptcha-response'];
   console.log("Captcha token: " + captchaToken);
-  console.log("Other params: ", req.body);
 
-  // Put your secret key here.
+  // reCAPTCHA secret/server key.
   var secretKey = "6LfbkLEUAAAAAJjFA-c-wylbzVsjgc4Q4lL29gCN";
   // req.connection.remoteAddress will provide IP address of connected user.
   var verificationUrl =
       "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey +
       "&response=" + captchaToken + "&remoteip=" + req.connection.remoteAddress;
 
-  // Hitting GET request to the URL, Google will respond with success or error
-  // scenario.
+  // Send verification request to Google. Response will be true/false for pass/fail respectively.
   request(verificationUrl, function(error, response, body) {
     body = JSON.parse(body);
-    // Success will be true or false depending upon captcha validation.
+    console.log("Captcha verification data: ", body);
     if (body.success !== undefined && !body.success) {
       console.log('Captcha invalid, value: ', req.body['g-recaptcha-response']);
       res.status(401);
       res.send('Captcha invalid, please check captcha and try again.\n');
       return;
     }
+    console.log("Captacha token valid!");
     // If we get past the above if statement then the token is valid and the report will post.
   });
   //---------- END CAPTCHA SECTION ----------
