@@ -98,9 +98,9 @@
 
               <hr>
 
-              <!-- The hidden input elements give us a means of bundling extra data into our JSON.
-                                    We insert the appropriate value in through the DOM, then all the data is compiled and
-                                    sent via form action -->
+              <!-- The hidden input elements serve to bundling extra data into our JSON.
+                  We insert the appropriate value in through the DOM, then all the data is compiled and
+                  sent via form action -->
 
               <div class="form-group">
                 <input type="hidden" step="0.000000001" class="form-control" name="loc_lat" id="loc_lat">
@@ -114,11 +114,6 @@
                 <input type="hidden" step="0.000000001" class="form-control" name="user_id" id="user_id" value=1>
               </div>
 
-              <div class="form-group">
-                <label for="picture">Please enter picture:</label>
-                <input type="file" class="form-control-file" name="image_ref" id="image_ref">
-              </div>
-              <hr>
             </div>
           </div>
 
@@ -130,19 +125,16 @@
           <p id="currentCoords"></p>
           <hr>
 
+          
           <div class="row">
-
-            <div class="form-group form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="remember" required> I agree to all possible terms of service.
-                <div class="invalid-feedback">Check this checkbox to continue.</div>
-              </label>
-            </div>
-
-            <p class="text-muted">
-              <strong style='color: red'>*</strong>
-            </p>
-          </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                  <label for="picture">Please choose a picture to submit:</label>
+                  <input type="file" class="form-control-file" name="image_ref" id="image_ref">
+                </div>
+              </div>
+            </div>    
+                
 
           <div class="row">
             <div class="col-lg-6">
@@ -170,6 +162,8 @@
     var categories;
     var locations;
 
+    //  getCategories() retrieves the current list of supported locations from the database 
+    //   and uses this information to populate the 'categories' dropdown menu.
     function getCategories() {
       var xmlReq = new XMLHttpRequest();
 
@@ -186,6 +180,8 @@
       xmlReq.send();
     }
 
+    //  getLocations() retrieves the current list of supported locations from the database 
+    //   and uses this information to populate the 'locations' dropdown menu.
     function getLocations() {
       var xmlReq = new XMLHttpRequest();
 
@@ -202,6 +198,12 @@
       xmlReq.send();
     }
 
+    // populateDropdown() uses the data provided to populate the specified dropdown menu.
+    // Arguments:  data: List, field: String
+    //
+    // The field value is used to select the appropriate dropdown element, and then each item
+    // found in 'data' is inserted into that element. 
+
     function populateDropdown(data, field) {
       console.log(`field is ${field}`);
 
@@ -210,7 +212,6 @@
       else if (field === "location")
         var dropDown = document.getElementById("locationDropDown");
 
-      // const data = JSON.parse(request.responseText);
       let option;
 
       for (let i = 0; i < data.length; i++) {
@@ -224,23 +225,9 @@
         }
         dropDown.add(option);
       }
-
-      // var div = document.createElement("div");
-      // div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('None', '" + field + "')\">None</a>";
-      // dropDown.appendChild(div);
-
-      // for(var i = 0; i < jsonData.length; i++)
-      // {
-      //     if(field === "category")
-      //         var selection = jsonData[i].category;
-      //     else if(field === "location")
-      //         var selection = jsonData[i].location;
-
-      //     div = document.createElement("div");
-      //     div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('" + selection + "', '" + field + "')\">" + selection + "</a>";
-      //     dropDown.appendChild(div);
-      // }
     }
+
+
   </script>
 
 </body>
