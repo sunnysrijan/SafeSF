@@ -79,7 +79,6 @@ function initMap() {
       }]
     }]
   });
-  console.log("Map initiated.");
 
   setNewCenterLatLng({
     lat: 37.7749,

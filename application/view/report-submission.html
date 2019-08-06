@@ -36,7 +36,9 @@
       padding: 0;
     }
   </style>
+  <script type="text/javascript" src="js/report-submission.js"></script>
   <script type="text/javascript" src="js/report-submission-map.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body onload="getCategories(); getLocations()">
@@ -125,7 +127,7 @@
           <p id="currentCoords"></p>
           <hr>
 
-          
+
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
@@ -133,13 +135,15 @@
                   <input type="file" class="form-control-file" name="image_ref" id="image_ref">
                 </div>
               </div>
-            </div>    
-                
+            </div>
+
 
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <input type="submit" class="btn btn-outline-primary btn-send" value="Submit">
+                <div id="captchaElement" class="g-recaptcha" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess"></div>
+                <br/>
+                <input id="submit-button" type="submit" class="btn btn-outline-primary btn-send" value="Submit" disabled="true">
               </div>
             </div>
           </div>
@@ -157,79 +161,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry&callback=initMap" async defer></script>
-
-  <script>
-    var categories;
-    var locations;
-
-    //  getCategories() retrieves the current list of supported locations from the database 
-    //   and uses this information to populate the 'categories' dropdown menu.
-    function getCategories() {
-      var xmlReq = new XMLHttpRequest();
-
-      xmlReq.onload = function() {
-        if (xmlReq.status == 200) {
-          categories = xmlReq.response
-          console.log(categories);
-          populateDropdown(categories, "category");
-        }
-      }
-
-      xmlReq.open('GET', '/categories', true);
-      xmlReq.responseType = "json";
-      xmlReq.send();
-    }
-
-    //  getLocations() retrieves the current list of supported locations from the database 
-    //   and uses this information to populate the 'locations' dropdown menu.
-    function getLocations() {
-      var xmlReq = new XMLHttpRequest();
-
-      xmlReq.onload = function() {
-        if (xmlReq.status == 200) {
-          locations = xmlReq.response
-          console.log(locations);
-          populateDropdown(locations, "location");
-        }
-      }
-
-      xmlReq.open('GET', '/locations', true);
-      xmlReq.responseType = "json";
-      xmlReq.send();
-    }
-
-    // populateDropdown() uses the data provided to populate the specified dropdown menu.
-    // Arguments:  data: List, field: String
-    //
-    // The field value is used to select the appropriate dropdown element, and then each item
-    // found in 'data' is inserted into that element. 
-
-    function populateDropdown(data, field) {
-      console.log(`field is ${field}`);
-
-      if (field === "category")
-        var dropDown = document.getElementById("categoryDropDown");
-      else if (field === "location")
-        var dropDown = document.getElementById("locationDropDown");
-
-      let option;
-
-      for (let i = 0; i < data.length; i++) {
-        option = document.createElement('option');
-        if (field === "category") {
-          option.text = data[i].category;
-          option.value = data[i].category_id;
-        } else if (field === "location") {
-          option.text = data[i].location;
-          option.value = data[i].location_id;
-        }
-        dropDown.add(option);
-      }
-    }
-
-
-  </script>
-
 </body>
 
 </html>
