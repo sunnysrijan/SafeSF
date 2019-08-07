@@ -100,13 +100,21 @@ function initMap () {
     var newLat = evt.latLng.lat()
     var newLng = evt.latLng.lng()
     // too far north
-    if (newLat > SAN_FRANCISCO_MAP_BOUNDS.north) { newLat = SAN_FRANCISCO_MAP_BOUNDS.north - 0.02 }
+    if (newLat > SAN_FRANCISCO_MAP_BOUNDS.north) {
+      newLat = SAN_FRANCISCO_MAP_BOUNDS.north - 0.02
+    }
     // too far south
-    else if (newLat < SAN_FRANCISCO_MAP_BOUNDS.south) { newLat = SAN_FRANCISCO_MAP_BOUNDS.south + 0.02 }
+    else if (newLat < SAN_FRANCISCO_MAP_BOUNDS.south) {
+      newLat = SAN_FRANCISCO_MAP_BOUNDS.south + 0.02
+    }
     // too far east
-    if (newLng > SAN_FRANCISCO_MAP_BOUNDS.east) { newLng = SAN_FRANCISCO_MAP_BOUNDS.east - 0.02 }
+    if (newLng > SAN_FRANCISCO_MAP_BOUNDS.east) {
+      newLng = SAN_FRANCISCO_MAP_BOUNDS.east - 0.02
+    }
     // too far west
-    else if (newLng < SAN_FRANCISCO_MAP_BOUNDS.west) { newLng = SAN_FRANCISCO_MAP_BOUNDS.west + 0.02 }
+    else if (newLng < SAN_FRANCISCO_MAP_BOUNDS.west) {
+      newLng = SAN_FRANCISCO_MAP_BOUNDS.west + 0.02
+    }
 
     // After checking bounds, set the new position of the marker.
     marker.setPosition(

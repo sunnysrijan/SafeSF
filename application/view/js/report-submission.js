@@ -7,7 +7,7 @@ function getCategories () {
   var xmlReq = new XMLHttpRequest()
 
   xmlReq.onload = function () {
-    if (xmlReq.status == 200) {
+    if (xmlReq.status === 200) {
       categories = xmlReq.response
       populateDropdown(categories, 'category')
     }
@@ -24,7 +24,7 @@ function getLocations () {
   var xmlReq = new XMLHttpRequest()
 
   xmlReq.onload = function () {
-    if (xmlReq.status == 200) {
+    if (xmlReq.status === 200) {
       locations = xmlReq.response
       populateDropdown(locations, 'location')
     }
@@ -41,7 +41,12 @@ function getLocations () {
 // found in 'data' is inserted into that element.
 function populateDropdown (data, field) {
   // console.log(`field is ${field}`);
-  if (field === 'category') { var dropDown = document.getElementById('categoryDropDown') } else if (field === 'location') { var dropDown = document.getElementById('locationDropDown') }
+  var dropDown
+  if (field === 'category') {
+    dropDown = document.getElementById('categoryDropDown')
+  } else if (field === 'location') {
+    dropDown = document.getElementById('locationDropDown')
+  }
 
   let option
 

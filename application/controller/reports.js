@@ -18,7 +18,7 @@ exports.createReport = function (params, callback) {
     params['user_id'] = '52a885e0-ae55-11e9-bcaf-9fea80b280db'
 
     for (var [field, value] of Object.entries(params)) {
-      if (field == 'image_ref' || field == 'remember') {
+      if (field === 'image_ref' || field === 'remember') {
         continue
       } else {
         fields.push(field)
