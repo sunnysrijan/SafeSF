@@ -1,69 +1,66 @@
-var categories;
-var locations;
+var categories
+var locations
 
 //  getCategories() retrieves the current list of supported locations from the database
 //  and uses this information to populate the 'categories' dropdown menu.
-function getCategories() {
-  var xmlReq = new XMLHttpRequest();
+function getCategories () {
+  var xmlReq = new XMLHttpRequest()
 
-  xmlReq.onload = function() {
+  xmlReq.onload = function () {
     if (xmlReq.status == 200) {
       categories = xmlReq.response
-      populateDropdown(categories, "category");
+      populateDropdown(categories, 'category')
     }
   }
 
-  xmlReq.open('GET', '/categories', true);
-  xmlReq.responseType = "json";
-  xmlReq.send();
+  xmlReq.open('GET', '/categories', true)
+  xmlReq.responseType = 'json'
+  xmlReq.send()
 }
 
 //  getLocations() retrieves the current list of supported locations from the database
 //  and uses this information to populate the 'locations' dropdown menu.
-function getLocations() {
-  var xmlReq = new XMLHttpRequest();
+function getLocations () {
+  var xmlReq = new XMLHttpRequest()
 
-  xmlReq.onload = function() {
+  xmlReq.onload = function () {
     if (xmlReq.status == 200) {
       locations = xmlReq.response
-      populateDropdown(locations, "location");
+      populateDropdown(locations, 'location')
     }
   }
 
-  xmlReq.open('GET', '/locations', true);
-  xmlReq.responseType = "json";
-  xmlReq.send();
+  xmlReq.open('GET', '/locations', true)
+  xmlReq.responseType = 'json'
+  xmlReq.send()
 }
 
 // populateDropdown() uses the data provided to populate the specified dropdown menu.
 // Arguments:  data: List, field: String
 // The field value is used to select the appropriate dropdown element, and then each item
 // found in 'data' is inserted into that element.
-function populateDropdown(data, field) {
+function populateDropdown (data, field) {
   // console.log(`field is ${field}`);
-  if (field === "category")
-    var dropDown = document.getElementById("categoryDropDown");
-  else if (field === "location")
-    var dropDown = document.getElementById("locationDropDown");
+  if (field === 'category') { var dropDown = document.getElementById('categoryDropDown') } else if (field === 'location') { var dropDown = document.getElementById('locationDropDown') }
 
-  let option;
+  let option
 
   for (let i = 0; i < data.length; i++) {
-    option = document.createElement('option');
-    if (field === "category") {
-      option.text = data[i].category;
-      option.value = data[i].category_id;
-    } else if (field === "location") {
-      option.text = data[i].location;
-      option.value = data[i].location_id;
+    option = document.createElement('option')
+    if (field === 'category') {
+      option.text = data[i].category
+      option.value = data[i].category_id
+    } else if (field === 'location') {
+      option.text = data[i].location
+      option.value = data[i].location_id
     }
-    dropDown.add(option);
+    dropDown.add(option)
   }
 }
 
-function onReCAPTCHASuccess() {
-  var submitButton = document.getElementById('submit-button').disabled = false;
-  console.log(submitButton);
+function onReCAPTCHASuccess () {
+  var submitButton = document.getElementById('submit-button').disabled = false
+  console.log(submitButton)
 
-  console.log(grecaptcha.getResponse());
+  console.log(grecaptcha.getResponse())
 }
