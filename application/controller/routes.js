@@ -66,8 +66,8 @@ router.post('/submitReport', (req, res) => {
   // in a captcha challenge. If the variable is not in the json or if it is an
   // invalid value, then there was an error in the challenge process.
 
-  if (req.body['g-recaptcha-response'] != undefined &&
-      req.body['g-recaptcha-response'] != '' &&
+  if (req.body['g-recaptcha-response'] !== undefined &&
+      req.body['g-recaptcha-response'] !== '' &&
       req.body['g-recaptcha-response'] != null) {
     var params = {
       'g-recaptcha-response': req.body['g-recaptcha-response'],
@@ -78,9 +78,9 @@ router.post('/submitReport', (req, res) => {
       // If the verification process failed, tell the user and do not enter
       // report data into DB.
       if (err) {
-        console.log('Captcha invalid, value: ', err.message)
-        res.status(err.status)
-        res.send(err.message)
+        console.log('Captcha invalid, value: ', err)
+        res.status(401)
+        res.send(err)
       }
     })
   } else {
