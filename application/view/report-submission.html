@@ -1,10 +1,11 @@
 <!-- First draft of Report Submission page:                                                                                -->
-<!-- Tristan Mclennan, Evan Guan - CSc 648 Software Engineering Summer 2019 Team 2 -->
+<!-- Tristan Mclennan, Evan Guan - CSC 648 Software Engineering Summer 2019 Team 2 -->
 
 <!DOCTYPE html>
 <html>
 
 <head>
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
   <script>
@@ -17,10 +18,13 @@
 
     gtag('config', 'UA-144569863-2');
   </script>
+
   <title>Submit a Report</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" rel="stylesheet" >
+  <link href="https://use.fontawesome.com/releases/v5.10.1/css/v4-shims.css" rel="stylesheet">
 
   <style>
     #map {
@@ -39,7 +43,46 @@
   <script type="text/javascript" src="js/report-submission-map.js"></script>
 </head>
 
+<!-- getCategories and getLocation are needed to populate dropdown menus
+     these are called on the loading of the page -->
 <body onload="getCategories(); getLocations()">
+
+
+
+  <!-- Standard dark navbar - collapsable into reduced menu for small screen sizes: -->
+    <nav class="navbar fixed top navbar-expand-lg navbar-dark" style="background-color: #000000;">
+        <a class="navbar-brand" href="">SF Safe</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sfsafeNavbar" aria-controls="sfsafeNavbar" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="sfsafeNavbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/team">Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+            </ul> 
+
+            <span class="navbar-nav ml-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="#"><span class="fa fa-user"></span> Sign Up</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#"><span class="fas fa-sign-in-alt"></span> Login</a>
+                </li>
+              </span>
+        </div>
+    </nav>
+
+
+
+
   <div class="container" id="form-container">
     <div class="row">
       <div class="col-xl-8 offset-xl-2">
@@ -50,7 +93,7 @@
           <hr>
         </div>
 
-        <!--  This form takes in hazard details and meta-data from the user. The request object is
+        <!--  This form serves to take in hazard details and metadata from the user. The request object is
               sent to the "/reports" endpoint for processing.
 
               Posts a JSON object in the following format:
@@ -129,11 +172,11 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                  <label for="picture">Please choose a picture to submit:</label>
-                  <input type="file" class="form-control-file" name="image_ref" id="image_ref">
-                </div>
+                <label for="picture">Please choose a picture to submit:</label>
+                <input type="file" class="form-control-file" name="image_ref" id="image_ref">
               </div>
-            </div>    
+            </div>
+          </div>    
                 
 
           <div class="row">
@@ -143,6 +186,7 @@
               </div>
             </div>
           </div>
+
       </div>
       </form>
       <!-- /.form -->
@@ -200,10 +244,8 @@
 
     // populateDropdown() uses the data provided to populate the specified dropdown menu.
     // Arguments:  data: List, field: String
-    //
     // The field value is used to select the appropriate dropdown element, and then each item
     // found in 'data' is inserted into that element. 
-
     function populateDropdown(data, field) {
       console.log(`field is ${field}`);
 
