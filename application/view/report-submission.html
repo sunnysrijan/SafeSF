@@ -22,26 +22,22 @@
   <title>Submit a Report</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
+
+
+  <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" rel="stylesheet" >
   <link href="https://use.fontawesome.com/releases/v5.10.1/css/v4-shims.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
               Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"  rel="stylesheet">
   <link href="css/report-submission.css" rel="stylesheet">
-  <!-- <style>
-    #map {
-      margin: 0 auto 0 auto;
-      height: 500px;
-      width: 100%;
-    }
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style> -->
+  <!-- These links are needed for the map and specific styling for the report-submission page -->
+  <link href="css/report-submission.css" rel="stylesheet">
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry&callback=initMap" async defer></script>
   <script type="text/javascript" src="js/report-submission.js"></script>
   <script type="text/javascript" src="js/report-submission-map.js"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -51,38 +47,33 @@
      these are called on the loading of the page -->
 <body onload="getCategories(); getLocations()">
 
-  <!-- Search icon -->
-    <!-- <i class="fas fa-search"></i> -->
- <container-fluid>
 
+  <!-- This is the SFSU header required in the non-functional requirements: -->
+ <container-fluid>
     <!-- <h5 style="background-color: #aee7e8; font-family: 'Crimson Text', serif; font-style: italic;
       text-align: center; padding: 5px; margin-bottom: 0px;">  -->
       <h5 style="background-color: black; color:white;  font-family: 'Crimson Text', serif; font-style: italic;
       text-align: center; padding: 5px; margin-bottom: 0px;"> 
       SFSU Software Engineering Project CSC 648-848, Summer 2019.  For Demonstration Only
     </h5>
-
-
  </container>
 
+
   <!-- Standard dark navbar - collapsable into reduced menu for small screen sizes: -->
-    <nav class="navbar fixed top navbar-expand-lg navbar-dark" style="background-color: #248ea9;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #248ea9;">
         <a class="navbar-brand" href="/">SF Safe</a>
 
         <form class="form-inline mx-auto">
-            <input class="form-control mr-lg-2" style="width: 240px" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            <input class=" form-control mr-lg-2" style="width: 200px;" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
         </form>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sfsafeNavbar" aria-controls="sfsafeNavbar" aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span>
          </button>
-         <div class="collapse navbar-collapse" id="sfsafeNavbar">
 
-            <!-- <form class="form-inline mx-auto">
-                <input class="form-control form-control-lg mr-lg-2" style="width: 240px" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-lg btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
+         <!-- collapsable portion of the navbar: -->
+         <div class="collapse navbar-collapse" id="sfsafeNavbar">
 
             <span class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -94,7 +85,7 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="/login"><span class="fas fa-sign-in-alt"></span> Login</a>
                 </li>
-              </span>
+            </span>
         </div>
     </nav>
 
@@ -198,7 +189,7 @@
                 <label for="picture">Please choose a picture to submit:
                     <strong style='color: red'> *</strong>
                 </label>
-                <input type="file" class="form-control-file" name="image_ref" id="image_ref">
+                <input style="padding-top: 10px;" type="file" class="form-control-file" name="image_ref" id="image_ref" >
               </div>
             </div>
           </div>    
@@ -224,12 +215,6 @@
   <!-- /.row-->
   </div>
   <!-- /.container-->
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry&callback=initMap" async defer></script>
-
 
 </body>
 
