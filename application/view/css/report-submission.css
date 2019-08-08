@@ -1,0 +1,37 @@
+
+
+/* Chosen Color Scheme: */
+
+/*  Darkest:   #248ea9
+               #28c3d4
+               #aee7e8
+   Lightest:   #f4f4f4      */
+
+/* Fonts available through google CDN:
+
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
+              Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"rel="stylesheet">
+
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Crimson Text', serif;
+  font-family: 'Darker Grotesque', sans-serif;
+  font-family: 'Kreon', serif; */
+
+  #map {
+    margin: 0 auto 0 auto;
+    height: 500px;
+    width: 100%;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  label {
+    font-weight:500; 
+    font-size:115%;
+  }
