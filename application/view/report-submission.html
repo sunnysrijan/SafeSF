@@ -40,7 +40,9 @@
       padding: 0;
     }
   </style>
+  <script type="text/javascript" src="js/report-submission.js"></script>
   <script type="text/javascript" src="js/report-submission-map.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <!-- getCategories and getLocation are needed to populate dropdown menus
@@ -171,7 +173,7 @@
           <p id="currentCoords"></p>
           <hr>
 
-          
+
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
@@ -179,13 +181,19 @@
                 <input type="file" class="form-control-file" name="image_ref" id="image_ref">
               </div>
             </div>
+<<<<<<< HEAD
           </div>    
                 
+=======
+
+>>>>>>> d10be3b71b0340a0a817e6323a483fa1435255fb
 
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <input type="submit" class="btn btn-outline-primary btn-send" value="Submit">
+                <div id="captchaElement" class="g-recaptcha" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess"></div>
+                <br/>
+                <input id="submit-button" type="submit" class="btn btn-outline-primary btn-send" value="Submit" disabled="true">
               </div>
             </div>
           </div>
@@ -204,6 +212,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry&callback=initMap" async defer></script>
+<<<<<<< HEAD
 
   <script>
     var categories;
@@ -275,6 +284,8 @@
 
   </script>
 
+=======
+>>>>>>> d10be3b71b0340a0a817e6323a483fa1435255fb
 </body>
 
 </html>
