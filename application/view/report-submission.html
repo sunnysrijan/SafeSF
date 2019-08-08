@@ -51,6 +51,12 @@
 
   <!-- Search icon -->
     <!-- <i class="fas fa-search"></i> -->
+ <container-fluid>
+
+    <h5 style="background-color: #aee7e8; text-align: center;margin-bottom: 0px;"> CS648 Summer 2019 - Team 2</h5>
+
+
+ </container>
 
   <!-- Standard dark navbar - collapsable into reduced menu for small screen sizes: -->
     <nav class="navbar fixed top navbar-expand-lg navbar-dark" style="background-color: #248ea9;">
@@ -181,12 +187,8 @@
                 <input type="file" class="form-control-file" name="image_ref" id="image_ref">
               </div>
             </div>
-<<<<<<< HEAD
           </div>    
                 
-=======
-
->>>>>>> d10be3b71b0340a0a817e6323a483fa1435255fb
 
           <div class="row">
             <div class="col-lg-6">
@@ -212,80 +214,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry&callback=initMap" async defer></script>
-<<<<<<< HEAD
-
-  <script>
-    var categories;
-    var locations;
-
-    //  getCategories() retrieves the current list of supported locations from the database 
-    //   and uses this information to populate the 'categories' dropdown menu.
-    function getCategories() {
-      var xmlReq = new XMLHttpRequest();
-
-      xmlReq.onload = function() {
-        if (xmlReq.status == 200) {
-          categories = xmlReq.response
-          console.log(categories);
-          populateDropdown(categories, "category");
-        }
-      }
-
-      xmlReq.open('GET', '/categories', true);
-      xmlReq.responseType = "json";
-      xmlReq.send();
-    }
-
-    //  getLocations() retrieves the current list of supported locations from the database 
-    //   and uses this information to populate the 'locations' dropdown menu.
-    function getLocations() {
-      var xmlReq = new XMLHttpRequest();
-
-      xmlReq.onload = function() {
-        if (xmlReq.status == 200) {
-          locations = xmlReq.response
-          console.log(locations);
-          populateDropdown(locations, "location");
-        }
-      }
-
-      xmlReq.open('GET', '/locations', true);
-      xmlReq.responseType = "json";
-      xmlReq.send();
-    }
-
-    // populateDropdown() uses the data provided to populate the specified dropdown menu.
-    // Arguments:  data: List, field: String
-    // The field value is used to select the appropriate dropdown element, and then each item
-    // found in 'data' is inserted into that element. 
-    function populateDropdown(data, field) {
-      console.log(`field is ${field}`);
-
-      if (field === "category")
-        var dropDown = document.getElementById("categoryDropDown");
-      else if (field === "location")
-        var dropDown = document.getElementById("locationDropDown");
-
-      let option;
-
-      for (let i = 0; i < data.length; i++) {
-        option = document.createElement('option');
-        if (field === "category") {
-          option.text = data[i].category;
-          option.value = data[i].category_id;
-        } else if (field === "location") {
-          option.text = data[i].location;
-          option.value = data[i].location_id;
-        }
-        dropDown.add(option);
-      }
-    }
 
 
-  </script>
-
-=======
->>>>>>> d10be3b71b0340a0a817e6323a483fa1435255fb
 </body>
 
 </html>
