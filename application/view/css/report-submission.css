@@ -26,12 +26,22 @@
 
   html,
   body {
+
     height: 100%;
     margin: 0;
     padding: 0;
+
   }
 
   label {
-    font-weight:500; 
-    font-size:115%;
+    font-weight:700; 
+    font-size:125%;
+    /* font-family: 'Crimson Text', serif; */
+  }
+  
+  #form-container {
+    font-size:105%;
+        /* font-family: 'Darker Grotesque', sans-serif; */
+    /* font-family: 'Cormorant Garamond', serif; */
+    font-family: 'Crimson Text', serif;
   }
