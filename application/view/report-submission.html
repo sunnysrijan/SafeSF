@@ -96,12 +96,11 @@
 
   <div class="container" id="form-container">
     <div class="row">
-      <div class="col-xl-8 offset-xl-2">
+      <div class="col-xl-10 offset-xl-1">
 
         <div style="text-align:center">
           <br>
           <h1 style="font-weight: 700">Hazard Report Submssion:</h1>
-          <hr>
         </div>
 
         <!--  This form serves to take in hazard details and metadata from the user. The request object is
@@ -111,8 +110,9 @@
               {category_id, location_id, park_id, details, loc_lat, loc_long, user_id, image_ref}   -->
         <form id="results-form" action="/submitReport" method="post" role="form">
           <div class="row">
-            <div class="col-lg-8 offset-xl-2">
+            <div class="col-lg-10 offset-xl-1">
               <div class="form-group">
+                  <hr>
                 <label for="dropdown-content">Category 
                   <strong style='color: red'> *</strong>
                 </label>
@@ -120,9 +120,9 @@
                 <select class="form-control" name="category_id" id="categoryDropDown" equired="required">
                   <option>Please Select One</option>
                 </select>
+                <hr>
               </div>
 
-              <hr>
 
               <div class="form-group">
                 <label for="dropdown-content">Neighborhood 
@@ -188,9 +188,9 @@
 
 
           <div class="row">
-            <div class="col-lg-8 offset-xl-2">
+            <div class="col-lg-10 offset-xl-1">
               <div class="form-group">
-                <label for="picture">Please choose a picture to submit:
+                <label for="picture">Please choose a picture of the hazard to be submitted:
                     <strong style='color: red'> *</strong>
                 </label>
                 <input style="padding-top: 10px;" type="file" class="form-control-file" name="image_ref" id="image_ref" >
@@ -202,17 +202,17 @@
           <!-- <br> -->
 
           <div class="row">
-            <div class="col-lg-8 offset-xl-2">
+            <div class="col-lg-8 offset-xl-1">
               <div class="form-group mx-auto">
-                <div id="captchaElement style= margin-top: 10px;margin-bottom: 10px;" 
-                     class="g-recaptcha" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
+                <div id="captchaElement" 
+                     class="g-recaptcha style= margin-top: 10px;" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
                 </div>
-                <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto" value="  Submit Report  " disabled="true">
+                <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-1" value=" Submit Report " disabled="true">
               </div>
             </div>
           </div>
 
-          <br><br><br>
+          <br><br><br><br><br>
         
           <hr>
           <p style="text-align: center">Fields with 
