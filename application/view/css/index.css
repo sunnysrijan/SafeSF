@@ -18,6 +18,8 @@
 
 .split_left {
   width:40%;
+  height:100%;
+  min-width: max-content;
   left:0;
   z-index: 1;
   overflow-x: hidden;
