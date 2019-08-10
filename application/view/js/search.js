@@ -137,7 +137,7 @@ function createTable (searchResults) {
     if (locations[parseInt(report.location_id) - 1] == null) { var location = '' } else { var location = getValueOfId(locations, 'location_id', report.location_id) }
 
     cell.innerHTML = "<div onclick=\"viewReports('" + report.report_id + "')\" class='card'>" +
-      "<img class='cardImage' src='" + image + "style='height:300;width:300'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
+      "<img class='cardImage' src='" + image + "'style='height:300;width:300'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
       category + '</div><div><strong>Details:</strong> ' +
       report.details + '</div><div><strong>Location:</strong> ' +
       location + '</div><div><strong>Reported On: </strong>' +
