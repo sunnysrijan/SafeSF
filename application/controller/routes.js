@@ -8,7 +8,7 @@ const db_search = require('./search.js')
 const db_locations = require('./locations.js')
 const image = require('./images.js')
 const reports = require('./reports.js')
-const { body, check, validationResult } = require('express-validator');
+const { body, check, validationResult } = require('express-validator')
 const captcha = require('./captcha.js')
 const formValidation = require('./form-validation.js')
 const auth = require('../auth/auth.js')
@@ -63,7 +63,7 @@ router.get('/search', (req, res) => {
 // endpoint for POSTing reports
 // Uses validator.js and express-validator.js libraries to enforce rules.
 router.post('/submitReport', [
-  body('g-recaptcha-response').exists({checkNull: true, checkFalsy: true}).withMessage('No captcha token sent!'),
+  body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
   body('category_id')
     .exists({ checkNull: true }),
   body('location_id')
@@ -77,7 +77,7 @@ router.post('/submitReport', [
   body('user_id')
     .exists({ checkNull: true }),
   body('image_ref')
-    .exists({ checkNull: true }),
+    .exists({ checkNull: true })
 ], (req, res) => {
   console.log('POST endpoint.')
   console.log(req.body)
@@ -94,9 +94,8 @@ router.post('/submitReport', [
     console.log('g-recaptcha-response: ' + body['g-recaptcha-response'] + ' - pass')
   }
 
-
   // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if(!formValidation.validateSubmissionForm(req.body)) {
+  if (!formValidation.validateSubmissionForm(req.body)) {
     res.status(422)
     res.send('Report form validation failed!')
     console.log('Report form validation failed!')
@@ -119,25 +118,22 @@ router.post('/submitReport', [
       console.log('Captcha invalid, value: ', err)
       res.status(422)
       res.send(err)
-      return
     } else {
-
       console.log(result)
       // If we get here, then the token is valid.
       // Remove the captcha token from the original data packet.
       delete req.body['g-recaptcha-response']
 
+      // Now that the validation is done, create the report.
       reports.createReport(req.body, function (err, result) {
         if (err) {
           console.log('Error creating report: ' + err)
           res.status(422)
           res.send('Error creating report\n')
-          return
         } else {
           res.status(200)
           console.log(result)
           res.redirect('report?report_id=' + result.report_id)
-          return
         }
       })
     }

@@ -10,16 +10,17 @@ const maxDetailsVarcharAmount = 300
 const maxUserIDVarcharAmount = 100
 const maxImageRefVarcharAmount = 100
 
+// Initial DB call to get the number of categories in the database at the time of startup.
 db_categories.getNumberOfCategories()
   .then(function (numCategories) {
     numberOfCategories = String(numCategories)
-})
+  })
 
+// Initial DB call to get the number of locations in the database at the time of startup.
 db_locations.getNumberOfLocations()
   .then(function (numLocations) {
     numberOfLocations = String(numLocations)
-})
-
+  })
 
 // The variable used to track whether or not the marker is in the vicinity of San Francisco.
 var boolMarkerInSF
@@ -36,22 +37,22 @@ const SAN_FRANCISCO_MAP_BOUNDS = {
 // Receives lat/lng.
 // Returns true/false.
 exports.isMarkerInSFRectangleBoundary = function (markerLat, markerLng) {
-    // console.log('checking: ', markerLat, ' ', typeof markerLat, ' ', markerLng, ' ', typeof markerLng)
-    var inSF = true
+  // console.log('checking: ', markerLat, ' ', typeof markerLat, ' ', markerLng, ' ', typeof markerLng)
+  var inSF = true
 
-    if (parseFloat(markerLat) > parseFloat(SAN_FRANCISCO_MAP_BOUNDS.north)) {
-      inSF = false
-    }
-    if (parseFloat(markerLat) < parseFloat(SAN_FRANCISCO_MAP_BOUNDS.south)) {
-      inSF = false
-    }
-    if (parseFloat(markerLng) > parseFloat(SAN_FRANCISCO_MAP_BOUNDS.east)) {
-      inSF = false
-    }
-    if (parseFloat(markerLng) < parseFloat(SAN_FRANCISCO_MAP_BOUNDS.west)) {
-      inSF = false
-    }
-    return inSF // If we make it here, everything should be ok.
+  if (parseFloat(markerLat) > parseFloat(SAN_FRANCISCO_MAP_BOUNDS.north)) {
+    inSF = false
+  }
+  if (parseFloat(markerLat) < parseFloat(SAN_FRANCISCO_MAP_BOUNDS.south)) {
+    inSF = false
+  }
+  if (parseFloat(markerLng) > parseFloat(SAN_FRANCISCO_MAP_BOUNDS.east)) {
+    inSF = false
+  }
+  if (parseFloat(markerLng) < parseFloat(SAN_FRANCISCO_MAP_BOUNDS.west)) {
+    inSF = false
+  }
+  return inSF // If we make it here, everything should be ok.
 }
 
 exports.validateSubmissionForm = function (reqBody) {
@@ -59,7 +60,7 @@ exports.validateSubmissionForm = function (reqBody) {
   var validationPassed = true
 
   // Testing category_id
-  if (validator.isInt(body['category_id'] + '', {min: 1, max: parseInt(numberOfCategories), allow_leading_zeroes: true})) {
+  if (validator.isInt(body['category_id'] + '', { min: 1, max: parseInt(numberOfCategories), allow_leading_zeroes: true })) {
     console.log('category_id ' + body['category_id'] + ' pass')
   } else {
     console.log('category_id ' + body['category_id'] + ' fail')
@@ -67,7 +68,7 @@ exports.validateSubmissionForm = function (reqBody) {
   }
 
   // Testing category_id
-  if (validator.isInt(body['location_id'] + '', {min: 1, max: parseInt(numberOfLocations), allow_leading_zeroes: true})) {
+  if (validator.isInt(body['location_id'] + '', { min: 1, max: parseInt(numberOfLocations), allow_leading_zeroes: true })) {
     console.log('location_id ' + body['location_id'] + ' pass')
   } else {
     console.log('location_id ' + body['location_id'] + ' fail')
@@ -75,7 +76,7 @@ exports.validateSubmissionForm = function (reqBody) {
   }
 
   // Testing details
-  if (validator.isLength(body['details'] + '', {min: 0, max: parseInt(maxDetailsVarcharAmount)})) {
+  if (validator.isLength(body['details'] + '', { min: 0, max: parseInt(maxDetailsVarcharAmount) })) {
     console.log('details ' + body['details'] + ' pass')
   } else {
     console.log('details ' + body['details'] + ' fail')
@@ -83,7 +84,7 @@ exports.validateSubmissionForm = function (reqBody) {
   }
 
   // Testing loc_lat
-  if (validator.isFloat(body['loc_lat'] + '', {locale: 'en-US'})) {
+  if (validator.isFloat(body['loc_lat'] + '', { locale: 'en-US' })) {
     console.log('loc_lat ' + body['loc_lat'] + ' pass')
   } else {
     console.log('loc_lat ' + body['loc_lat'] + ' fail')
@@ -91,7 +92,7 @@ exports.validateSubmissionForm = function (reqBody) {
   }
 
   // Testing loc_long
-  if (validator.isFloat(body['loc_long'] + '', {locale: 'en-US'})) {
+  if (validator.isFloat(body['loc_long'] + '', { locale: 'en-US' })) {
     console.log('loc_long ' + body['loc_long'] + ' pass')
   } else {
     console.log('loc_long ' + body['loc_long'] + ' fail')
@@ -108,7 +109,7 @@ exports.validateSubmissionForm = function (reqBody) {
   }
 
   // Testing user_id
-  if (validator.isLength(body['user_id'] + '', {min: 1, max: parseInt(maxUserIDVarcharAmount)})) {
+  if (validator.isLength(body['user_id'] + '', { min: 1, max: parseInt(maxUserIDVarcharAmount) })) {
     console.log('user_id ' + body['user_id'] + ' pass')
   } else {
     console.log('user_id ' + body['user_id'] + ' fail')
@@ -116,7 +117,7 @@ exports.validateSubmissionForm = function (reqBody) {
   }
 
   // Testing image_ref
-  if (validator.isLength(body['image_ref'] + '', {min: 1, max: parseInt(maxImageRefVarcharAmount)})) {
+  if (validator.isLength(body['image_ref'] + '', { min: 1, max: parseInt(maxImageRefVarcharAmount) })) {
     console.log('image_ref ' + body['image_ref'] + ' pass')
   } else {
     console.log('image_ref ' + body['image_ref'] + ' fail')
