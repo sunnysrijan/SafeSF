@@ -12,3 +12,16 @@ exports.getCategories = function (callback) {
     }
   })
 }
+
+// Queries the DB and gets the number of categories in the database.
+exports.getNumberOfCategories = function () {
+  return new Promise(function(resolve, reject) {
+    var result = db.query('SELECT COUNT(*) AS numCategories FROM categories', function (err, result) {
+      if (err) {
+        reject(null)
+      } else {
+        resolve(result[0].numCategories)
+      }
+    })
+  })
+}
