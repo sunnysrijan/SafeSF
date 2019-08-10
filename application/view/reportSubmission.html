@@ -1,5 +1,5 @@
 <!-- First draft of Report Submission page:                                                                                -->
-<!-- Tristan Mclennan, Evan Guan - CSc 648 Software Engineering Summer 2019 Team 2 --> 
+<!-- Tristan Mclennan, Evan Guan - CSc 648 Software Engineering Summer 2019 Team 2 -->
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
             }
         </style>
         <script type="text/javascript" src="js/ReportSubmissionMapExample.js"></script>
-      
+
     </head>
 
   <body onload="getCategories(); getLocations()">
@@ -28,23 +28,23 @@
 
               <div style="text-align:center">
                   <hr>
-                  <h2>Report Submission Page</h2>
+                  <h2>Report post</h2>
                   <hr>
               </div>
 
-          <!--  This form takes in hazard details and meta-data from the user. The request object is 
+          <!--  This form takes in hazard details and meta-data from the user. The request object is
                 sent to the "/reports" endpoint for processing.
-          
-                Posts a JSON object in the following format: 
+
+                Posts a JSON object in the following format:
                   {category_id, location_id, park_id, details, loc_lat, loc_long, user_id, image_ref}   -->
               <form id="results-form" action="/reports" method="post" role="form">
                     <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="dropdown-content">Category 
-                                        <strong style='color: red'>*</strong>  
+                                    <label for="dropdown-content">Category
+                                        <strong style='color: red'>*</strong>
                                     </label>
- 
+
                                     <select class="form-control" name="category_id" id="categoryDropDown" equired="required">
                                       <option>Please Select One</option>
                                     </select>
@@ -81,7 +81,7 @@
                                   <hr>
 
                                   <!-- The hidden input elements give us a means of bundling extra data into our JSON.
-                                    We insert the appropriate value in through the DOM, then all the data is compiled and 
+                                    We insert the appropriate value in through the DOM, then all the data is compiled and
                                     sent via form action -->
 
                                   <div class="form-group" hidden>
@@ -103,7 +103,7 @@
                                 <hr>
                             </div>
                         </div>
-                  
+
                     <!--- This element holds the map. --->
 
                                 <h3 style="text-align: center">Please drag the red marker to location of incident:</h3>
@@ -113,7 +113,7 @@
                                 <hr>
 
                     <div class="row">
-                        
+
                         <div class="form-group form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="remember" required> I agree to all possible terms of service.
@@ -122,17 +122,17 @@
                         </div>
 
                         <p class="text-muted" >
-                            <strong style='color: red'>*</strong> 
-                        </p>      
+                            <strong style='color: red'>*</strong>
+                        </p>
                     </div>
 
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input type="submit" class="btn btn-outline-primary btn-send" value="Submit"> 
+                                <input type="submit" class="btn btn-outline-primary btn-send" value="Submit">
                             </div>
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </form>
             <!-- /.form -->
@@ -145,7 +145,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&callback=initMap"
             async defer></script>
 
@@ -190,7 +190,7 @@
 
         function populateDropdown(data, field) {
           console.log(`field is ${field}`);
-          
+
             if(field === "category")
                 var dropDown = document.getElementById("categoryDropDown");
             else if(field === "location")
@@ -210,7 +210,7 @@
                   }
                 dropDown.add(option);
             }
-            
+
             // var div = document.createElement("div");
             // div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('None', '" + field + "')\">None</a>";
             // dropDown.appendChild(div);
@@ -227,7 +227,7 @@
             //     dropDown.appendChild(div);
             // }
         }
-    
+
     </script>
 
   </body>
