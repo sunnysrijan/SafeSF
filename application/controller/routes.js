@@ -124,6 +124,7 @@ router.post('/submitReport', [
       // Remove the captcha token from the original data packet.
       delete req.body['g-recaptcha-response']
 
+      // ---------- BEGIN REPORT INSERTION SECTION ----------
       // Now that the validation is done, create the report.
       reports.createReport(req.body, function (err, result) {
         if (err) {
@@ -136,6 +137,7 @@ router.post('/submitReport', [
           res.redirect('report?report_id=' + result.report_id)
         }
       })
+      // ---------- END REPORT INSERTION SECTION ----------
     }
   })
   // ---------- END CAPTCHA VALIDATION SECTION ----------

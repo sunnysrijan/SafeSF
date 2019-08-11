@@ -66,30 +66,29 @@ function initMap () {
   })
 
   // Add a pair of events to listen for map panning to change the opacity of the legend.
-  google.maps.event.addListener(map, 'dragstart', function() {
-    legend.style.opacity = "0.50";
+  google.maps.event.addListener(map, 'dragstart', function () {
+    legend.style.opacity = '0.50'
   })
 
-  google.maps.event.addListener(map, 'dragend', function() {
-    legend.style.opacity = "1.0";
+  google.maps.event.addListener(map, 'dragend', function () {
+    legend.style.opacity = '1.0'
   })
 
-  // Add an event that waits for the map to finish loading.
-  google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+  // Add an event that waits for the map image tiles to finish loading.
+  google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
     // Create the icon legend.
     createLegend()
   })
 }
 
 // Creates the icon legend for the map.
-function createLegend() {
+function createLegend () {
   // Get the categories from the database by making a request and then handling the response.
   var xmlReq = new XMLHttpRequest()
   // Get the listener ready first.
   xmlReq.onload = function () {
     if (xmlReq.status == 200) {
       categories = xmlReq.response
-
       legend = document.getElementsByClassName('legend')[0]
 
       // Get key value pairs and their icons for the legend.

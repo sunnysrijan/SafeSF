@@ -122,7 +122,11 @@ function createTable (searchResults) {
     var category = getValueOfId(categories, 'category_id', report.category_id)
     var image = 'report_images/' + report.report_id + '.jpg'
 
-    if (locations[parseInt(report.location_id) - 1] == null) { var location = '' } else { var location = getValueOfId(locations, 'location_id', report.location_id) }
+    if (locations[parseInt(report.location_id) - 1] == null) {
+      var location = ''
+    } else {
+      var location = getValueOfId(locations, 'location_id', report.location_id)
+    }
 
     cell.innerHTML = "<div onclick=\"viewReports('" + report.report_id + "')\" class='card'>" +
       "<img class='cardImage' src='" + image + "'style='height:300;width:300'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
@@ -132,9 +136,12 @@ function createTable (searchResults) {
       report.insert_date + '</div><div><strong>Status: </strong>' +
       report.status + '</div></div></div>'
 
+    // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
+    var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
+    var markerLng = report.loc_long != null ? report.loc_long : report.park_loc_long
     // Add marker for map using this result.
     // addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng)
-    addReportMarkerToMap(category, report.category_id, image, report.details, report.report_id, report.loc_lat, report.loc_long)
+    addReportMarkerToMap(category, report.category_id, image, report.details, report.report_id, markerLat, markerLng)
   }
 
   var tableContainer = document.getElementById('table')
