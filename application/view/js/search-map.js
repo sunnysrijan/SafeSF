@@ -9,6 +9,10 @@ var map
 var markers = []
 // Ref to the last opened infoWindow. Used for keeping the map uncluttered.
 var lastOpenedInfowindow = null
+// The legend for the map markers.
+var legend = document.getElementsByClassName('legend')[0]
+// The icons for the legend
+var legendIcons
 // The boundaries of the map.
 var SAN_FRANCISCO_MAP_BOUNDS = {
   north: 37.85,
@@ -60,6 +64,56 @@ function initMap () {
     lat: 37.720993,
     lng: -122.475373
   })
+
+  // Add a pair of events to listen for map panning to change the opacity of the legend.
+  google.maps.event.addListener(map, 'dragstart', function() {
+    legend.style.opacity = "0.50";
+  })
+
+  google.maps.event.addListener(map, 'dragend', function() {
+    legend.style.opacity = "1.0";
+  })
+
+  // Add an event that waits for the map to finish loading.
+  google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+    // Create the icon legend.
+    createLegend()
+  })
+}
+
+// Creates the icon legend for the map.
+function createLegend() {
+  // Get the categories from the database by making a request and then handling the response.
+  var xmlReq = new XMLHttpRequest()
+  // Get the listener ready first.
+  xmlReq.onload = function () {
+    if (xmlReq.status == 200) {
+      categories = xmlReq.response
+
+      legend = document.getElementsByClassName('legend')[0]
+
+      // Get key value pairs and their icons for the legend.
+      for (categoryIndex in categories) {
+        // Create a new div for every category.
+        var div = document.createElement('div')
+        div.innerHTML = '<img src="' + getMarkerIconURL(categories[categoryIndex].category_id) + '"> ' + categories[categoryIndex].category
+        legend.appendChild(div)
+      }
+
+      // The element is hidden by default, since there is graphical element shuffling due to async loading of elements on the page.
+      // So, we wait until the whole legend has been built to...
+      // Move the legend into the map.
+      map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend)
+      // Unhide the element.
+      document.getElementsByClassName('legend-header')[0].style.display = 'block'
+      legend.style.display = 'block'
+    }
+  }
+
+  // Send the request for data.
+  xmlReq.open('GET', '/categories', true)
+  xmlReq.responseType = 'json'
+  xmlReq.send()
 }
 
 // Adds a marker to the map using given coordinates.
