@@ -112,7 +112,8 @@
           <div class="row">
             <div class="col-lg-10 offset-xl-1">
               <div class="form-group">
-                  <hr>
+                  <br>
+                  <!-- <hr> -->
                 <label for="dropdown-content">Category 
                   <strong style='color: red'> *</strong>
                 </label>
@@ -120,7 +121,8 @@
                 <select class="form-control" name="category_id" id="categoryDropDown" equired="required">
                   <option>Please Select One</option>
                 </select>
-                <hr>
+                <br>
+                <!-- <hr> -->
               </div>
 
 
@@ -133,7 +135,8 @@
                 </select>
               </div>
 
-              <hr>
+              <br>
+              <!-- <hr> -->
 
               <div class="form-group">
                 <label for="dropdown-content">Park Name</label>
@@ -145,7 +148,8 @@
                 </select>
               </div>
 
-              <hr>
+              <br>
+              <!-- <hr> -->
 
               <div class="form-group">
                 <label for="user_entry">Please enter a description: 
@@ -170,35 +174,41 @@
               <div class="form-group">
                 <input type="hidden" step="0.000000001" class="form-control" name="user_id" id="user_id" value=1>
               </div>
-
+              <br>
+              <hr>
             </div>
           </div>
 
           <!--- This element holds the map. --->
 
-          <hr>
+     
 
           <h3 style="text-align: center; font-weight: 600;">Please drag the red marker to location of incident:</h3>
           <br>
           <div id="map"></div>
           <p id="currentCoords"></p>
-          <br>
-          <hr>
+          <!-- <br> -->
+
           <!-- <br> -->
 
 
           <div class="row">
             <div class="col-lg-10 offset-xl-1">
+              <hr>
+              <br>
               <div class="form-group">
                 <label for="picture">Please choose a picture of the hazard to be submitted:
                     <strong style='color: red'> *</strong>
                 </label>
                 <input style="padding-top: 10px;" type="file" class="form-control-file" name="image_ref" id="image_ref" >
               </div>
+              <br>
+              <hr>
+              <br>
             </div>
           </div>    
                 
-          <hr> 
+          
           <!-- <br> -->
 
           <div class="row">
@@ -207,7 +217,7 @@
                 <div id="captchaElement" 
                      class="g-recaptcha style= margin-top: 10px;" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
                 </div>
-                <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-1" value=" Submit Report " disabled="true">
+                <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-1" value=" Submit Report "  style="border-radius: 15px; border-width: 2px " disabled="true">
               </div>
             </div>
           </div>
