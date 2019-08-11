@@ -31,30 +31,30 @@ function getLocations () {
   xmlReq.send()
 }
 
-function populateDropdown (jsonData, field) {
-  if (field === 'category') { var dropDown = document.getElementById('categoryDropDown') } else if (field === 'location') { var dropDown = document.getElementById('locationDropDown') }
+function populateDropdown (data, field) {
+  var dropDown
 
-  var div = document.createElement('div')
-  div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('None', '" + field + "')\">None</a>"
-  dropDown.appendChild(div)
+  if (field === 'category')
+    dropDown = document.getElementById('categoryDropDown')
+  else if (field === 'location')
+    dropDown = document.getElementById('locationDropDown')
 
-  for (var i = 0; i < jsonData.length; i++) {
-    if (field === 'category') { var selection = jsonData[i].category } else if (field === 'location') { var selection = jsonData[i].location }
+  let option
 
-    div = document.createElement('div')
-    div.innerHTML = "<a href='javascript:void(0);' onclick=\"selectDropdown('" + selection + "', '" + field + "')\">" + selection + '</a>'
-    dropDown.appendChild(div)
+  for (let i = 0; i < data.length; i++) {
+    option = document.createElement('option')
+
+    if (field === 'category') {
+      option.text = data[i].category
+      option.value = data[i].category_id
+    }
+    else if (field === 'location') {
+      option.text = data[i].location
+      option.value = data[i].location_id
+    }
+
+    dropDown.add(option)
   }
-}
-
-function selectDropdown (selection, field) {
-  if (field === 'category') { var dropDownButton = 'categoryButton' } else if (field === 'location') { var dropDownButton = 'locationButton' }
-
-  var button = document.getElementById(dropDownButton)
-
-  if (selection === 'None') {
-    if (field === 'category') { button.innerHTML = 'Categories' } else if (field === 'location') { button.innerHTML = 'Locations' }
-  } else { button.innerHTML = selection }
 }
 
 function search () {
@@ -70,31 +70,30 @@ function search () {
 }
 
 function getSearchParams () {
-  var category = document.getElementById('categoryButton').innerHTML
-  var category_id = getIdOfValue(categories, 'category', category)
-
-  var location = document.getElementById('locationButton').innerHTML
-  var location_id = getIdOfValue(locations, 'location', location)
+  var category_id = document.getElementById('categoryDropDown').value
+  var location_id = document.getElementById('locationDropDown').value
 
   var user_entry = document.getElementById('searchBox').value
 
   var requestParam = '?'
   var firstParam = true
 
-  if (category != 'Categories') {
+  if (category_id != -1) {
     requestParam += 'category_id=' + category_id
     firstParam = false
   }
 
-  if (location != 'Locations') {
-    if (!firstParam) { requestParam += '&' }
+  if (location_id != -1) {
+    if (!firstParam)
+      requestParam += '&'
 
     requestParam += 'location_id=' + location_id
     firstParam = false
   }
 
   if (user_entry != '') {
-    if (!firstParam) { requestParam += '&' }
+    if (!firstParam)
+      requestParam += '&'
 
     requestParam += 'user_entry=' + user_entry
   }
@@ -102,23 +101,12 @@ function getSearchParams () {
   return requestParam
 }
 
-function getIdOfValue (jsonData, field, value) {
-  for (var i = 0; i < jsonData.length; i++) {
-    if (field === 'category') {
-      if (jsonData[i].category === value) { return jsonData[i].category_id }
-    } else if (field === 'location') {
-      if (jsonData[i].location === value) { return jsonData[i].location_id }
-    }
-  }
-}
-
 function getValueOfId (jsonData, field, id) {
   for (var i = 0; i < jsonData.length; i++) {
-    if (field === 'category_id') {
-      if (jsonData[i].category_id === id) { return jsonData[i].category }
-    } else if (field === 'location_id') {
-      if (jsonData[i].location_id === id) { return jsonData[i].location }
-    }
+    if (field === 'category_id' && jsonData[i].category_id === id)
+      return jsonData[i].category
+    else if (field === 'location_id' && jsonData[i].location_id === id)
+      return jsonData[i].location
   }
 }
 
