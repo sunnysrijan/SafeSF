@@ -41,11 +41,12 @@ function getLocations () {
 // found in 'data' is inserted into that element.
 function populateDropdown (data, field) {
   var dropDown
-  
-  if (field === 'category')
+
+  if (field === 'category') {
     dropDown = document.getElementById('categoryDropDown')
-  else if (field === 'location')
+  } else if (field === 'location') {
     dropDown = document.getElementById('locationDropDown')
+  }
 
   let option
 

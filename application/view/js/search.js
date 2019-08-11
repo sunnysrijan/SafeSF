@@ -34,10 +34,11 @@ function getLocations () {
 function populateDropdown (data, field) {
   var dropDown
 
-  if (field === 'category')
+  if (field === 'category') {
     dropDown = document.getElementById('categoryDropDown')
-  else if (field === 'location')
+  } else if (field === 'location') {
     dropDown = document.getElementById('locationDropDown')
+  }
 
   let option
 
@@ -47,8 +48,7 @@ function populateDropdown (data, field) {
     if (field === 'category') {
       option.text = data[i].category
       option.value = data[i].category_id
-    }
-    else if (field === 'location') {
+    } else if (field === 'location') {
       option.text = data[i].location
       option.value = data[i].location_id
     }
@@ -84,16 +84,18 @@ function getSearchParams () {
   }
 
   if (location_id != -1) {
-    if (!firstParam)
+    if (!firstParam) {
       requestParam += '&'
+    }
 
     requestParam += 'location_id=' + location_id
     firstParam = false
   }
 
   if (user_entry != '') {
-    if (!firstParam)
+    if (!firstParam) {
       requestParam += '&'
+    }
 
     requestParam += 'user_entry=' + user_entry
   }
@@ -103,10 +105,11 @@ function getSearchParams () {
 
 function getValueOfId (jsonData, field, id) {
   for (var i = 0; i < jsonData.length; i++) {
-    if (field === 'category_id' && jsonData[i].category_id === id)
+    if (field === 'category_id' && jsonData[i].category_id === id) {
       return jsonData[i].category
-    else if (field === 'location_id' && jsonData[i].location_id === id)
+    } else if (field === 'location_id' && jsonData[i].location_id === id) {
       return jsonData[i].location
+    }
   }
 }
 
