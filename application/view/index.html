@@ -31,11 +31,15 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18"></script>
     <script type="text/javascript" src="js/search-map.js"></script>
     <script type="text/javascript" src="js/search.js"></script>
+<<<<<<< HEAD
 
     <style>
         #map {height: 70%; width: 60%;}
     </style>
 </head>
+=======
+    </head>
+>>>>>>> f339df2f7519fd5c8c0b7fb4eb4a328b9105d9aa
 
 <body onload="checkCookie(); requestAccess(); getCategories(); getLocations(); initMap();">
     <div class="topnav">
@@ -64,31 +68,35 @@
 
             </div>
 
-            <h2>Lets Start your search</h1>
-              <div class="jumbotron">
-            <div class="form-box">
-                <div class="dropdown">
-                    <button class="dropbtn" id="categoryButton">Categories</button>
-                    <div class="dropdown-content" id="categoryDropDown">
-                    </div>
-                </div>
+            <h2>Lets Start your search</h2>
 
-                <div class="dropdown">
-                    <button class="dropbtn" id="locationButton">Locations</button>
-                    <div class="dropdown-content" id="locationDropDown">
-                    </div>
-                </div>
+            <div class="jumbotron">
+	            <div class="form-box">
+	                <div class="dropdown">
+	                	<p>Category:</p>
+		                <select class="form-control" name="category_id" id="categoryDropDown">
+		                  <option value="-1">None</option>
+		                </select>
+	                </div>
 
-                <input class="search-field search" id="searchBox" name="location" type="text" placeholder="search"/>
-                <button class="search-btn" type="button" onclick="search()">search</button>
-                <a href="/submitReport" class="submitReport">Create New Report</a>
-            </div>
-          </div>
+	                <div class="dropdown">
+	                	<p>Location:</p>
+		                <select class="form-control" name="location_id" id="locationDropDown">
+		                  <option value="-1">None</option>
+		                </select>
+	                </div>
+
+	                <input class="search-field search" id="searchBox" name="location" type="text" placeholder="search"/>
+	                <button class="search-btn" type="button" onclick="search()">search</button>
+	                <a href="/submitReport" class="submitReport">Create New Report</a>
+	            </div>
+          	</div>
         </form>
+        <div class="split_right" id="table"></div>
+        <div class="legend"><center class="legend-header">Hazards</center></div>
+        <div class="split_left" id="map">
 
-        <div class="split_left" id="table"></div>
-        <div class="split_right" id="map">
-        </div>
+
     </div>
 </body>
 

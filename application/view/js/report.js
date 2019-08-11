@@ -80,7 +80,7 @@ function populateFields (reportResults) {
   var hazardCategory = report.category
   var hazardLocation = report.location
   var reportDate = report.insert_date
-  var reportUpdateDate = report.report_update_date != null ? report.report_update_date : 'No updates yet.'
+  var reportUpdateDate = report.update_date
   var reportStatus = report.status
   var reportID = report.report_id
   var reportDetails = report.details

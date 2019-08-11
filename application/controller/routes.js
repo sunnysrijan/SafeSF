@@ -8,11 +8,14 @@ const db_search = require('./search.js')
 const db_locations = require('./locations.js')
 const image = require('./images.js')
 const reports = require('./reports.js')
+const { body, check, validationResult } = require('express-validator')
 const captcha = require('./captcha.js')
+const formValidation = require('./form-validation.js')
 const auth = require('../auth/auth.js')
 
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
+router.use(check())
 
 /*
     Page requests
@@ -58,54 +61,86 @@ router.get('/search', (req, res) => {
     Reports Endpoints
 */
 // endpoint for POSTing reports
-router.post('/submitReport', (req, res) => {
-  console.log('POST: reports endpoint')
+// Uses validator.js and express-validator.js libraries to enforce rules.
+router.post('/submitReport', [
+  body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
+  body('category_id')
+    .exists({ checkNull: true }),
+  body('location_id')
+    .exists({ checkNull: true }),
+  body('details')
+    .exists({ checkNull: true }),
+  body('loc_lat')
+    .exists({ checkNull: true }),
+  body('loc_long')
+    .exists({ checkNull: true }),
+  body('user_id')
+    .exists({ checkNull: true }),
+  body('image_ref')
+    .exists({ checkNull: true })
+], (req, res) => {
+  console.log('POST endpoint.')
+  console.log(req.body)
 
-  // ---------- BEGIN CAPTCHA SECTION ----------
-  // g-recaptcha-response is the token that is generated when the user succeeds
-  // in a captcha challenge. If the variable is not in the json or if it is an
-  // invalid value, then there was an error in the challenge process.
-
-  if (req.body['g-recaptcha-response'] !== undefined &&
-      req.body['g-recaptcha-response'] !== '' &&
-      req.body['g-recaptcha-response'] != null) {
-    var params = {
-      'g-recaptcha-response': req.body['g-recaptcha-response'],
-      'remote-address': req.connection.remoteAddress
-    }
-    // Start the verification process.
-    captcha.getCaptchaValidationStatus(params, function (err, result) {
-      // If the verification process failed, tell the user and do not enter
-      // report data into DB.
-      if (err) {
-        console.log('Captcha invalid, value: ', err)
-        res.status(401)
-        res.send(err)
-      }
-    })
+  // Check for errors from express-validator checks above.
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    console.log('Error: ', errors)
+    res.status(422)
+    res.send(errors)
+    console.log('g-recaptcha-response: ' + body['g-recaptcha-response'] + ' - fail')
+    return
   } else {
-    // If the token is missing, return an error and do not enter report data
-    // into DB.
-    console.log('Captcha invalid, value: ', req.body['g-recaptcha-response'])
-    res.status(401)
-    res.send('Captcha invalid, please check captcha and try again.\n')
+    console.log('g-recaptcha-response: ' + body['g-recaptcha-response'] + ' - pass')
+  }
+
+  // ---------- BEGIN FORM VALIDATION SECTION ----------
+  if (!formValidation.validateSubmissionForm(req.body)) {
+    res.status(422)
+    res.send('Report form validation failed!')
+    console.log('Report form validation failed!')
     return
   }
-  // Remove the captcha token from the original data packet.
-  delete req.body['g-recaptcha-response']
-  // ---------- END CAPTCHA SECTION ----------
+  // ---------- END FORM VALIDATION SECTION ----------
 
-  reports.createReport(req.body, function (err, result) {
+  // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
+  // g-recaptcha-response is the token that is generated when the user succeeds
+  // in a captcha challenge.
+  var params = {
+    'g-recaptcha-response': req.body['g-recaptcha-response'],
+    'remote-address': req.connection.remoteAddress
+  }
+  // Start the verification process.
+  captcha.getCaptchaValidationStatus(params, function (err, result) {
+    // If the verification process failed, tell the user and do not enter
+    // report data into DB.
     if (err) {
-      console.log('Error creating report: ' + err)
-      res.status(503)
-      res.send('Error creating report\n')
+      console.log('Captcha invalid, value: ', err)
+      res.status(422)
+      res.send(err)
     } else {
-      res.status(200)
       console.log(result)
-      res.redirect('report?report_id=' + result.report_id)
+      // If we get here, then the token is valid.
+      // Remove the captcha token from the original data packet.
+      delete req.body['g-recaptcha-response']
+
+      // ---------- BEGIN REPORT INSERTION SECTION ----------
+      // Now that the validation is done, create the report.
+      reports.createReport(req.body, function (err, result) {
+        if (err) {
+          console.log('Error creating report: ' + err)
+          res.status(422)
+          res.send('Error creating report\n')
+        } else {
+          res.status(200)
+          console.log(result)
+          res.redirect('report?report_id=' + result.report_id)
+        }
+      })
+      // ---------- END REPORT INSERTION SECTION ----------
     }
   })
+  // ---------- END CAPTCHA VALIDATION SECTION ----------
 })
 
 // Gets data of a report for the full-page report page.
