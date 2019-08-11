@@ -40,13 +40,12 @@ function getLocations () {
 // The field value is used to select the appropriate dropdown element, and then each item
 // found in 'data' is inserted into that element.
 function populateDropdown (data, field) {
-  // console.log(`field is ${field}`);
   var dropDown
-  if (field === 'category') {
+  
+  if (field === 'category')
     dropDown = document.getElementById('categoryDropDown')
-  } else if (field === 'location') {
+  else if (field === 'location')
     dropDown = document.getElementById('locationDropDown')
-  }
 
   let option
 

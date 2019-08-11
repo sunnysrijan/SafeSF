@@ -54,26 +54,29 @@
 
             </div>
 
-            <h2>Lets Start your search</h1>
-              <div class="jumbotron">
-            <div class="form-box">
-                <div class="dropdown">
-                    <button class="dropbtn" id="categoryButton">Categories</button>
-                    <div class="dropdown-content" id="categoryDropDown">
-                    </div>
-                </div>
+            <h2>Lets Start your search</h2>
 
-                <div class="dropdown">
-                    <button class="dropbtn" id="locationButton">Locations</button>
-                    <div class="dropdown-content" id="locationDropDown">
-                    </div>
-                </div>
+            <div class="jumbotron">
+	            <div class="form-box">
+	                <div class="dropdown">
+	                	<p>Category:</p>
+		                <select class="form-control" name="category_id" id="categoryDropDown">
+		                  <option value="-1">None</option>
+		                </select>
+	                </div>
 
-                <input class="search-field search" id="searchBox" name="location" type="text" placeholder="search"/>
-                <button class="search-btn" type="button" onclick="search()">search</button>
-                <a href="/submitReport" class="submitReport">Create New Report</a>
-            </div>
-          </div>
+	                <div class="dropdown">
+	                	<p>Location:</p>
+		                <select class="form-control" name="location_id" id="locationDropDown">
+		                  <option value="-1">None</option>
+		                </select>
+	                </div>
+
+	                <input class="search-field search" id="searchBox" name="location" type="text" placeholder="search"/>
+	                <button class="search-btn" type="button" onclick="search()">search</button>
+	                <a href="/submitReport" class="submitReport">Create New Report</a>
+	            </div>
+          	</div>
         </form>
 
         <div class="split_left" id="table"></div>
