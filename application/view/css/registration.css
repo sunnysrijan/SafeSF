@@ -1,0 +1,70 @@
+
+
+/* Chosen Color Scheme: */
+
+/*  Darkest:   #248ea9
+               #28c3d4
+               #aee7e8
+   Lightest:   #f4f4f4      */
+
+/* Fonts available through google CDN:
+
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
+              Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"rel="stylesheet">
+
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Crimson Text', serif;
+  font-family: 'Darker Grotesque', sans-serif;
+  font-family: 'Kreon', serif; */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  font-weight:700;
+  font-size:125%;
+  /* font-family: 'Crimson Text', serif; */
+}
+
+form {
+  min-width: 400px;
+  max-width: 500px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.g-recaptcha {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #f4f4f4;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+#registration-form {
+  font-size:105%;
+  /* font-family: 'Darker Grotesque', sans-serif; */
+  /* font-family: 'Cormorant Garamond', serif; */
+  font-family: 'Crimson Text', serif;
+}
