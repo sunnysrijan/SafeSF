@@ -41,6 +41,7 @@
   <link href="css/report-submission.css" rel="stylesheet">
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry&callback=initMap" async defer></script>
   <script type="text/javascript" src="js/navbar.js"></script>
+  <script type="text/javascript" src="js/auth.js"></script>
   <script type="text/javascript" src="js/captcha.js"></script>
   <script type="text/javascript" src="js/report-submission-map.js"></script>
   <script type="text/javascript" src="js/dropdown.js"></script>
@@ -204,3 +205,8 @@
 </body>
 
 </html>
+
+<!-- imports -->
+<script type="text/javascript">
+    loadNavbar(); getCategories(); getLocations();
+</script>

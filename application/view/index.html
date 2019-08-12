@@ -38,9 +38,7 @@
         #map {height: 70%; width: 60%;}
     </style>
 </head>
-    </head>
-
-<body onload="loadNavbar(); checkCookie(); requestAccess(); getCategories(); getLocations(); initMap();">
+<body>
 
 	<!-- Will be populated with the html for the navbar on startup -->
 	<div id="navbar-placeholder"></div>
@@ -85,3 +83,8 @@
 </body>
 
 </html>
+
+<!-- imports -->
+<script type="text/javascript">
+    loadNavbar(); getCategories(); getLocations(); initMap();
+</script>

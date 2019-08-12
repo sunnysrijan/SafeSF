@@ -8,63 +8,70 @@
 
 <!DOCTYPE html>
 <html>
+
+<head>
+  <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" >
+  <link href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" rel="stylesheet" >
+  <link href="https://use.fontawesome.com/releases/v5.10.1/css/v4-shims.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
+              Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"  rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<!-- This is the SFSU header required in the non-functional requirements: -->
+<container-fluid>
+      <!-- <h5 style="background-color: #aee7e8; font-family: 'Crimson Text', serif; font-style: italic;
+        text-align: center; padding: 5px; margin-bottom: 0px;">  -->
+        <h5 style="background-color: black; color:white;  font-family: 'Crimson Text', serif; font-style: italic;
+        text-align: center; padding: 5px; margin-bottom: 0px;"> 
+        SFSU Software Engineering Project CSC 648-848, Summer 2019.  For Demonstration Only
+      </h5>
+   </container>
   
-  <head>
   
-    <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" >
-    <link href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" rel="stylesheet" >
-    <link href="https://use.fontawesome.com/releases/v5.10.1/css/v4-shims.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
-                Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"  rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Standard dark navbar - collapsable into reduced menu for small screen sizes: -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #248ea9;">
+    <a class="navbar-brand" href="/">SF Safe</a>
+  
+    <form class="form-inline mx-auto">
+      <input class=" form-control mr-lg-2" style="width: 200px;" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
+    </form>
+  
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sfsafeNavbar" aria-controls="sfsafeNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <!-- collapsable portion of the navbar: -->
+    <div class="collapse navbar-collapse" id="sfsafeNavbar">
+      <span class="navbar-nav ml-auto">
 
-  </head>
-  <body>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
 
-  <!-- This is the SFSU header required in the non-functional requirements: -->
-  <container-fluid>
-        <!-- <h5 style="background-color: #aee7e8; font-family: 'Crimson Text', serif; font-style: italic;
-          text-align: center; padding: 5px; margin-bottom: 0px;">  -->
-          <h5 style="background-color: black; color:white;  font-family: 'Crimson Text', serif; font-style: italic;
-          text-align: center; padding: 5px; margin-bottom: 0px;"> 
-          SFSU Software Engineering Project CSC 648-848, Summer 2019.  For Demonstration Only
-        </h5>
-     </container>
-    
-    
-      <!-- Standard dark navbar - collapsable into reduced menu for small screen sizes: -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #248ea9;">
-      <a class="navbar-brand" href="/">SF Safe</a>
-    
-      <form class="form-inline mx-auto">
-        <input class=" form-control mr-lg-2" style="width: 200px;" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
-      </form>
-    
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sfsafeNavbar" aria-controls="sfsafeNavbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <!-- collapsable portion of the navbar: -->
-      <div class="collapse navbar-collapse" id="sfsafeNavbar">
-        <span class="navbar-nav ml-auto">
+        <li class="nav-item ">
+          <a id="loginBtn" class="nav-link" href="/login"><span class="fa fa-user"></span> Login</a>
+        </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
+        <li class="nav-item ">
+          <a id="registerBtn" class="nav-link" href="/register"><span class="fas fa-sign-in-alt"></span> Register</a>
+        </li>
 
-          <li class="nav-item ">
-            <a class="nav-link" href="/register"><span class="fa fa-user"></span> Register</a>
-          </li>
+        <li class="nav-item ">
+          <span id="welcomeBox" class="nav-link"></span>
+        </li>
 
-          <li class="nav-item ">
-            <a class="nav-link" href="/login"><span class="fas fa-sign-in-alt"></span> Login</a>
-          </li>
-        </span>
-      </div>
-    </nav>
+        <li class="nav-item ">
+          <span id="logoutBtn" class="nav-link" onclick="logout()">Logout</span>
+        </li>
+      </span>
+    </div>
+  </nav>
 
-  </body>
+</body>
