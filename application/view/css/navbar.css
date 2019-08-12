@@ -2,6 +2,10 @@
 	cursor: default;
 }
 
-.button {
+.interactive {
 	cursor: pointer;
+}
+
+.submitBtn {
+	margin-right: 10px;
 }
