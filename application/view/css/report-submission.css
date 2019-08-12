@@ -41,16 +41,17 @@
   
   #submit-button {
     background-color: white;
+    align-content: center;
     color:#248ea9;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 20px 0;
     border-color: #248ea9;
     /* border-width: medium; */
     cursor: pointer;
     width: 100%;
-    position: absolute;
-    left:80px;
-    top:105px;
+    /* position: absolute; */
+    /* left:80px;
+    top:105px; */
     font-size: 	1.75rem;
     
   }
