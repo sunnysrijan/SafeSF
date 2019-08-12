@@ -9,6 +9,21 @@ function search () {
   xmlReq.responseType = 'json'
   xmlReq.send(null)
 }
+function admin () {
+  console.log("In Admin Func")
+  var xmlReq = new XMLHttpRequest()
+
+  xmlReq.onload = function () {
+    if (xmlReq.status == 200) 
+    { console.log("Recvd response")
+      createTable(xmlReq.response) 
+    }
+  }
+
+  xmlReq.open('GET', '/search?admin=true', true)
+  xmlReq.responseType = 'json'
+  xmlReq.send(null)
+}
 
 function getSearchParams () {
   var category_id = document.getElementById('categoryDropDown').value

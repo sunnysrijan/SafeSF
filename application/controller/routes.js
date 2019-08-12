@@ -12,7 +12,7 @@ const { body, check, validationResult } = require('express-validator')
 const captcha = require('./captcha.js')
 const formValidation = require('./form-validation.js')
 const auth = require('../auth/auth.js')
-
+const db=require('../auth/db_config')
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 router.use(check())
@@ -44,6 +44,21 @@ router.get('/submitReport', (req, res) => {
     Search
 */
 router.get('/search', (req, res) => {
+  if (req.query['admin']=='true'){
+    console.log("In admin search")
+    db.query("Select * from reports where status='unassigned'or status='assigned'", (error, results) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      console.log(results);
+      res.status(200);
+      res.send(results);
+
+    })
+  }
+  else
+  {
   db_search.getResults(req.query, function (err, result) {
     console.log(req.query)
     if (err) {
@@ -53,8 +68,9 @@ router.get('/search', (req, res) => {
       console.log('Retrieved Search Results from the Database')
       res.status(200)
       res.send(result)
-    }
-  })
+      }
+    })
+  }
 })
 
 /*
@@ -158,6 +174,8 @@ router.get('/getReport', (req, res) => {
     }
   })
 })
+
+router.get('/admin', (req, res) => {res.sendFile(path.join(__dirname, '../view/admin.html'));})
 
 /*
     Dropdown endpoints
