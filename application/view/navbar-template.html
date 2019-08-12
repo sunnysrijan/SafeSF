@@ -19,6 +19,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="css/navbar.css" rel="stylesheet">
 
 </head>
 <body>
@@ -55,20 +56,20 @@
           <a class="nav-link" href="/about">About</a>
         </li>
 
-        <li class="nav-item ">
-          <a id="loginBtn" class="nav-link" href="/login"><span class="fa fa-user"></span> Login</a>
+        <li id="loginBtn" class="nav-item">
+          <a class="nav-link" href="/login"><span class="fa fa-user"></span> Login</a>
         </li>
 
-        <li class="nav-item ">
-          <a id="registerBtn" class="nav-link" href="/register"><span class="fas fa-sign-in-alt"></span> Register</a>
+        <li id="registerBtn" class="nav-item">
+          <a class="nav-link" href="/register"><span class="fas fa-sign-in-alt"></span> Register</a>
         </li>
 
-        <li class="nav-item ">
-          <span id="welcomeBox" class="nav-link"></span>
+        <li id="welcomeBox" class="nav-item">
+          <span id="welcomeText" class="nav-link nonInteractive"></span>
         </li>
 
-        <li class="nav-item ">
-          <span id="logoutBtn" class="nav-link" onclick="logout()">Logout</span>
+        <li id="logoutBtn" class="nav-item">
+          <span class="nav-link interactive" onclick="logout()">Logout</span>
         </li>
       </span>
     </div>
