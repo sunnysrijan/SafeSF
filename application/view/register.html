@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="./css/standard.css">
-</head>
-<body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- imports -->
+    <link rel="stylesheet" type="text/css" href="./css/standard.css">
+    <script type="text/javascript" src="js/navbar.js"></script>
+  </head>
+<body onload="loadNavbar();">
+  
+  <!-- Will be populated with the html for the navbar on startup -->
+  <div id="navbar-placeholder"></div>
 
   <div class="container" style="height:40%; min-width: width 300px; text-align: center  ">
     <h1 style="text-align: center; margin:0px">Register</h1>

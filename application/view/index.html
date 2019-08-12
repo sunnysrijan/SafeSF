@@ -27,6 +27,7 @@
 
     <!-- imports -->
     <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/auth.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18"></script>
     <script type="text/javascript" src="js/search-map.js"></script>
@@ -39,25 +40,10 @@
 </head>
     </head>
 
-<body onload="checkCookie(); requestAccess(); getCategories(); getLocations(); initMap();">
-    <div class="topnav">
-            <div style="background:whitesmoke;margin: 0px">
-                    <h2 style="text-align:center">This is a Test website</h2>
-            </div>
+<body onload="loadNavbar(); checkCookie(); requestAccess(); getCategories(); getLocations(); initMap();">
 
-        <a class="active" href="/">Home</a>
-        <a href="/team">Team</a>
-        <a href="/about">About</a>
-
-        <div class="login-container">
-            <form action="/action_page.php">
-                <a href="/login" type="submit" id="loginBtn" style="visibility: hidden">Login</a>
-                <a href="/register" type="submit" id="registerBtn" style="visibility: hidden">Register</a>
-                <button type="button" onclick="logout()" id="logoutBtn" style="display: none">Logout</button>
-                <button type="button" disabled id="welcomeBox" style="display: none">Hello!</butotn>
-            </form>
-        </div>
-    </div>
+	<!-- Will be populated with the html for the navbar on startup -->
+	<div id="navbar-placeholder"></div>
 
     <div class="header">
         <form>
