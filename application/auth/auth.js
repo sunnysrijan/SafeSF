@@ -84,7 +84,8 @@ exports.authenticate = function (cookieList, callback) {
 }
 
 exports.parseCookie = function (cookieList) {
-  var cookieArray = cookieList.split(';')
+  //Array of cookies without whitespce
+  var cookieArray = cookieList.replace(/ /g,'').split(';')
 
   for (var i = 0; i < cookieArray.length; i++) {
     if (cookieArray[i].startsWith('accessToken=')) { return cookieArray[i].substring(12, cookieArray[i].length) }
