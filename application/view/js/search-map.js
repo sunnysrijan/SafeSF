@@ -9,6 +9,8 @@ var map
 var markers = []
 // Ref to the last opened infoWindow. Used for keeping the map uncluttered.
 var lastOpenedInfowindow = null
+// The z-index of the last opened infowindow.
+var latestZIndex = 0
 // The legend for the map markers.
 var legend = document.getElementsByClassName('legend')[0]
 // The icons for the legend
@@ -139,8 +141,9 @@ function addReportMarkerToMap (reportCategory, reportCategoryID, reportThumbnail
     '<div id="content">' +
     '<div id="bodyContent">' +
     '<p>' +
-    '<b>' + infoWindowReportCategory + '</b><br>' +
-    infoWindowReportDetails + '<br>' +
+    '<b>' + infoWindowReportCategory + '</b>' +
+    '<br>' + infoWindowReportDetails + '<br>' +
+    // '<br>id: ' + reportID + '<br>' +
     '</p>' +
     '<p>' +
     '<a href="' + infoWindowReportURL + '">' +
@@ -159,19 +162,27 @@ function addReportMarkerToMap (reportCategory, reportCategoryID, reportThumbnail
   // Create a new infoWindow object for this marker.
   var infoWindow = new google.maps.InfoWindow({
     content: infoWindowContentString,
-    maxWidth: 400
+    maxWidth: 400,
+    zIndex: 0
   })
+
+  var markerID = String(reportID) + '_marker'
+  console.log(markerID + ' ' + typeof markerID)
 
   // Now, create the new marker.
   var newMarker = new google.maps.Marker({
     position: newMarkerCoords,
     icon: newMarkerIconURL,
-    title: infoWindowReportCategory,
-    map: map
+    title: infoWindowReportCategory + '. id:' + reportID,
+    map: map,
+    id: reportID + '_marker'
   })
 
   // Close infoWindow behavior.
-  google.maps.event.addListener(infoWindow, 'closeclick', function () {
+  infoWindow.addListener(infoWindow, 'closeclick', function () {
+    // Set the new zIndex of the infowindow and decrement the variable.
+    --latestZIndex
+    infoWindow.setZIndex(0)
     // Zoom out and pan back to SF center.
     map.setZoom(12)
     map.panTo({
@@ -182,6 +193,8 @@ function addReportMarkerToMap (reportCategory, reportCategoryID, reportThumbnail
 
   // Click on marker behavior.
   newMarker.addListener('click', function () {
+    // Set the new zIndex of the infowindow and increment the variable.
+    infoWindow.setZIndex(++latestZIndex)
     // Close the previously opened infoWindow if one has been opened.
     if (lastOpenedInfowindow) {
       lastOpenedInfowindow.close()
@@ -193,6 +206,24 @@ function addReportMarkerToMap (reportCategory, reportCategoryID, reportThumbnail
     infoWindow.open(this.map, newMarker)
     map.setZoom(18)
     map.panTo(newMarker.position)
+  })
+
+  // Mouseover marker behavior.
+  newMarker.addListener('mouseover', function () {
+    // Set the new zIndex of the infowindow and increment the variable.
+    infoWindow.setZIndex(++latestZIndex)
+    infoWindow.open(this.map, newMarker)
+  })
+
+  newMarker.addListener('mouseout', function () {
+    // Set the new zIndex of the infowindow and decrement the variable.
+    --latestZIndex
+    infoWindow.setZIndex(0)
+
+    // CLose the moused-over marker's infowindow if it was not clicked on.
+    if (infoWindow !== lastOpenedInfowindow) {
+      infoWindow.close(this.map, newMarker)
+    }
   })
 
   markers.push(newMarker)
@@ -232,4 +263,19 @@ function getMarkerIconURL (reportCategory) {
       break
     default:
   }
+}
+
+// Takes a card-click event, scrolls to the map, finds the marker with the same id,
+// and triggers a click event to zoom in on it.
+function viewReports (report_id) {
+  // Scroll to the map.
+  document.getElementById('map').scrollIntoView({ behavior: 'smooth', alignToTop: 'true', inline: 'nearest' })
+
+  // Loop through and find the marker with given id.
+  markers.forEach(function (marker) {
+    if (marker['id'] == report_id + '_marker') {
+      // Fire the click event to show the infowindow popup.
+      google.maps.event.trigger(marker, 'click')
+    }
+  })
 }

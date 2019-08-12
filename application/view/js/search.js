@@ -152,6 +152,7 @@ function createTable (searchResults) {
   tableContainer.appendChild(table)
 }
 
-function viewReports (report_id) {
-  window.location.href = '/report?report_id=' + report_id
-}
+// The original re-direct viewReport function.
+// function viewReports (report_id) {
+//   window.location.href = '/report?report_id=' + report_id
+// }
