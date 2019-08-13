@@ -30,6 +30,7 @@
     <!-- imports -->
     <link rel="stylesheet" type="text/css" href="./css/standard.css">
     <link href="css/registration.css" rel="stylesheet">
+    
     <script type="text/javascript" src="js/captcha.js"></script>
     <script type="text/javascript" src="js/registration.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
@@ -40,84 +41,101 @@
     <!-- Will be populated with the html for the navbar on startup -->
     <div id="navbar-placeholder"></div>
 
-    <div class="container" id="form-container" novalidate> <!-- registration form -->
+
+    <div class="container" style="margin-top: 2%" id="form-container" novalidate> <!-- registration form -->
       <div class="row justify-content-center">
-        <form id="registration-form" action="/requestRegister" method="post" role="form">
-          <div class="text-center">
-            <div style="text-align:center">
-              <br>
-              <h1 style="font-weight: 700">Registration</h1>
-              <br>
-            </div>
-          </div>
 
-          <div >
-            <!-- Inside the form now. Good to add form elements. -->
-            <div class="form-group">
-              <label for="username_entry">Please enter a username.
-                <strong style='color: red'> *</strong>
-              </label>
-              <input name='display_name' class="form-control" id="username" placeholder="Enter Username" required>
-            </div>
-          </div>
+              <div class="card bg-light w-50 align-items-center" style="min-width: 450px;">
+                  <!-- align-items-center -->
+              <!-- style="max-width: 500rem;"> -->
 
-          <div>
-            <div class="form-group">
-              <label for="email_entry">Please enter your email address.
-                <strong style='color: red'> *</strong>
-              </label>
-              <input name='email' class="form-control" id="email" placeholder="Your Email" required>
-            </div>
-          </div>
+                <h1 class="card-header w-100" style="text-align:center; font-family: 'Crimson Text', serif;
+                           font-weight: 700;">Registration </h1>
 
-          <div>
-            <div class="form-group">
-              <label for="password_entry">Please enter a password.
-                <strong style='color: red'> *</strong>
-              </label>
-              <input name='password' class="form-control" id="psw" placeholder="Enter Password" required>
-            </div>
-          </div>
+                  <div class="card-body ">
+                      <div class="row">
+                          <div class="col-lg-8 ">
+                            <form id="registration-form" action="/requestRegister" method="post" role="form">
 
-          <div>
-            <div class="form-group">
-              <label for="passwordp_repeat_entry">Please repeat the password.
-                <strong style='color: red'> *</strong>
-              </label>
-              <input name='passwordConfirmation' class="form-control" id="psw-repeat" placeholder="Repeat Password" required>
-            </div>
-          </div>
 
-          <div class="text-center">
-            <label style="font-size:80%">Fields with <strong style='color: red'> *</strong> are required to continue.</label>
-          </div>
+                              <!-- <div > -->
+                                <!-- Inside the form now. Good to add form elements. -->
+                                <div class="form-group mx-1">
+                                  <label for="username_entry">Please enter a username.
+                                    <strong style='color: red'> *</strong>
+                                  </label>
+                                  <input name='display_name' class="form-control" id="username" placeholder="Enter Username" required>
+                                </div>
+                              <!-- </div> -->
 
-          <div class="text-center">
-            <div class="form-group">
-              <div class='policy-agreement-area'>
-                <label class="form-check-label" for="invalidCheck" style="font-size:80%; display: inline;">
-                  <input name='agreedToToS' id="gridCheck" class="form-check-input" type="checkbox" required>
-                  I Agree to the <a href="">Terms of Service & Privacy Policy</a></input>
-                </label>
-              </div>
-            </div>
-          </div>
 
-          <div class="text-center">
-            <div class="form-group">
-              <div id="captchaElement" class="g-recaptcha" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp"
-                data-callback="onReCAPTCHASuccess"></div>
-            </div>
-          </div>
+                              <!-- <div> -->
+                                <div class="form-group mx-1">
+                                  <label for="email_entry">Please enter your email address.
+                                    <strong style='color: red'> *</strong>
+                                  </label>
+                                  <input name='email' class="form-control" id="email" placeholder="Your Email" required>
+                                </div>
+                              <!-- </div> -->
 
-          <div class="text-center">
-            <div class="form-group">
-              <button id='submit-button' class="btn btn-primary btn-lg" type="submit" disabled='true'>Submit Registration</button>
-            </div>
-          </div>
-        </form> <!-- registration form -->
-      </div>
+                              <!-- <div> -->
+                                <div class="form-group mx-1">
+                                  <label for="password_entry">Please enter a password.
+                                    <strong style='color: red'> *</strong>
+                                  </label>
+                                  <input name='password' class="form-control" id="psw" placeholder="Enter Password" required>
+                                </div>
+                              <!-- </div> -->
+
+                              <!-- <div> -->
+                                <div class="form-group">
+                                  <label for="passwordp_repeat_entry">Please repeat the password.
+                                    <strong style='color: red'> *</strong>
+                                  </label>
+                                  <input name='passwordConfirmation' class="form-control" id="psw-repeat" placeholder="Repeat Password" required>
+                                </div>
+                              <!-- </div> -->
+
+                              <hr>
+                              <!-- <div class="text-center"> -->
+                                <label style="font-size:80%">Fields with <strong style='color: red'> *</strong> are required to continue.</label>
+                              <!-- </div> -->
+
+                              <!-- <div class="text-center"> -->
+                                <div class="inline form-group" style= "margin-left: 20px;">
+                                  <div class='policy-agreement-area'>
+                                    <label class="form-check-label" for="invalidCheck" style="font-size:80%; display: inline;">
+                                      <input name='agreedToToS' id="gridCheck" class="form-check-input" type="checkbox" required>
+                                      I Agree to the <a href="">Terms of Service & Privacy Policy</a></input>
+                                    </label>
+                                  </div>
+                                </div>
+                              <!-- </div> -->
+
+                              <!-- <div class="text-center"> -->
+                                <div class="form-group">
+                                  <div id="captchaElement" class="g-recaptcha" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp"
+                                    data-callback="onReCAPTCHASuccess"></div>
+                                </div>
+                              <!-- </div> -->
+
+                              <div class="text-center">
+                                <div class="form-group">
+                                  <button id='registerbtn' class="registerbtn btn-primary btn-lg" type="submit" disabled='true'>Submit Registration</button>
+                                </div>
+                              </div>
+                            </form> <!-- registration form -->
+                          
+                          </div>
+                       </div>
+                     </div>
+                  </div>
+                </div> 
+         <!-- end card -->
     </div>
+  </div>
+
+
 
     <!-- imports -->
     <script type="text/javascript">

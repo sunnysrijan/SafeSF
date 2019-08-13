@@ -33,7 +33,7 @@ label {
 
 form {
   min-width: 400px;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .text-center {
@@ -47,7 +47,7 @@ form {
 
 
 /* Set a style for the submit button */
-.registerbtn {
+/* #registerbtn {
   background-color: #f4f4f4;
   color: white;
   padding: 16px 20px;
@@ -56,10 +56,37 @@ form {
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
+  border-radius: 10px;
+  width: 100%;
 }
 
-.registerbtn:hover {
+#registerbtn:hover {
   opacity: 1;
+} */
+
+.registerbtn {
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.btn-outline-primary,
+.btn-outline-primary:active,
+.btn-outline-primary:visited,
+.btn-outline-primary:focus {
+    background-color: white;
+    border-color: #248ea9;
+    color: #248ea9;
+}
+
+.btn-outline-primary:hover {
+  background-color: #248ea9;
+  border-color: white;
 }
 
 #registration-form {
