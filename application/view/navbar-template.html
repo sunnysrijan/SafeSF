@@ -19,6 +19,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="css/navbar.css" rel="stylesheet">
 
 </head>
 <body>
@@ -38,8 +39,8 @@
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #248ea9;">
     <a class="navbar-brand" href="/">SF Safe</a>
   
-    <form class="form-inline mx-auto">
-      <input class=" form-control mr-lg-2" style="width: 200px;" type="search" placeholder="Search" aria-label="Search">
+    <form class="form-inline mx-auto" action="/" method="get" >
+      <input class="form-control mr-lg-2" style="width: 200px;" type="search" placeholder="Search" aria-label="Search" name="query">
       <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
     </form>
   
@@ -52,25 +53,36 @@
       <span class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
+          <button class="btn btn btn-outline-light my-2 my-sm-0 submitBtn" type="submit"
+                  onclick="window.location.href = '/submitReport'">
+            <span class="fas fa-plus-circle"></span>
+            <span>Create Report</span>
+          </button>
+        </li>
+
+        <li id="welcomeBox" class="nav-item">
+          <span id="welcomeText" class="nav-link nonInteractive"></span>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/admin">Admin</a>
         </li>
         <li class="nav-item ">
           <a id="loginBtn" class="nav-link" href="/login"><span class="fa fa-user"></span> Login</a>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
         </li>
 
-        <li class="nav-item ">
-          <a id="registerBtn" class="nav-link" href="/register"><span class="fas fa-sign-in-alt"></span> Register</a>
+        <li id="loginBtn" class="nav-item">
+          <a class="nav-link" href="/login"><span class="fa fa-user"></span> Login</a>
         </li>
 
-        <li class="nav-item ">
-          <span id="welcomeBox" class="nav-link"></span>
+        <li id="registerBtn" class="nav-item">
+          <a class="nav-link" href="/register"><span class="fas fa-sign-in-alt"></span> Register</a>
         </li>
 
-        <li class="nav-item ">
-          <span id="logoutBtn" class="nav-link" onclick="logout()">Logout</span>
+        <li id="logoutBtn" class="nav-item">
+          <span class="nav-link interactive" onclick="logout()">Logout</span>
         </li>
       </span>
     </div>

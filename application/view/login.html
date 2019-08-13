@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
-
   <head>
+    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
+    <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" >
     <link href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" rel="stylesheet" >
     <link href="https://use.fontawesome.com/releases/v5.10.1/css/v4-shims.css" rel="stylesheet">
@@ -61,7 +63,7 @@
                               <label style="margin-top: 6px;">
                                 <input type="checkbox" checked="checked" id="remember"> Remember me
                               </label>
-                              <button style="margin-bottom: 0px; margin-top: 0px; border-radius: 10px;" type="submit" class="btn-outline-primary btn-send" onclick="login()">Login</button>
+                              <button style="margin-bottom: 0px; margin-top: 0px; border-radius: 10px;" type="submit" class="loginBtn btn-outline-primary btn-send" onclick="login()">Login</button>
                             </div>
                           </div>
                         </div>
@@ -81,40 +83,49 @@
     <div class="container" align="center">
       <p>Don't have an account? <a href="/register">Register Here</a></p>
     </div>
-
-    <script>
-      function login() {
-        var username = document.getElementById("username").value
-        var password = document.getElementById("psw").value
-        var remember = document.getElementById("remember").checked
-
-        if(username === "")
-          alert("Please enter a username")
-        else if(password === "")
-          alert("Please enter a password")
-
-        if(username === "" || password === "")
-          return
-
-        var xmlReq = new XMLHttpRequest();
-
-        xmlReq.onload = function() {
-          if (xmlReq.status == 200)
-            window.location.href =  "/"
-          else
-            alert(xmlReq.response)
-        }
-
-        var params = '?username=' + username + '&password=' + password + '&remember=' + remember
-
-        xmlReq.open('GET', '/requestLogin' + params, true)
-        xmlReq.send(null)
-      }
-    </script>
   </body>
 </html>
 
-<!-- imports -->
 <script type="text/javascript">
-    loadNavbar();
+  //imports
+  loadNavbar();
+
+  //google analytics
+  window.dataLayer = window.dataLayer || [];
+  
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  
+  gtag('js', new Date());
+  gtag('config', 'UA-144569863-2');
+
+  //login
+  function login() {
+  var username = document.getElementById("username").value
+  var password = document.getElementById("psw").value
+  var remember = document.getElementById("remember").checked
+
+  if(username === "")
+    alert("Please enter a username")
+  else if(password === "")
+    alert("Please enter a password")
+
+  if(username === "" || password === "")
+    return
+
+  var xmlReq = new XMLHttpRequest();
+
+  xmlReq.onload = function() {
+    if (xmlReq.status == 200)
+      window.location.href =  "/"
+    else
+      alert(xmlReq.response)
+  }
+
+  var params = '?username=' + username + '&password=' + password + '&remember=' + remember
+
+  xmlReq.open('GET', '/requestLogin' + params, true)
+  xmlReq.send(null)
+}
 </script>

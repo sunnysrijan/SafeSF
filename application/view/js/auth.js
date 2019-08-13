@@ -5,15 +5,15 @@ function requestAccess () {
     if (xmlReq.status == 200) {
       	if (xmlReq.response.authenticated) {
           console.log('authenticated')
-      		document.getElementById('loginBtn').style.visibility = 'hidden'
-      		document.getElementById('registerBtn').style.visibility = 'hidden'
-      		document.getElementById('welcomeBox').innerText = 'Welcome ' + xmlReq.response.username + '!'
+      		document.getElementById('loginBtn').style = 'display: none'
+      		document.getElementById('registerBtn').style = 'display: none'
+      		document.getElementById('welcomeText').innerText = 'Welcome ' + xmlReq.response.username + '!'
       		document.getElementById('welcomeBox').style = 'display: block'
       		document.getElementById('logoutBtn').style = 'display: block'
       } else {
         console.log('not authenticated')
-    		document.getElementById('loginBtn').style.visibility = 'visible'
-    		document.getElementById('registerBtn').style.visibility = 'visible'
+    		document.getElementById('loginBtn').style = 'display: block'
+    		document.getElementById('registerBtn').style = 'display: block'
     		document.getElementById('welcomeBox').style = 'display: none'
     		document.getElementById('logoutBtn').style = 'display: none'
 

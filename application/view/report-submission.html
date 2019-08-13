@@ -5,25 +5,12 @@
 <html>
 
 <head>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-144569863-2');
-  </script>
-
   <title>Submit a Report</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
-
-
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
   <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" >
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +18,6 @@
   <link href="https://use.fontawesome.com/releases/v5.10.1/css/v4-shims.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
               Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"  rel="stylesheet">
-  <link href="css/report-submission.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -51,162 +37,138 @@
 <!-- loadNavbar is needed to load and render the navbar html code
      getCategories and getLocation are needed to populate dropdown menus
      these are called on the loading of the page -->
-<body onload="loadNavbar(); getCategories(); getLocations()">
+<body>
 
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
 
-  <div class="container" id="form-container">
-    <div class="row">
-      <div class="col-xl-10 offset-xl-1">
+  <div class="container" id="form-container" novalidate> <!-- registration form -->
+    <div class="row justify-content-center">
+      <!--
+      This form serves to take in hazard details and metadata from the user. The request object is
+      sent to the "/reports" endpoint for processing.
+      Posts a JSON object in the following format:
+      {category_id, location_id, park_id, details, loc_lat, loc_long, user_id, image_ref}
+      -->
+      <form id="report-submission-form" action="/submitReport" method="post" role="form" enctype="multipart/form-data">
+        <div class="col-lg-10 offset-xl-1">
 
-        <div style="text-align:center">
-          <br>
-          <h1 style="font-weight: 700">Hazard Report Submssion:</h1>
-        </div>
-
-        <!--  This form serves to take in hazard details and metadata from the user. The request object is
-              sent to the "/reports" endpoint for processing.
-
-              Posts a JSON object in the following format:
-              {category_id, location_id, park_id, details, loc_lat, loc_long, user_id, image_ref}   -->
-        <form id="results-form" action="/submitReport" method="post" role="form">
-          <div class="row">
-            <div class="col-lg-10 offset-xl-1">
-              <div class="form-group">
-                  <br>
-                  <!-- <hr> -->
-                <label for="dropdown-content">Category
-                  <strong style='color: red'> *</strong>
-                </label>
-
-                <select class="form-control" name="category_id" id="categoryDropDown" required="required">
-                  <option>Please Select One</option>
-                </select>
-                <br>
-                <!-- <hr> -->
-              </div>
-
-
-              <div class="form-group">
-                <label for="dropdown-content">Neighborhood
-                    <strong style='color: red'> *</strong>
-                </label>
-                <select class="form-control" name="location_id" id="locationDropDown">
-                  <option>Please Select One (Optional)</option>
-                </select>
-              </div>
-
-              <br>
-              <!-- <hr> -->
-
-              <div class="form-group">
-                <label for="dropdown-content">Park Name</label>
-                <select class="form-control" name="park_id" id="park_name">
-                  <option>Please Select One (Optional)</option>
-                  <option>dolores park</option>
-                  <option>golden gate</option>
-                  <option>alamo square</option>
-                </select>
-              </div>
-
-              <br>
-              <!-- <hr> -->
-
-              <div class="form-group">
-                <label for="user_entry">Please enter a description:
-                    <strong style='color: red'> *</strong>
-                </label>
-                <textarea class="form-control" name="details" id="user_entry" rows="3" required></textarea>
-              </div>
-
-
-              <!-- These hidden input elements serve to bundling latitude, longitude, and user_id data into our JSON.
-                  We insert the appropriate value in through the DOM, then all the data is compiled and
-                  sent via form action -->
-
-              <div class="form-group">
-                <input type="hidden" step="0.000000001" class="form-control" name="loc_lat" id="loc_lat">
-              </div>
-
-              <div class="form-group">
-                <input type="hidden" step="0.000000001" class="form-control" name="loc_long" id="loc_long">
-              </div>
-
-              <div class="form-group">
-                <input type="hidden" step="0.000000001" class="form-control" name="user_id" id="user_id" value=1 required>
-              </div>
-              <br>
-              <hr>
-            </div>
+          <!-- Page title -->
+          <div style="text-align:center">
+            <br>
+            <h1 style="font-weight: 700">Hazard Report Submssion:</h1>
           </div>
 
-          <!--- This element holds the map. --->
+          <!-- Category dropdown -->
+          <div class="form-group">
+            <br>
+            <label for="dropdown-content">Category
+              <strong style='color: red'> *</strong>
+            </label>
 
+            <select class="form-control" name="category_id" id="categoryDropDown" required="required">
+              <option>Please Select One</option>
+            </select>
+            <br>
+          </div>
 
+          <!-- Neighborhood dropdown -->
+          <div class="form-group">
+            <label for="dropdown-content">Neighborhood<strong style='color: red'> *</strong>
+            </label>
+            <select class="form-control" name="location_id" id="locationDropDown">
+              <option>Please Select One (Optional)</option>
+            </select>
+          </div>
 
+          <br>
+
+          <!-- Detail entry -->
+          <div class="form-group">
+            <label for="user_entry">Please enter a description:
+                <strong style='color: red'> *</strong>
+            </label>
+            <textarea class="form-control" name="details" id="user_entry" rows="3" maxlength=300 required></textarea>
+          </div>
+
+          <!-- These hidden input elements serve to bundling latitude, longitude, and user_id data into our JSON.
+              We insert the appropriate value in through the DOM, then all the data is compiled and
+              sent via form action -->
+          <div class="form-group">
+            <input type="hidden" step="0.000000001" class="form-control" name="loc_lat" id="loc_lat">
+          </div>
+          <div class="form-group">
+            <input type="hidden" step="0.000000001" class="form-control" name="loc_long" id="loc_long">
+          </div>
+          <div class="form-group">
+            <input type="hidden" step="0.000000001" class="form-control" name="user_id" id="user_id" value=1 required>
+          </div>
+
+          <br>
+          <hr>
+
+          <!--- Map section --->
           <h3 style="text-align: center; font-weight: 600;">Please drag the red marker to location of incident:</h3>
           <br>
-          <div id="map"></div>
-          <p id="currentCoords"></p>
-          <!-- <br> -->
-
-          <!-- <br> -->
-
-
-          <div class="row">
-            <div class="col-lg-10 offset-xl-1">
-              <hr>
-              <br>
-              <div class="form-group">
-                <label for="picture">Please choose a picture of the hazard to be submitted:
-                    <strong style='color: red'> *</strong>
-                </label>
-                <input style="padding-top: 10px;" type="file" class="form-control-file" name="image_ref" id="image_ref" required>
-              </div>
-              <br>
-              <hr>
-              <br>
-            </div>
+          <div id="map">
           </div>
-
-
-          <!-- <br> -->
-
-          <div class="row">
-            <div class="col-lg-8 offset-xl-1">
-              <div class="form-group mx-auto">
-                <div id="captchaElement"
-                     class="g-recaptcha style= margin-top: 10px;" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
-                </div>
-                <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-1" value=" Submit Report "  style="border-radius: 15px; border-width: 2px " disabled="true">
-              </div>
-            </div>
+          <div>
+            <label id="currentCoords"></label>
           </div>
-
-          <br/><br/><br/><br/><br/>
 
           <hr>
-          <p style="text-align: center">Fields with
-              <strong style='color: red'> *</strong>
-              are required to continue.
-          </p>
+          <br>
 
-      </div>
-      </form>
-      <!-- /.form -->
+          <!--- Image submission --->
+          <label for="picture">Please choose a picture of the hazard to be submitted:
+              <strong style='color: red'> *</strong>
+          </label>
+          <div class="form-group">
+            <input style="padding-top: 15px; font-size: 100%;" type="file" class="form-control-file" name="file" id="image_ref" required>
+          </div>
+
+          <br>
+          <hr>
+          <p style="text-align: center">
+            Fields with <strong style='color: red'>*</strong> are required to continue.
+          </p>
+          <hr>
+
+          <!--- Captcha section --->
+          <div class="text-center">
+            <div class="form-group">
+              <div id="captchaElement"
+                   class="g-recaptcha"  data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
+              </div>
+            </div>
+          </div>
+
+          <!--- Submit button --->
+          <div style="text-align: center">
+              <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-2"
+                     value=" Submit Report "  style="border-radius: 15px; border-width: 2px " disabled="true">
+          </div>
+        </div>
+      </form> <!-- report submission form -->
     </div>
-    <!-- /.8 -->
   </div>
-  <!-- /.row-->
-  </div>
-  <!-- /.container-->
 
 </body>
-
 </html>
 
-<!-- imports -->
 <script type="text/javascript">
-    loadNavbar(); getCategories(); getLocations();
+  //imports
+  loadNavbar();
+  getCategories();
+  getLocations();
+
+  //google analytics
+  window.dataLayer = window.dataLayer || [];
+  
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  
+  gtag('js', new Date());
+  gtag('config', 'UA-144569863-2');
 </script>
