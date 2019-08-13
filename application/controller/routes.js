@@ -8,14 +8,21 @@ const db_search = require('./search.js')
 const db_locations = require('./locations.js')
 const image = require('./images.js')
 const reports = require('./reports.js')
-const { body, check, validationResult } = require('express-validator')
+//const { body, check, validationResult } = require('express-validator')
+const multer = require('multer')
 const captcha = require('./captcha.js')
 const formValidation = require('./form-validation.js')
 const auth = require('../auth/auth.js')
 
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
-router.use(check())
+// Create the multer and limit the size of files to 2mb.
+var storage = multer.memoryStorage()
+var upload = multer({
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 }
+})
+//router.use(check())
 
 /*
     Page requests
@@ -57,32 +64,46 @@ router.get('/search', (req, res) => {
   })
 })
 
+
+/*
+router.post('/submitReport', upload.none(), (req, res) => {
+  console.log(req.file)
+
+
+  res.status(200)
+  return
+})
+
 /*
     Reports Endpoints
 */
 // endpoint for POSTing reports
 // Uses validator.js and express-validator.js libraries to enforce rules.
-router.post('/submitReport', [
-  body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
-  body('category_id')
-    .exists({ checkNull: true }),
-  body('location_id')
-    .exists({ checkNull: true }),
-  body('details')
-    .exists({ checkNull: true }),
-  body('loc_lat')
-    .exists({ checkNull: true }),
-  body('loc_long')
-    .exists({ checkNull: true }),
-  body('user_id')
-    .exists({ checkNull: true }),
-  body('image_ref')
-    .exists({ checkNull: true })
-], (req, res) => {
+router.post('/submitReport', upload.single('file'), (req, res) => {
   console.log('POST endpoint.')
-  console.log(req.body)
+  console.log('body: ', req.body)
+  console.log('file: ', req.file)
 
   // Check for errors from express-validator checks above.
+  /*
+  [
+    body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
+    body('category_id')
+      .exists({ checkNull: true }),
+    body('location_id')
+      .exists({ checkNull: true }),
+    body('details')
+      .exists({ checkNull: true }),
+    body('loc_lat')
+      .exists({ checkNull: true }),
+    body('loc_long')
+      .exists({ checkNull: true }),
+    body('user_id')
+      .exists({ checkNull: true }),
+    body('image_ref')
+      .exists({ checkNull: true })
+  ],
+
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     console.log('Error: ', errors)
@@ -93,6 +114,9 @@ router.post('/submitReport', [
   } else {
     console.log('g-recaptcha-response: ' + body['g-recaptcha-response'] + ' - pass')
   }
+  */
+
+
 
   // ---------- BEGIN FORM VALIDATION SECTION ----------
   if (!formValidation.validateSubmissionForm(req.body)) {
@@ -212,19 +236,23 @@ router.get('/images', (req, res) => {
 
 // endpoint for POSTing (creating) new users
 // Uses validator.js and express-validator.js libraries to enforce rules.
-router.post('/requestRegister', [
-  body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
-  body('display_name')
-    .exists({ checkNull: true }),
-  body('email')
-    .exists({ checkNull: true }),
-  body('password')
-    .exists({ checkNull: true }),
-  body('passwordConfirmation')
-    .exists({ checkNull: true })
-], (req, res) => {
+router.post('/requestRegister', upload.none(), (req, res) => {
   console.log('Registration endpoint.')
   console.log(req.body)
+
+  /*
+  [
+    body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
+    body('display_name')
+      .exists({ checkNull: true }),
+    body('email')
+      .exists({ checkNull: true }),
+    body('password')
+      .exists({ checkNull: true }),
+    body('passwordConfirmation')
+      .exists({ checkNull: true })
+  ],
+  */
 
   // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
   // g-recaptcha-response is the token that is generated when the user succeeds
@@ -250,6 +278,7 @@ router.post('/requestRegister', [
 
       // ---------- BEGIN USER DB INSERTION SECTION ----------
       // Now that the validation is done, create the report.
+      /*
       auth.register(req.query, function (err, token) {
         if (err) {
           console.log('Error registering: ', err.message)
@@ -263,6 +292,7 @@ router.post('/requestRegister', [
           return
         }
       })
+      */
       // ---------- END USER DB INSERTION SECTION ----------
     }
   })

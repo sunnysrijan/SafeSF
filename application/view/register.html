@@ -42,7 +42,8 @@
 
     <div class="container" id="form-container" novalidate> <!-- registration form -->
       <div class="row justify-content-center">
-        <form id="registration-form" action="/requestRegister" method="post" role="form">
+        <form id="registration-form" action="/requestRegister" method="post" role="form" enctype="multipart/form-data">
+          <!-- Inside the form now. Good to add form elements. -->
           <div class="text-center">
             <div style="text-align:center">
               <br>
@@ -52,7 +53,6 @@
           </div>
 
           <div >
-            <!-- Inside the form now. Good to add form elements. -->
             <div class="form-group">
               <label for="username_entry">Please enter a username.
                 <strong style='color: red'> *</strong>
