@@ -2,22 +2,12 @@
 <html>
 
 <head>
+  <title>Search</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-144569863-2');
-  </script>
-  <title>Index</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
   <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" rel="stylesheet">
@@ -86,9 +76,6 @@
             <option value="-1">None</option>
           </select>
         </div>
-
-        <input class="search-field search" id="searchBox" name="location" type="text" placeholder="search" />
-        <button class="search-btn" type="button" onclick="search()">search</button>
       </div>
     </form>
     <hr>
@@ -115,10 +102,21 @@
 
 </html>
 
-<!-- imports -->
+
 <script type="text/javascript">
+  //imports
   loadNavbar();
   getCategories();
   getLocations();
   initMap();
+
+  //google analytics
+  window.dataLayer = window.dataLayer || [];
+  
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-144569863-2');
 </script>
