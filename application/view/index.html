@@ -29,48 +29,54 @@
 </head>
 
 <body onload="search(); resizeMap();" onresize="resizeMap();">
-  <!-- Will be populated with the html for the navbar on startup -->
-  <div id="navbar-placeholder"></div>
-  <div class="container">
 
   <div class="header">
-    <form id="dropdowns">
-      <br>
+    <div id="floatingHeader">
+	    <!-- Will be populated with the html for the navbar on startup -->
+	    <div id="navbar-placeholder"></div>
 
-      <div class="form-box">
+		<div class="container">
+		    <form>
+		      <br/>
 
-        <div class="dropdown">
-          <p>Category:</p>
-          <select class="form-control" name="category_id" id="categoryDropDown">
-            <option value="-1">None</option>
-          </select>
-        </div>
+		      <div class="form-box">
 
-        <div class="dropdown">
-          <p>Location:</p>
-          <select class="form-control" name="location_id" id="locationDropDown">
-            <option value="-1">None</option>
-          </select>
-        </div>
-      </div>
-      <hr>
-    </form>
+		        <div class="dropdown">
+		          <p>Category:</p>
+		          <select class="form-control" name="category_id" id="categoryDropDown">
+		            <option value="-1">None</option>
+		          </select>
+		        </div>
 
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="legend">
-          <center class="legend-header">Hazards</center>
-        </div>
+		        <div class="dropdown">
+		          <p>Location:</p>
+		          <select class="form-control" name="location_id" id="locationDropDown">
+		            <option value="-1">None</option>
+		          </select>
+		        </div>
+		      </div>
+		      <hr class="divider"/>
+		    </form>
+		</div>
+	</div>
 
-        <div id="mapBox">
-	        <div id="map"></div>
+	<div class="container">
+	    <div class="row">
+	      <div class="col-sm-6">
+	        <div class="legend">
+	          <center class="legend-header">Hazards</center>
+	        </div>
+
+	        <div id="mapBox">
+		        <div id="map"></div>
+		    </div>
+	      </div>
+
+	      <div class="col-sm-6">
+	        <div id="table"></div>
+	      </div>
 	    </div>
-      </div>
-
-      <div class="col-sm-6">
-        <div id="table"></div>
-      </div>
-    </div>
+	</div>
   </div>
 </body>
 
