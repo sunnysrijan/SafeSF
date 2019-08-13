@@ -38,8 +38,7 @@
         #map {height: 70%; width: 60%;}
     </style>
 </head>
-<body>
-
+<body onload="search()">
 	<!-- Will be populated with the html for the navbar on startup -->
 	<div id="navbar-placeholder"></div>
 
@@ -49,8 +48,6 @@
 	            <h1>Safe SF - Team 2</h1>
 
             </div>
-
-            <h2>Lets Start your search</h2>
 
             <div class="jumbotron">
 	            <div class="form-box">
@@ -67,9 +64,6 @@
 		                  <option value="-1">None</option>
 		                </select>
 	                </div>
-
-	                <input class="search-field search" id="searchBox" name="location" type="text" placeholder="search"/>
-	                <button class="search-btn" type="button" onclick="search()">search</button>
 	            </div>
           	</div>
         </form>
