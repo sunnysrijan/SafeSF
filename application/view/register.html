@@ -1,21 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-
-      gtag('config', 'UA-144569863-2');
-    </script>
-
+    <title>Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
     <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -118,10 +108,20 @@
         </form> <!-- registration form -->
       </div>
     </div>
-
-    <!-- imports -->
-    <script type="text/javascript">
-        loadNavbar();
-    </script>
   </body>
 </html>
+
+<script type="text/javascript">
+  //imports
+  loadNavbar();
+
+  //google analytics
+  window.dataLayer = window.dataLayer || [];
+  
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  
+  gtag('js', new Date());
+  gtag('config', 'UA-144569863-2');
+</script>
