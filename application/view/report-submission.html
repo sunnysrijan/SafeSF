@@ -143,8 +143,6 @@
 
           <!--- This element holds the map. --->
 
-
-
           <h3 style="text-align: center; font-weight: 600;">Please drag the red marker to location of incident:</h3>
           <br>
           <div id="map"></div>
@@ -162,7 +160,7 @@
                 <label for="picture">Please choose a picture of the hazard to be submitted:
                     <strong style='color: red'> *</strong>
                 </label>
-                <input style="padding-top: 10px;" type="file" class="form-control-file" name="image_ref" id="image_ref" required>
+                <input style="padding-top: 15px; font-size: 125%;" type="file" class="form-control-file" name="image_ref" id="image_ref" required>
               </div>
               <br>
               <hr>
@@ -177,14 +175,15 @@
             <div class="col-lg-8 offset-xl-1">
               <div class="form-group mx-auto">
                 <div id="captchaElement"
-                     class="g-recaptcha style= margin-top: 10px;" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
+                     class="g-recaptcha"  data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
                 </div>
-                <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-1" value=" Submit Report "  style="border-radius: 15px; border-width: 2px " disabled="true">
+                <div style="text-align: center">
+                    <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-2" 
+                           value=" Submit Report "  style="border-radius: 15px; border-width: 2px " disabled="true">
+                </div>
               </div>
             </div>
           </div>
-
-          <br/><br/><br/><br/><br/>
 
           <hr>
           <p style="text-align: center">Fields with
