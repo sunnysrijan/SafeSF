@@ -179,14 +179,14 @@ h1 {
 	width: 200px;
 }
 
-.card{
+.repcard {
   cursor: pointer;
   border-radius: 25px;
   padding: 10px;
-  width: 100%;
+  width: max-content;
   height: 100%;
   border: black solid;
-  display:flex;
+  display: flex;
 }
 
 .dropbtn {
@@ -222,7 +222,7 @@ h1 {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #grey;}
+.dropdown-content a:hover {background-color: grey;}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
@@ -232,22 +232,36 @@ h1 {
   background-color: #FFFFFF;
   pointer-events: none;
 }
+.admincard{
+  display: flex;
+  margin-left:25%;
+}
+.buttonsdiv{
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  }
+.adminbuttons{
+  margin: auto;
+width:120px;
+}
 
 .cardImage {
   width: 130px;
-  height:112px;
+  height: 112px;
   float: left;
   margin-left: 5px;
   margin-right: 10px;
   position: relative;
-  top:auto;
-}
-.rptDet{
-  height:100%;
   margin-top: auto;
+  margin-bottom: auto;
+}
+.rptDet {
+  height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
   font-size: 16px;
 }
-
 .legend {
   display: none;
   font-size: 14px;

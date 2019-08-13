@@ -12,7 +12,7 @@ const multer = require('multer')
 const captcha = require('./captcha.js')
 const formValidation = require('./form-validation.js')
 const auth = require('../auth/auth.js')
-
+const db=require('../auth/db_config')
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 // Create the multer and limit the size of files to 2mb.
@@ -46,11 +46,35 @@ router.get('/submitReport', (req, res) => {
   res.sendFile(path.resolve('view/report-submission.html'))
 })
 
+router.post('/admin', (req, res) => {
+  db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (error, results) => {
+    if (error) {
+      console.log(error)
+      res.sendStatus(503)
+    }
+    res.sendstatus(200)
+  })
+})
+
 /*
     Search
 */
 router.get('/search', (req, res) => {
-  db_search.getResults(req.query, function (err, result) {
+  if (req.query.admin ==='true'){
+    console.log("In admin search")
+    db.query("Select * from reports where status='unassigned'or status='assigned'", (error, results) => {
+      if (error) {
+        console.log(error)
+        res.sendStatus(503)
+      }
+      res.status(200)
+      res.send(results)
+
+    })
+  }
+  else
+  {
+    db_search.getResults(req.query, function (err, result) {
     console.log(req.query)
     if (err) {
       console.log('Error retrieving search results: ' + err)
@@ -59,8 +83,9 @@ router.get('/search', (req, res) => {
       console.log('Retrieved Search Results from the Database')
       res.status(200)
       res.send(result)
-    }
-  })
+      }
+    })
+  }
 })
 
 /*
@@ -140,6 +165,8 @@ router.get('/getReport', (req, res) => {
     }
   })
 })
+
+router.get('/admin', (req, res) => {res.sendFile(path.join(__dirname, '../view/admin.html'));})
 
 /*
     Dropdown endpoints
