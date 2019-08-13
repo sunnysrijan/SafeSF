@@ -17,8 +17,8 @@
   font-family: 'Kreon', serif; */
 
 .split_left {
-  width:55%;
-  height:80%;
+
+  height:400px;
   min-width: 520px;
   float: left;
   display: flex;
@@ -27,8 +27,8 @@
   margin: 10px}
 
 .split_right{
-  width:40%;
-  height: 100%;
+
+  height: 400px;
   min-width: max-content;
   float: right;
   display: flex;
