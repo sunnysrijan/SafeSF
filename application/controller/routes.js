@@ -261,12 +261,16 @@ router.post('/requestRegister', upload.none(), (req, res) => {
   // ---------- END CAPTCHA VALIDATION SECTION ----------
 })
 
-router.get('/requestLogin', (req, res) => {
+router.get('/requestLogin', upload.none(), (req, res) => {
+  console.log(req.query)
+  console.log(req.query.username)
+  console.log(req.query.password)
+  console.log(req.query.remember)
   // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if (!formValidation.validateLoginForm(req.body)) {
+  if (!formValidation.validateLoginForm(req.query)) {
     res.status(422)
-    res.send('Registration form validation failed!')
-    console.log('Registration form validation failed!')
+    res.send('Login form validation failed!')
+    console.log('Login form validation failed!')
     return
   } else {
     auth.login(req.query, function (err, token) {
