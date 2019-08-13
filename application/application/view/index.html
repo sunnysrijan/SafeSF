@@ -26,40 +26,15 @@
   <script type="text/javascript" src="js/search-map.js"></script>
   <script type="text/javascript" src="js/search.js"></script>
   <script type="text/javascript" src="js/dropdown.js"></script>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    #map {
-      height: 400px;
-      width: 100%;
-    }
-
-    .footer {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: #aee7e8;
-      color: white;
-      text-align: center;
-    }
-  </style>
 </head>
 
-<body onload="search()">
-
+<body onload="search(); resizeMap();" onresize="resizeMap();">
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
 
   <div class="header">
-    <form>
+    <form id="dropdowns">
       <br>
-
-      <h2>Lets Start your search</h2>
 
       <div class="form-box">
 
@@ -77,26 +52,24 @@
           </select>
         </div>
       </div>
+      <hr>
     </form>
-    <hr>
 
     <div class="row">
       <div class="col-sm-6">
         <div class="legend">
           <center class="legend-header">Hazards</center>
         </div>
-        <div id="map">
-        </div>
+
+        <div id="mapBox">
+	        <div id="map"></div>
+	    </div>
       </div>
 
       <div class="col-sm-6">
         <div id="table"></div>
       </div>
     </div>
-  </div>
-
-  <div class="footer">
-    <p>Copyright © SAFE SF All Rights Reserved</p>
   </div>
 </body>
 

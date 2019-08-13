@@ -16,6 +16,34 @@
   font-family: 'Darker Grotesque', sans-serif;
   font-family: 'Kreon', serif; */
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+#mapBox {
+  height: 0;
+  width: 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #aee7e8;
+  color: white;
+  text-align: center;
+}
+
 .split_left {
 
   height:400px;
