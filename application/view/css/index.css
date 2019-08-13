@@ -21,6 +21,10 @@
   padding: 0;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 #map {
   height: 100%;
   width: 100%;
@@ -29,10 +33,23 @@
 #mapBox {
   height: 0;
   width: 0;
-  position: fixed;
   bottom: 0;
   left: 0;
+  position: fixed;
   z-index: 1000;
+}
+
+#floatingHeader {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+}
+
+.divider {
+  margin-top: 1rem;
+  margin-bottom: 0rem;
 }
 
 .footer {
@@ -249,7 +266,7 @@ h1 {
 }
 
 table {
-  width: 95%;
+  width: 100%;
   margin: 1%;
 }
 
