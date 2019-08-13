@@ -1,0 +1,43 @@
+{
+  "name": "final-project",
+  "version": "1.0.0",
+  "description": "CSC 648 Team 2 Final Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSC-648-SFSU/csc648-su19-TeamNN-AlexWolski.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CSC-648-SFSU/csc648-su19-TeamNN-AlexWolski/issues"
+  },
+  "homepage": "https://github.com/CSC-648-SFSU/csc648-su19-TeamNN-AlexWolski#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.4.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.17.1",
+    "node": "^12.4.0",
+    "nodemon": "^1.19.1",
+    "path": "^0.12.7",
+    "pm2": "^3.5.1",
+    "request": "^2.88.0",
+    "sharp": "^0.22.1",
+    "uuid": "^3.3.2",
+    "validator": "^11.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}

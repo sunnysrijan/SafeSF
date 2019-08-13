@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Report Details</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
+
+  <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.10.1/css/v4-shims.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
+              Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <!-- imports -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18"></script>
+  <script type="text/javascript" src="js/navbar.js"></script>
+  <script type="text/javascript" src="js/auth.js"></script>
+  <script type="text/javascript" src="js/report.js"></script>
+</head>
+
+<body onresize="resizeMap();" onload="resizeMap(); getReport();">
+  <!-- Will be populated with the html for the navbar on startup -->
+  <div id="navbar-placeholder"></div>
+
+  <div class="container">
+    <div class="jumbotron">
+      <p id="report_id">
+        <p1 class="text-danger">Hazard type: </p1><text id="hazard-type"></text><br>
+        <p2 class="text-primary">Report location: </p2><text id="hazard-location"></text><br>
+        <p3 class="text-primary">Time submitted: </p3><text id="report-date"></text><br>
+        <p4 class="text-primary">Last updated: </p4><text id="report-update-date"></text><br>
+        <p5 class="text-primary">Report status: </p5><text id="report-status"></text><br>
+        <p6 class="text-primary">Report ID: </p6><text id="report-id"></text><br>
+      </p>
+    </div>
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Image</h3>
+        <img id="report-image" class="img-responsive" src="" alt="image">
+      </div>
+
+      <div class="col-sm-6">
+        <h3>Location</h3>
+        <div id="map"></div>
+        <script>
+        </script>
+      </div>
+    </div>
+    <hr>
+    
+    <div class="jumbotron">
+      <p1 id="report-details">Details: </p1>
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript">
+  //imports
+  loadNavbar();
+
+  //google analytics
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-144569863-2');
+</script>

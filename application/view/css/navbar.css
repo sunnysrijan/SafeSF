@@ -1,0 +1,11 @@
+.nonInteractive {
+	cursor: default;
+}
+
+.interactive {
+	cursor: pointer;
+}
+
+.submitBtn {
+	margin-right: 10px;
+}

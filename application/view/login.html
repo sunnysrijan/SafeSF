@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
+    <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" rel="stylesheet" >
+    <link href="https://use.fontawesome.com/releases/v5.10.1/css/v4-shims.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
+                Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"  rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- imports -->
+    <link href="css/login.css" rel="stylesheet">
+    <script type="text/javascript" src="js/navbar.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
+
+  </head>
+
+  <body>
+
+  <!-- Will be populated with the html for the navbar on startup -->
+  <div id="navbar-placeholder"></div>
+  
+   <!-- This card contains a small form for input of Username and Password -->
+    <div class="container" id="form-container" style="padding-top: 35px;">
+        <div class="row">
+          <div class="col-xl-6 offset-xl-3">
+
+              <div class="card bg-light mx-2" style="max-width: 400rem;">
+                  <div class="card-header">  <h2 style="text-align:center">SF Safe </h2></div>
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-lg-10 offset-xl-1">
+                            <div class="form-group">
+                              <label for="uname"><b>Username</b></label>
+                              <input type="text" placeholder="Enter Username" id="username" 
+                                      style="margin-top: 0px" required>
+                            </div>
+                          </div>
+                        </div>
+        
+                              
+                      <div class="row">
+                          <div class="col-lg-10 offset-xl-1">
+                            <div class="form-group">
+                              <label for="psw"><b>Password</b></label>
+                              <input type="password" placeholder="Enter Password" id="psw"
+                                     style="margin-top: 0px" required>
+                            </div>
+                          </div>
+                        </div>
+        
+                        <div class="row">
+                          <div class="col-lg-10 offset-xl-1">
+                            <div class="form-group">
+                              <label style="margin-top: 6px;">
+                                <input type="checkbox" checked="checked" id="remember"> Remember me
+                              </label>
+                              <button style="margin-bottom: 0px; margin-top: 0px; border-radius: 10px;" type="submit" class="loginBtn btn-outline-primary btn-send" onclick="login()">Login</button>
+                            </div>
+                          </div>
+                        </div>
+                  </div> 
+                </div>
+
+              <!-- end card -->
+
+                      
+          </div>
+        </div>
+    </div>
+
+   
+
+
+    <div class="container" align="center">
+      <p>Don't have an account? <a href="/register">Register Here</a></p>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+  //imports
+  loadNavbar();
+
+  //google analytics
+  window.dataLayer = window.dataLayer || [];
+  
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  
+  gtag('js', new Date());
+  gtag('config', 'UA-144569863-2');
+
+  //login
+  function login() {
+  var username = document.getElementById("username").value
+  var password = document.getElementById("psw").value
+  var remember = document.getElementById("remember").checked
+
+  if(username === "")
+    alert("Please enter a username")
+  else if(password === "")
+    alert("Please enter a password")
+
+  if(username === "" || password === "")
+    return
+
+  var xmlReq = new XMLHttpRequest();
+
+  xmlReq.onload = function() {
+    if (xmlReq.status == 200)
+      window.location.href =  "/"
+    else
+      alert(xmlReq.response)
+  }
+
+  var params = '?username=' + username + '&password=' + password + '&remember=' + remember
+
+  xmlReq.open('GET', '/requestLogin' + params, true)
+  xmlReq.send(null)
+}
+</script>
