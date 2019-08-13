@@ -282,25 +282,36 @@ function viewReports (report_id) {
 
 //Resizes the map when the page is resized
 function resizeMap() {
-  var box = document.getElementById('mapBox');
-  var resultsAreaHeight = window.innerHeight - document.getElementById('navbar-placeholder').offsetHeight - document.getElementById('dropdowns').offsetHeight - 30;
+  var mapBox = document.getElementById('mapBox');
+  var table = document.getElementById('table');
+  var headerHeight = document.getElementById('floatingHeader').offsetHeight;
+  var resultsAreaHeight = window.innerHeight - headerHeight - 10;
 
+  //Push the table below the header
+  table.style.marginTop = document.getElementById('floatingHeader').offsetHeight + "px";
+
+  //Resize the map
   if(window.innerWidth > 575)
   {
-    box.style.width = window.innerWidth/2 + "px";
-    box.style.height = resultsAreaHeight + "px";
+    mapBox.style.width = window.innerWidth/2 + "px";
+    mapBox.style.height = resultsAreaHeight + "px";
   }
   else
   {
     if(resultsAreaHeight < 400)
     {
-      box.style.width = "0px";
-      box.style.height = "0px";
+      mapBox.style.width = "0px";
+      mapBox.style.height = "0px";
     }
     else
     {
-      box.style.width = window.innerWidth + "px";
-      box.style.height = resultsAreaHeight/2 + "px";
+      mapBox.style.width = window.innerWidth + "px";
+      mapBox.style.height = resultsAreaHeight/2 + "px";
     }
+
+    //Push the table up above the map if in mobile mode
+    table.style.marginBottom = mapBox.offsetHeight + "px";
   }
+
+  
 }

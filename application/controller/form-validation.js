@@ -1,6 +1,5 @@
 const db = require('../auth/db_config.js')
-const db_categories = require('./categories.js')
-const db_locations = require('./locations.js')
+const dropdowns = require('./dropdowns.js')
 const validator = require('validator')
 
 // Terms for bounds checking. Query once on server start to save time and communicaiton.
@@ -12,17 +11,18 @@ const maxDetailsVarcharAmount = 300
 const maxUserIDVarcharAmount = 100
 const maxUsernameVarcharAmount = 100
 const maxEmailVarcharAmount = 100
+const maxPasswordVarcharAmount = 100
 const maxImageRefVarcharAmount = 100
 // ---------- /THESE MUST BE CHANGED TO BE <= THE SIZE OF RELATED DB COLUMNS ----------
 
 // Initial DB call to get the number of categories in the database at the time of startup.
-db_categories.getNumberOfCategories()
+dropdowns.getNumberOfCategories()
   .then(function (numCategories) {
     numberOfCategories = String(numCategories)
   })
 
 // Initial DB call to get the number of locations in the database at the time of startup.
-db_locations.getNumberOfLocations()
+dropdowns.getNumberOfLocations()
   .then(function (numLocations) {
     numberOfLocations = String(numLocations)
   })
@@ -64,8 +64,8 @@ exports.validateRegistrationForm = function (reqBody) {
 
   // Test each element individually.
   if(!isCaptchaValid(reqBody) ||
-     !isNewUsernameValid(reqBody) ||
-     !isNewEmailValid(reqBody) ||
+     !isUsernameValid(reqBody) ||
+     !isEmailValid(reqBody) ||
      !isNewPasswordValid(reqBody) ||
      !isUserIDValid(reqBody)) {
     return false
@@ -79,8 +79,8 @@ exports.validateLoginForm = function (reqBody) {
   var validationPassed = true
 
   // Test each element individually.
-  if(!isExistingUsernameValid(reqBody) ||
-     !isExistingEmailValid(reqBody) ||
+  if(!isUsernameValid(reqBody) ||
+     !isEmailValid(reqBody) ||
      !isExistingPasswordValid(reqBody)) {
     return false
   }
@@ -216,12 +216,13 @@ function areCoordinatesInBounds (body) {
 //   }
 // }
 
-// ----- START NEW USER INFO VALIDATION FUNCTIONS -----
-// Testing new username
+
+// ----- START GENERIC USER INFO VALIDATION FUNCTIONS -----
+// Testing username
 // TODO: DB query
-function isNewUsernameValid (body) {
+function isUsernameValid (body) {
   if ('username' in body &&
-      validator.isAlphanumeric(body['username'] + '', { locale: 'en-US' }) &&
+      validator.isAlphanumeric(body['username'] + '', ['en-US'] ) &&
       validator.isLength(body['username'] + '', { min: 1, max: parseInt(maxUsernameVarcharAmount) })) {
     console.log('username ' + body['username'] + ' pass')
     return true
@@ -231,9 +232,9 @@ function isNewUsernameValid (body) {
   }
 }
 
-// Testing new email
+// Testing email
 // TODO: DB query
-function isNewEmailValid (body) {
+function isEmailValid (body) {
   if ('email' in body &&
       validator.isEmail(body['email'] + '') &&
       validator.isLength(body['email'] + '', { min: 1, max: parseInt(maxEmailVarcharAmount) })) {
@@ -244,14 +245,16 @@ function isNewEmailValid (body) {
     validationPassed = false
   }
 }
+// ----- END GENERIC USER INFO VALIDATION FUNCTIONS -----
 
+// ----- START NEW USER INFO VALIDATION FUNCTIONS -----
 // Testing new password
 function isNewPasswordValid (body) {
   if ('password' in body &&
       'passwordConfirmation' in body &&
-      validator.equals(body['password'], body['passwordConfirmation']) &&
-      validator.isLength(body['password'] + '', { min: 1, max: parseInt(maxUsernameVarcharAmount) }) &&
-      validator.isLength(body['passwordConfirmation'] + '', { min: 1, max: parseInt(maxUsernameVarcharAmount) })) {
+      validator.isLength(body['password'] + '', { min: 1, max: parseInt(maxPasswordVarcharAmount) }) &&
+      validator.isLength(body['passwordConfirmation'] + '', { min: 1, max: parseInt(maxPasswordVarcharAmount) }) &&
+      validator.equals(body['password'], body['passwordConfirmation'])) {
     console.log('password ' + body['password'] + ' pass')
     return true
   } else {
@@ -262,41 +265,11 @@ function isNewPasswordValid (body) {
 // ----- END NEW USER INFO VALIDATION FUNCTIONS -----
 
 // ----- START EXISTING USER INFO VALIDATION FUNCTIONS -----
-// Testing existing username
-// TODO: DB query
-function isExistingUsernameValid (body) {
-  if ('username' in body &&
-      validator.isAlphanumeric(body['username'] + '', { locale: 'en-US' }) &&
-      validator.isLength(body['username'] + '', { min: 1, max: parseInt(maxUsernameVarcharAmount) })) {
-    console.log('username ' + body['username'] + ' pass')
-    return true
-  } else {
-    console.log('username ' + body['username'] + ' fail')
-    validationPassed = false
-  }
-}
-
-// Testing existing email
-// TODO: DB query
-function isExistingEmailValid (body) {
-  if ('email' in body &&
-      validator.isEmail(body['email'] + '') &&
-      validator.isLength(body['email'] + '', { min: 1, max: parseInt(maxEmailVarcharAmount) })) {
-    console.log('email ' + body['email'] + ' pass')
-    return true
-  } else {
-    console.log('email ' + body['email'] + ' fail')
-    validationPassed = false
-  }
-}
-
 // Testing existing password
 function isExistingPasswordValid (body) {
   if ('password' in body &&
-      'passwordConfirmation' in body &&
-      validator.equals(body['password'], body['passwordConfirmation']) &&
-      validator.isLength(body['password'] + '', { min: 1, max: parseInt(maxUsernameVarcharAmount) }) &&
-      validator.isLength(body['passwordConfirmation'] + '', { min: 1, max: parseInt(maxUsernameVarcharAmount) })) {
+      validator.isLength(body['password'] + '', { min: 1, max: parseInt(maxPasswordVarcharAmount) }) &&
+      'remember' in body ) {
     console.log('password ' + body['password'] + ' pass')
     return true
   } else {
