@@ -279,3 +279,28 @@ function viewReports (report_id) {
     }
   })
 }
+
+//Resizes the map when the page is resized
+function resizeMap() {
+  var box = document.getElementById('mapBox');
+  var resultsAreaHeight = window.innerHeight - document.getElementById('navbar-placeholder').offsetHeight - document.getElementById('dropdowns').offsetHeight - 30;
+
+  if(window.innerWidth > 575)
+  {
+    box.style.width = window.innerWidth/2 + "px";
+    box.style.height = resultsAreaHeight + "px";
+  }
+  else
+  {
+    if(resultsAreaHeight < 400)
+    {
+      box.style.width = "0px";
+      box.style.height = "0px";
+    }
+    else
+    {
+      box.style.width = window.innerWidth + "px";
+      box.style.height = resultsAreaHeight/2 + "px";
+    }
+  }
+}

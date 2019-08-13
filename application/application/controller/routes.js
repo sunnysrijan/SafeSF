@@ -91,16 +91,6 @@ router.get('/search', (req, res) => {
   }
 })
 
-
-/*
-router.post('/submitReport', upload.none(), (req, res) => {
-  console.log(req.file)
-
-
-  res.status(200)
-  return
-})
-
 /*
     Reports Endpoints
 */
@@ -108,45 +98,11 @@ router.post('/submitReport', upload.none(), (req, res) => {
 // Uses validator.js and express-validator.js libraries to enforce rules.
 router.post('/submitReport', upload.single('file'), (req, res) => {
   console.log('POST endpoint.')
-  console.log('body: ', req.body)
-  console.log('file: ', req.file)
-
-  // Check for errors from express-validator checks above.
-  /*
-  [
-    body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
-    body('category_id')
-      .exists({ checkNull: true }),
-    body('location_id')
-      .exists({ checkNull: true }),
-    body('details')
-      .exists({ checkNull: true }),
-    body('loc_lat')
-      .exists({ checkNull: true }),
-    body('loc_long')
-      .exists({ checkNull: true }),
-    body('user_id')
-      .exists({ checkNull: true }),
-    body('image_ref')
-      .exists({ checkNull: true })
-  ],
-
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    console.log('Error: ', errors)
-    res.status(422)
-    res.send(errors)
-    console.log('g-recaptcha-response: ' + body['g-recaptcha-response'] + ' - fail')
-    return
-  } else {
-    console.log('g-recaptcha-response: ' + body['g-recaptcha-response'] + ' - pass')
-  }
-  */
-
-
+  // console.log('body: ', req.body)
+  // console.log('file: ', req.file)
 
   // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if (!formValidation.validateSubmissionForm(req.body)) {
+  if (!formValidation.validateReportSubmissionForm(req.body)) {
     res.status(422)
     res.send('Report form validation failed!')
     console.log('Report form validation failed!')
@@ -269,19 +225,14 @@ router.post('/requestRegister', upload.none(), (req, res) => {
   console.log('Registration endpoint.')
   console.log(req.body)
 
-  /*
-  [
-    body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
-    body('display_name')
-      .exists({ checkNull: true }),
-    body('email')
-      .exists({ checkNull: true }),
-    body('password')
-      .exists({ checkNull: true }),
-    body('passwordConfirmation')
-      .exists({ checkNull: true })
-  ],
-  */
+  // ---------- BEGIN FORM VALIDATION SECTION ----------
+  if (!formValidation.validateRegistrationForm(req.body)) {
+    res.status(422)
+    res.send('Registration form validation failed!')
+    console.log('Registration form validation failed!')
+    return
+  }
+  // ---------- END FORM VALIDATION SECTION ----------
 
   // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
   // g-recaptcha-response is the token that is generated when the user succeeds
@@ -307,7 +258,6 @@ router.post('/requestRegister', upload.none(), (req, res) => {
 
       // ---------- BEGIN USER DB INSERTION SECTION ----------
       // Now that the validation is done, create the report.
-      /*
       auth.register(req.query, function (err, token) {
         if (err) {
           console.log('Error registering: ', err.message)
@@ -321,7 +271,6 @@ router.post('/requestRegister', upload.none(), (req, res) => {
           return
         }
       })
-      */
       // ---------- END USER DB INSERTION SECTION ----------
     }
   })
@@ -329,17 +278,27 @@ router.post('/requestRegister', upload.none(), (req, res) => {
 })
 
 router.get('/requestLogin', (req, res) => {
-  auth.login(req.query, function (err, token) {
-    if (err) {
-      console.log('Error logging in: ', err.message)
-      res.status(503)
-      res.send(err.message)
-    } else {
-      console.log(req.query.username, 'succesfully logged in')
-      res.cookie('accessToken', token)
-      res.sendStatus(200)
-    }
-  })
+  // ---------- BEGIN FORM VALIDATION SECTION ----------
+  if (!formValidation.validateLoginForm(req.body)) {
+    res.status(422)
+    res.send('Registration form validation failed!')
+    console.log('Registration form validation failed!')
+    return
+  } else {
+    auth.login(req.query, function (err, token) {
+      if (err) {
+        console.log('Error logging in: ', err.message)
+        res.status(503)
+        res.send(err.message)
+      } else {
+        console.log(req.query.username, 'succesfully logged in')
+        res.cookie('accessToken', token)
+        res.sendStatus(200)
+      }
+    })
+  }
+  // ---------- END FORM VALIDATION SECTION ----------
+
 })
 
 router.get('/requestLogout', (req, res) => {
