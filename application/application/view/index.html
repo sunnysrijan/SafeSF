@@ -31,6 +31,7 @@
 <body onload="search(); resizeMap();" onresize="resizeMap();">
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
+  <div class="container">
 
   <div class="header">
     <form id="dropdowns">
@@ -85,7 +86,7 @@
 
   //google analytics
   window.dataLayer = window.dataLayer || [];
-  
+
   function gtag() {
     dataLayer.push(arguments);
   }
