@@ -48,36 +48,34 @@ router.get('/submitReport', (req, res) => {
 })
 
 router.post('/admin', (req, res) => {
-  db.query("update reports set status='"+req.query['status']+"' where report_id='"+req.query['reportID']+"'", (error, results) => {
+  db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (error, results) => {
     if (error) {
-      console.log(error);
-      return;
+      console.log(error)
+      res.sendStatus(503)
     }
-    res.status(200);
-    res.send("Report Was Updated Successfully!");
-})
+    res.sendstatus(200)
+  })
 })
 
 /*
     Search
 */
 router.get('/search', (req, res) => {
-  if (req.query['admin']=='true'){
+  if (req.query.admin ==='true'){
     console.log("In admin search")
     db.query("Select * from reports where status='unassigned'or status='assigned'", (error, results) => {
       if (error) {
-        console.log(error);
-        res.sendStatus(503);
+        console.log(error)
+        res.sendStatus(503)
       }
-      console.log(results);
-      res.status(200);
-      res.send(results);
+      res.status(200)
+      res.send(results)
 
     })
   }
   else
   {
-  db_search.getResults(req.query, function (err, result) {
+    db_search.getResults(req.query, function (err, result) {
     console.log(req.query)
     if (err) {
       console.log('Error retrieving search results: ' + err)

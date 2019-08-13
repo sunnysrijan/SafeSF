@@ -4,26 +4,11 @@ function search () {
   var xmlReq = new XMLHttpRequest()
 
   xmlReq.onload = function () {
-    if (xmlReq.status == 200) { createTable(xmlReq.response) }
+    if (xmlReq.status == 200)
+      createTable(xmlReq.response)
   }
 
   xmlReq.open('GET', '/search?user_entry=' + urlParams.get('query'), true)
-  xmlReq.responseType = 'json'
-  xmlReq.send(null)
-}
-function admin () {
-  console.log("In Admin Func")
-  var xmlReq = new XMLHttpRequest()
-
-  xmlReq.onload = function () {
-    if (xmlReq.status == 200) 
-    { console.log("Recvd response")
-    console.log(xmlReq.response)
-      createTableAdmin(xmlReq.response) 
-    }
-  }
-
-  xmlReq.open('GET', '/search?admin=true', true)
   xmlReq.responseType = 'json'
   xmlReq.send(null)
 }
@@ -33,7 +18,9 @@ function setStatus(report_id, status) {
 
   xmlReq.onload = function () {
     if (xmlReq.status == 200)
-      alert(xmlReq.response)
+      alert("Report Was Updated Successfully!")
+    else
+      alert("Report Could Not Be Updated")
   }
 
   xmlReq.open('POST', '/admin?reportID=' + report_id + '&status=' + status, true)
@@ -46,8 +33,7 @@ function admin () {
 
   xmlReq.onload = function () {
     if (xmlReq.status == 200) 
-    { createTableAdmin(xmlReq.response) 
-    }
+      createTableAdmin(xmlReq.response)
   }
 
   xmlReq.open('GET', '/search?admin=true', true)
