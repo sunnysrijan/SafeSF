@@ -134,6 +134,7 @@ router.post('/submitReport', [
       console.log('Captcha invalid, value: ', err)
       res.status(422)
       res.send(err)
+      return
     } else {
       console.log(result)
       // If we get here, then the token is valid.
@@ -147,10 +148,12 @@ router.post('/submitReport', [
           console.log('Error creating report: ' + err)
           res.status(422)
           res.send('Error creating report\n')
+          return
         } else {
           res.status(200)
           console.log(result)
           res.redirect('report?report_id=' + result.report_id)
+          return
         }
       })
       // ---------- END REPORT INSERTION SECTION ----------
@@ -225,18 +228,63 @@ router.get('/images', (req, res) => {
   })
 })
 
-router.post('/requestRegister', (req, res) => {
-  auth.register(req.query, function (err, token) {
+// endpoint for POSTing (creating) new users
+// Uses validator.js and express-validator.js libraries to enforce rules.
+router.post('/requestRegister', [
+  body('g-recaptcha-response').exists({ checkNull: true, checkFalsy: true }).withMessage('No captcha token sent!'),
+  body('display_name')
+    .exists({ checkNull: true }),
+  body('email')
+    .exists({ checkNull: true }),
+  body('password')
+    .exists({ checkNull: true }),
+  body('passwordConfirmation')
+    .exists({ checkNull: true })
+], (req, res) => {
+  console.log('Registration endpoint.')
+  console.log(req.body)
+
+  // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
+  // g-recaptcha-response is the token that is generated when the user succeeds
+  // in a captcha challenge.
+  var params = {
+    'g-recaptcha-response': req.body['g-recaptcha-response'],
+    'remote-address': req.connection.remoteAddress
+  }
+  // Start the verification process.
+  captcha.getCaptchaValidationStatus(params, function (err, result) {
+    // If the verification process failed, tell the user and do not enter
+    // report data into DB.
     if (err) {
-      console.log('Error registering: ', err.message)
-      res.status(503)
-      res.send(err.message)
+      console.log('Captcha invalid, value: ', err)
+      res.status(422)
+      res.send(err)
+      return
     } else {
-      console.log(req.query.username, 'succesfully registered')
-      res.cookie('accessToken', token)
-      res.sendStatus(200)
+      console.log(result)
+      // If we get here, then the token is valid.
+      // Remove the captcha token from the original data packet.
+      delete req.body['g-recaptcha-response']
+
+      // ---------- BEGIN USER DB INSERTION SECTION ----------
+      // Now that the validation is done, create the report.
+      auth.register(req.query, function (err, token) {
+        if (err) {
+          console.log('Error registering: ', err.message)
+          res.status(503)
+          res.send(err.message)
+          return
+        } else {
+          console.log(req.query.username, 'succesfully registered')
+          res.cookie('accessToken', token)
+          res.sendStatus(200)
+          return
+        }
+      })
+      // ---------- END USER DB INSERTION SECTION ----------
     }
   })
+  // ---------- END CAPTCHA VALIDATION SECTION ----------
 })
 
 router.get('/requestLogin', (req, res) => {

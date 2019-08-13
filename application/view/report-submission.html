@@ -52,7 +52,7 @@
      getCategories and getLocation are needed to populate dropdown menus
      these are called on the loading of the page -->
 <body onload="loadNavbar(); getCategories(); getLocations()">
-  
+
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
 
@@ -76,7 +76,7 @@
               <div class="form-group">
                   <br>
                   <!-- <hr> -->
-                <label for="dropdown-content">Category 
+                <label for="dropdown-content">Category
                   <strong style='color: red'> *</strong>
                 </label>
 
@@ -89,7 +89,7 @@
 
 
               <div class="form-group">
-                <label for="dropdown-content">Neighborhood 
+                <label for="dropdown-content">Neighborhood
                     <strong style='color: red'> *</strong>
                 </label>
                 <select class="form-control" name="location_id" id="locationDropDown">
@@ -114,10 +114,10 @@
               <!-- <hr> -->
 
               <div class="form-group">
-                <label for="user_entry">Please enter a description: 
+                <label for="user_entry">Please enter a description:
                     <strong style='color: red'> *</strong>
                 </label>
-                <textarea class="form-control" name="details" id="user_entry" rows="3"></textarea>
+                <textarea class="form-control" name="details" id="user_entry" rows="3" required></textarea>
               </div>
 
 
@@ -134,7 +134,7 @@
               </div>
 
               <div class="form-group">
-                <input type="hidden" step="0.000000001" class="form-control" name="user_id" id="user_id" value=1>
+                <input type="hidden" step="0.000000001" class="form-control" name="user_id" id="user_id" value=1 required>
               </div>
               <br>
               <hr>
@@ -143,7 +143,7 @@
 
           <!--- This element holds the map. --->
 
-     
+
 
           <h3 style="text-align: center; font-weight: 600;">Please drag the red marker to location of incident:</h3>
           <br>
@@ -162,21 +162,21 @@
                 <label for="picture">Please choose a picture of the hazard to be submitted:
                     <strong style='color: red'> *</strong>
                 </label>
-                <input style="padding-top: 10px;" type="file" class="form-control-file" name="image_ref" id="image_ref" >
+                <input style="padding-top: 10px;" type="file" class="form-control-file" name="image_ref" id="image_ref" required>
               </div>
               <br>
               <hr>
               <br>
             </div>
-          </div>    
-                
-          
+          </div>
+
+
           <!-- <br> -->
 
           <div class="row">
             <div class="col-lg-8 offset-xl-1">
               <div class="form-group mx-auto">
-                <div id="captchaElement" 
+                <div id="captchaElement"
                      class="g-recaptcha style= margin-top: 10px;" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
                 </div>
                 <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-1" value=" Submit Report "  style="border-radius: 15px; border-width: 2px " disabled="true">
@@ -185,11 +185,11 @@
           </div>
 
           <br/><br/><br/><br/><br/>
-        
+
           <hr>
-          <p style="text-align: center">Fields with 
+          <p style="text-align: center">Fields with
               <strong style='color: red'> *</strong>
-              are required to continue. 
+              are required to continue.
           </p>
 
       </div>
