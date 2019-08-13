@@ -71,11 +71,11 @@ router.get('/search', (req, res) => {
 // Uses validator.js and express-validator.js libraries to enforce rules.
 router.post('/submitReport', upload.single('file'), (req, res) => {
   console.log('POST endpoint.')
-  console.log('body: ', req.body)
-  console.log('file: ', req.file)
+  // console.log('body: ', req.body)
+  // console.log('file: ', req.file)
 
   // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if (!formValidation.validateSubmissionForm(req.body)) {
+  if (!formValidation.validateReportSubmissionForm(req.body)) {
     res.status(422)
     res.send('Report form validation failed!')
     console.log('Report form validation failed!')
@@ -196,6 +196,15 @@ router.post('/requestRegister', upload.none(), (req, res) => {
   console.log('Registration endpoint.')
   console.log(req.body)
 
+  // ---------- BEGIN FORM VALIDATION SECTION ----------
+  if (!formValidation.validateRegistrationForm(req.body)) {
+    res.status(422)
+    res.send('Registration form validation failed!')
+    console.log('Registration form validation failed!')
+    return
+  }
+  // ---------- END FORM VALIDATION SECTION ----------
+
   // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
   // g-recaptcha-response is the token that is generated when the user succeeds
   // in a captcha challenge.
@@ -240,17 +249,27 @@ router.post('/requestRegister', upload.none(), (req, res) => {
 })
 
 router.get('/requestLogin', (req, res) => {
-  auth.login(req.query, function (err, token) {
-    if (err) {
-      console.log('Error logging in: ', err.message)
-      res.status(503)
-      res.send(err.message)
-    } else {
-      console.log(req.query.username, 'succesfully logged in')
-      res.cookie('accessToken', token)
-      res.sendStatus(200)
-    }
-  })
+  // ---------- BEGIN FORM VALIDATION SECTION ----------
+  if (!formValidation.validateLoginForm(req.body)) {
+    res.status(422)
+    res.send('Registration form validation failed!')
+    console.log('Registration form validation failed!')
+    return
+  } else {
+    auth.login(req.query, function (err, token) {
+      if (err) {
+        console.log('Error logging in: ', err.message)
+        res.status(503)
+        res.send(err.message)
+      } else {
+        console.log(req.query.username, 'succesfully logged in')
+        res.cookie('accessToken', token)
+        res.sendStatus(200)
+      }
+    })
+  }
+  // ---------- END FORM VALIDATION SECTION ----------
+
 })
 
 router.get('/requestLogout', (req, res) => {
