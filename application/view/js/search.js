@@ -28,14 +28,15 @@ function admin () {
   xmlReq.send(null)
 }
 
-function setStatus(param) {
+function setStatus(report_id, status) {
   var xmlReq = new XMLHttpRequest()
 
   xmlReq.onload = function () {
-    if (xmlReq.status == 200) { alert(xmlReq.response) }
+    if (xmlReq.status == 200)
+      alert(xmlReq.response)
   }
 
-  xmlReq.open('POST', '/admin'+param, true)
+  xmlReq.open('POST', '/admin?reportID=' + report_id + '&status=' + status, true)
   xmlReq.responseType = 'json'
   xmlReq.send(null)
 }
@@ -111,15 +112,19 @@ function createTableAdmin (searchResults) {
     var image = 'report_images/' + report.report_id + '.jpg'
     var location = report.location_id
     
-var paramA="?reportID='"+ report.report_id +"'&status='Assigned'"
+    var paramA="?reportID='"+ report.report_id +"'&status='Assigned'"
 
-    cell.innerHTML = "<div class='admincard'><div onclick=\"viewReports('" + report.report_id + "')\" class='repcard'>" +
+    var assignButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Assigned')\" class='adminbuttons'>Assign</button>"
+    var dismissButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Dismiss')\" class='adminbuttons'>Dismiss</button>"
+    var completedButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Completed')\" class='adminbuttons'>Completed</button>"
+
+    cell.innerHTML = "<div class='admincard'><div onclick=\"viewReports('\" + report.report_id + \"')\" class='repcard'>" +
       "<img class='cardImage' src='" + image + "'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
       category + '</div><div><strong>Details:</strong> ' +
       report.details + '</div><div><strong>Location:</strong> ' +
       location + '</div><div><strong>Reported On: </strong>' +
       report.insert_date + '</div><div><strong>Status: </strong>' +
-      report.status + "</div></div></div><div class='buttonsdiv'><button onclick='setStatus(?reportID='"+report.report_id+"''&status='Assigned') class='adminbuttons'>Assign</button><button onclick='setStatus(?reportID='"+report.report_id+"''&status='Dismiss') class='adminbuttons'>Dismiss</button><button onclick='setStatus(?reportID='"+report.report_id+"''&status='Completed') class='adminbuttons'>Completed</button></div></div>"
+      report.status + "</div></div></div><div class='buttonsdiv'>" + assignButton + dismissButton + completedButton + "</div></div>"
 
     // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
     //var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
