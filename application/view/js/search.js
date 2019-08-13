@@ -119,8 +119,7 @@ var paramA="?reportID='"+ report.report_id +"'&status='Assigned'"
       report.details + '</div><div><strong>Location:</strong> ' +
       location + '</div><div><strong>Reported On: </strong>' +
       report.insert_date + '</div><div><strong>Status: </strong>' +
-      //NEED HELP HERE
-      report.status + '</div></div></div><div class="buttonsdiv"><button onclick='+'setStatus("?reportID="'+report.report_id+'"&status="Assigned")'+"class='adminbuttons'>Assign</button><button value='?reportID="+ report.report_id +"&status=Dismissed' class='adminbuttons'>Dismiss</button><button value='?reportID="+ report.report_id +"&status=Completed' class='adminbuttons'>Completed</button></div></div>"
+      report.status + "</div></div></div><div class='buttonsdiv'><button onclick='setStatus(?reportID='"+report.report_id+"''&status='Assigned') class='adminbuttons'>Assign</button><button onclick='setStatus(?reportID='"+report.report_id+"''&status='Dismiss') class='adminbuttons'>Dismiss</button><button onclick='setStatus(?reportID='"+report.report_id+"''&status='Completed') class='adminbuttons'>Completed</button></div></div>"
 
     // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
     //var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
