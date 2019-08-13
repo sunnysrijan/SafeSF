@@ -17,7 +17,18 @@ const auth = require('../auth/auth.js')
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 // Create the multer and limit the size of files to 2mb.
-var storage = multer.memoryStorage()
+// var storage = multer.memoryStorage()
+
+var storage = multer.diskStorage({
+  destination : function (req, file, cb){
+    cb(null, './view/report_images')
+  },
+  filename : function (req, file, cb){
+    var file_name = new Date().getTime()
+    cb(null, `${file_name}.jpg`)
+  }
+
+})
 var upload = multer({
   storage: storage,
   limits: { fileSize: 2 * 1024 * 1024 }
@@ -100,14 +111,13 @@ router.post('/submitReport', upload.single('file'), (req, res) => {
       res.send(err)
       return
     } else {
-      console.log(result)
       // If we get here, then the token is valid.
       // Remove the captcha token from the original data packet.
       delete req.body['g-recaptcha-response']
 
       // ---------- BEGIN REPORT INSERTION SECTION ----------
       // Now that the validation is done, create the report.
-      reports.createReport(req.body, function (err, result) {
+      reports.createReport(req, function (err, result) {
         if (err) {
           console.log('Error creating report: ' + err)
           res.status(422)
@@ -115,7 +125,6 @@ router.post('/submitReport', upload.single('file'), (req, res) => {
           return
         } else {
           res.status(200)
-          console.log(result)
           res.redirect('report?report_id=' + result.report_id)
           return
         }
