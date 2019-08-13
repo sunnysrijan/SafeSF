@@ -16,7 +16,26 @@
   font-family: 'Darker Grotesque', sans-serif;
   font-family: 'Kreon', serif; */
 
+.split_left {
 
+  height:400px;
+  min-width: 520px;
+  float: left;
+  display: flex;
+  z-index: 1;
+  overflow-x: hidden;
+  margin: 10px}
+
+.split_right{
+
+  height: 400px;
+  min-width: max-content;
+  float: right;
+  display: flex;
+  z-index: 1;
+  padding: 10px;
+  overflow-x: hidden;
+  }
 
 .topnav {
   overflow: hidden;
@@ -201,7 +220,6 @@ h1 {
 }
 
 table {
-
   width: 95%;
   margin: 1%;
 }
@@ -209,11 +227,4 @@ table {
 td {
   vertical-align: middle;
   padding: 10px;
-}
-h2{
-  font-family: Impact, Charcoal, sans-serif;
-}
-h3{
-  font-family: Impact, Charcoal, sans-serif;
-}
 }
