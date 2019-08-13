@@ -130,8 +130,8 @@ function initMap () {
     // DOM calls to set form values.
     document.getElementById('currentCoords').innerHTML = '<p>New coords: ' + newLat.toFixed(7) + ', ' + newLng.toFixed(7) +
       '; The marker in the vicinity of San Francisco: ' + boolMarkerInSF + '</p>'
-    document.forms['results-form'].elements['loc_lat'].value = newLat
-    document.forms['results-form'].elements['loc_long'].value = newLng
+    document.forms['report-submission-form'].elements['loc_lat'].value = newLat
+    document.forms['report-submission-form'].elements['loc_long'].value = newLng
 
     // Set the center of the map to be the same as the new marker position, if possible.
     setNewCenterLatLng(marker.position)

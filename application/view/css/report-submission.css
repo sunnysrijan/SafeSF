@@ -21,7 +21,7 @@
   #map {
     margin: 0 auto 0 auto;
     height: 500px;
-    width: 83%;
+    width: 100%;
   }
 
   html,
@@ -33,12 +33,27 @@
 
   }
 
+  form {
+    width: 50rem;
+    min-width: 20rem;
+    max-width: 75rem;
+  }
+
   label {
-    font-weight:700; 
+    font-weight:700;
     font-size:125%;
     /* font-family: 'Crimson Text', serif; */
   }
-  
+
+  .text-center {
+    text-align: center;
+  }
+
+  .g-recaptcha {
+    margin-top: 10px;
+    display: inline-block;
+  }
+
   #submit-button {
     background-color: white;
     align-content: center;
@@ -53,7 +68,7 @@
     /* left:80px;
     top:105px; */
     font-size: 	1.75rem;
-    
+
   }
 
   #submit-button:hover {
