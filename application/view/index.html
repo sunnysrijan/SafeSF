@@ -54,6 +54,13 @@
 		            <option value="-1">None</option>
 		          </select>
 		        </div>
+
+		        <div class="dropdown">
+		          <p>Park:</p>
+		          <select class="form-control" name="park_id" id="parkDropDown">
+		            <option value="-1">None</option>
+		          </select>
+		        </div>
 		      </div>
 		      <hr class="divider"/>
 		    </form>
@@ -88,6 +95,7 @@
   loadNavbar();
   getCategories();
   getLocations();
+  getParks();
   initMap();
 
   //google analytics

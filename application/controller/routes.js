@@ -3,9 +3,8 @@ const https = require('https')
 const bodyParser = require('body-parser')
 const router = express.Router()
 const path = require('path')
-const db_categories = require('./categories.js')
+const dropdowns = require('./dropdowns.js')
 const db_search = require('./search.js')
-const db_locations = require('./locations.js')
 const image = require('./images.js')
 const reports = require('./reports.js')
 //const { body, check, validationResult } = require('express-validator')
@@ -148,7 +147,7 @@ router.get('/getReport', (req, res) => {
 
 // Endpoint for filling categories dropdown menu
 router.get('/categories', (req, res) => {
-  db_categories.getCategories(function (err, result) {
+  dropdowns.getCategories(function (err, result) {
     if (err) {
       console.log('Error retrieving categories: ' + err)
       res.sendStatus(503)
@@ -162,12 +161,26 @@ router.get('/categories', (req, res) => {
 
 // Endpoint for filling locations dropdown menu
 router.get('/locations', (req, res) => {
-  db_locations.getLocations(function (err, result) {
+  dropdowns.getLocations(function (err, result) {
     if (err) {
       console.log('Error retrieving locations: ' + err)
       res.sendStatus(503)
     } else {
       console.log('Retrieved locations from the Database')
+      res.status(200)
+      res.send(result)
+    }
+  })
+})
+
+// Endpoint for filling parks dropdown menu
+router.get('/parks', (req, res) => {
+  dropdowns.getParks(function (err, result) {
+    if (err) {
+      console.log('Error retrieving parks: ' + err)
+      res.sendStatus(503)
+    } else {
+      console.log('Retrieved parks from the Database')
       res.status(200)
       res.send(result)
     }
