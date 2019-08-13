@@ -47,6 +47,17 @@ router.get('/submitReport', (req, res) => {
   res.sendFile(path.resolve('view/report-submission.html'))
 })
 
+router.post('/admin', (req, res) => {
+  db.query("update reports set status='"+req.query['status']+"' where report_id='"+req.query['reportID']+"'", (error, results) => {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    res.status(200);
+    res.send("Report Was Updated Successfully!");
+})
+})
+
 /*
     Search
 */
@@ -56,7 +67,7 @@ router.get('/search', (req, res) => {
     db.query("Select * from reports where status='unassigned'or status='assigned'", (error, results) => {
       if (error) {
         console.log(error);
-        return;
+        res.sendStatus(503);
       }
       console.log(results);
       res.status(200);

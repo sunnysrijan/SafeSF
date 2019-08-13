@@ -28,6 +28,32 @@ function admin () {
   xmlReq.send(null)
 }
 
+function setStatus(param) {
+  var xmlReq = new XMLHttpRequest()
+
+  xmlReq.onload = function () {
+    if (xmlReq.status == 200) { alert(xmlReq.response) }
+  }
+
+  xmlReq.open('POST', '/admin'+param, true)
+  xmlReq.responseType = 'json'
+  xmlReq.send(null)
+}
+
+function admin () {
+  var xmlReq = new XMLHttpRequest()
+
+  xmlReq.onload = function () {
+    if (xmlReq.status == 200) 
+    { createTableAdmin(xmlReq.response) 
+    }
+  }
+
+  xmlReq.open('GET', '/search?admin=true', true)
+  xmlReq.responseType = 'json'
+  xmlReq.send(null)
+}
+
 // function getSearchParams () {
 //   var category_id = document.getElementById('categoryDropDown').value
 //   var location_id = document.getElementById('locationDropDown').value
@@ -85,6 +111,7 @@ function createTableAdmin (searchResults) {
     var image = 'report_images/' + report.report_id + '.jpg'
     var location = report.location_id
     
+var paramA="?reportID='"+ report.report_id +"'&status='Assigned'"
 
     cell.innerHTML = "<div class='admincard'><div onclick=\"viewReports('" + report.report_id + "')\" class='repcard'>" +
       "<img class='cardImage' src='" + image + "'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
@@ -92,7 +119,8 @@ function createTableAdmin (searchResults) {
       report.details + '</div><div><strong>Location:</strong> ' +
       location + '</div><div><strong>Reported On: </strong>' +
       report.insert_date + '</div><div><strong>Status: </strong>' +
-      report.status + "</div></div></div><div class='buttonsdiv'><button class='adminbuttons'>Assign</button><button class='adminbuttons'>Dismiss</button><button class='adminbuttons'>Completed</button></div></div>"
+      //NEED HELP HERE
+      report.status + '</div></div></div><div class="buttonsdiv"><button onclick='+'setStatus("?reportID="'+report.report_id+'"&status="Assigned")'+"class='adminbuttons'>Assign</button><button value='?reportID="+ report.report_id +"&status=Dismissed' class='adminbuttons'>Dismiss</button><button value='?reportID="+ report.report_id +"&status=Completed' class='adminbuttons'>Completed</button></div></div>"
 
     // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
     //var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
