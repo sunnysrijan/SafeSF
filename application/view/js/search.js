@@ -166,7 +166,7 @@ function createTable (searchResults) {
       var location = getValueOfId(locations, 'location_id', report.location_id)
     }
 
-    cell.innerHTML = createCard(report, image, category, location, null)
+    cell.innerHTML = createCard(report, image, category, location, null, true)
 
     // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
     var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
@@ -199,7 +199,7 @@ function createRecentsTable (searchResults) {
       var location = getValueOfId(locations, 'location_id', report.location_id)
     }
 
-    cell.innerHTML = createCard(report, image, category, location, null)
+    cell.innerHTML = createCard(report, image, category, location, null, true)
   }
 
   var tableContainer = document.getElementById('table')
@@ -224,13 +224,11 @@ function createTableAdmin (searchResults) {
       var location = getValueOfId(locations, 'location_id', report.location_id)
     }
 
-    var paramA="?reportID='"+ report.report_id +"'&status='Assigned'"
-
     var assignButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Assigned')\" class='adminbuttons'>Assign</button>"
     var dismissButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Dismiss')\" class='adminbuttons'>Dismiss</button>"
     var completedButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Completed')\" class='adminbuttons'>Completed</button>"
 
-    cell.innerHTML = createCard(report, image, category, location, assignButton + dismissButton + completedButton)
+    cell.innerHTML = createCard(report, image, category, location, assignButton + dismissButton + completedButton, false)
   }
 
   var tableContainer = document.getElementById('table')
@@ -238,9 +236,16 @@ function createTableAdmin (searchResults) {
   tableContainer.appendChild(table)
 }
 
-function createCard(report, image, category, location, buttons) {
-  var buttonHtml =
-      "<div onclick=\"viewReports('" + report.report_id + "')\" id='" + report.report_id + "' class='repcard'>" +
+function createCard(report, image, category, location, buttons, redirect) {
+  var buttonHtml
+
+  if(redirect == true)
+    buttonHtml = "<div onclick=\"viewReports('" + report.report_id + "')\""
+  else
+    buttonHtml = "<div "
+
+  var buttonHtml = buttonHtml +
+      " id='" + report.report_id + "' class='repcard'>" +
       "<img class='cardImage' src='" + image + "'style='height:300;width:300'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
       category + '</div><div><strong>Details:</strong> ' +
       report.details + '</div><div><strong>Location:</strong> ' +

@@ -79,7 +79,8 @@ router.post('/admin', (req, res) => {
       console.log(error)
       res.sendStatus(503)
     }
-    res.sendstatus(200)
+    res.status(200)
+    res.send('success')
   })
 })
 
@@ -310,7 +311,8 @@ router.post('/requestRegister', upload.none(), (req, res) => {
           console.log(authInfo.username, 'succesfully registered')
           res.cookie('accessToken', token)
           res.redirect('/')
-          res.sendStatus(200)
+          res.status(200)
+          res.send('success')
           return
         }
       })
