@@ -152,7 +152,7 @@ function sortJsonArrayByProperty(objArray, prop, direction){
 function createTable (searchResults) {
   var table = document.createElement('table')
 
-  for (var i = 0; i < Math.ceil(searchResults.length); i++) {
+  for (var i = 0; i < searchResults.length; i++) {
     var row = table.insertRow(-1)
     var cell = row.insertCell(-1)
 
@@ -210,7 +210,7 @@ function createRecentsTable (searchResults) {
 function createTableAdmin (searchResults) {
   var table = document.createElement('table')
 
-  for (var i = 0; i < searchResults.length; i++) {
+  for (var i = searchResults.length - 1; i >= 0; i--) {
     var row = table.insertRow(-1)
     var cell = row.insertCell(-1)
 
