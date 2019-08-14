@@ -1,6 +1,5 @@
 const name = document.getElementById('username')
 const password = document.getElementById('psw')
-const checkedRememberMe = document.getElementById('grid-check')
 const form = document.getElementById('login-form')
 const submitButton = document.getElementById('submit-button')
 

@@ -18,7 +18,7 @@ exports.createToken = function (data, callback) {
     algorithm: 'RS256'
   }
 
-  if (data.remember === 'false') { tokenOptions.expiresIn = '10m' }
+  if (data.remember === 'on') { tokenOptions.expiresIn = '10m' }
 
   jwt.sign(payload, privateKey, tokenOptions, function (err, token) {
     if (err) { callback(err, null) } else {
