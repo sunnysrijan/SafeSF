@@ -25,7 +25,7 @@ function initMap () {
     center: curLatLng,
     zoom: 16, // Bigger number = higher zoom. Float values accepted.
     draggable: false, // Make the map undraggagle.
-    mapTypeId: 'hybrid'
+    mapTypeId: 'roadmap'
   })
 
   // Create the marker on the map.

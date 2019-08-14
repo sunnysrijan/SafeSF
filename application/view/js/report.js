@@ -34,7 +34,7 @@ function initMap () {
     zoom: 16, // Bigger number = higher zoom. Float values accepted.
     streetViewControl: false, // Disable street view.
     draggable: false, // Make the map undraggagle.
-    mapTypeId: 'hybrid',
+    mapTypeId: 'roadmap',
     styles: [{ // This styling removes points of interest to declutter the map.
       featureType: 'poi',
       stylers: [{

@@ -71,7 +71,7 @@ function initMap () {
     zoom: 12, // Bigger number = higher zoom. Float values accepted.
     gestureHandling: 'greedy', // Enable mousewheel zoom.
     streetViewControl: false, // Disable street view.
-    mapTypeId: 'hybrid', // Hybrid map (satellite + roads).
+    mapTypeId: 'roadmap', // Hybrid map (satellite + roads).
     styles: [{ // This styling removes points of interest to declutter the map.
       featureType: 'poi',
       stylers: [{

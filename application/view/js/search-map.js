@@ -53,7 +53,7 @@ function initMap () {
     zoom: 12.2, // Bigger number = higher zoom. Float values accepted.
     gestureHandling: 'greedy', // Enable mousewheel zoom.
     streetViewControl: false, // Disable street view.
-    mapTypeId: 'hybrid',
+    mapTypeId: 'roadmap',
     styles: [{ // This styling removes points of interest to declutter the map.
       featureType: 'poi',
       stylers: [{
