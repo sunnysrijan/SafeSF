@@ -10,7 +10,7 @@ exports.buildSearchQuery = function (table, order, params) {
       LEFT JOIN categories ON categories.category_id = reports.category_id
       LEFT JOIN locations ON locations.location_id = reports.location_id`
   var where_clause = ' WHERE'
-  var order_clause = ` ORDER BY ${order} DESC`
+  var order_clause = ` ORDER BY CAST(${order} AS SIGNED) DESC`
   var where_count = 0
   var values = []
 
