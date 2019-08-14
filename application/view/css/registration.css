@@ -72,9 +72,9 @@ form,
   width: 100%;
 } */
 
-#registerbtn:hover {
+#submit-button:hover {
   opacity: 1;
-} 
+}
 
 
 .registerBtn {
@@ -94,7 +94,7 @@ button:hover {
 .btn-outline-primary:visited,
 .btn-outline-primary:focus {
     background-color: white !important;
-    border-color: #248ea9 !important; 
+    border-color: #248ea9 !important;
     color: #248ea9 !important;
 }
 
