@@ -31,7 +31,13 @@ exports.buildSearchQuery = function (table, order, params) {
           where_count++
           value = '%' + value + '%'
           values.push(value)
-        } else {
+        }
+        else if (key === 'category_id' || key === 'location_id' || key === 'parks_id'){
+          where_clause = where_clause + ' ' + 'reports.' + key + ' = ?'
+          where_count++
+          values.push(value)
+        }
+        else {
           where_clause = where_clause + ' ' + key + ' = ?'
           where_count++
           values.push(value)
