@@ -1,4 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search) // Parameter parser class.
+const NUMBER_OF_MOST_RECENT_RESULTS = 10
 
 function search () {
   var xmlReq = new XMLHttpRequest()
@@ -30,7 +31,7 @@ function admin () {
   var xmlReq = new XMLHttpRequest()
 
   xmlReq.onload = function () {
-    if (xmlReq.status == 200) 
+    if (xmlReq.status == 200)
       createTableAdmin(xmlReq.response)
   }
 
@@ -150,7 +151,19 @@ function sortJsonArrayByProperty(objArray, prop, direction){
 function createTable (searchResults) {
   var table = document.createElement('table')
 
-  for (var i = 0; i < Math.ceil(searchResults.length); i++) {
+  // If we have search parameters, show all results.
+  // Otherwise, show a default amount of them.
+  var numResultsToShow = NUMBER_OF_MOST_RECENT_RESULTS
+  var numParams = 0
+  urlParams.forEach(function (value, key) {
+    numParams++
+  })
+
+  if (numParams > 1) {
+    numResultsToShow = Math.ceil(searchResults.length)
+  }
+
+  for (var i = 0; i < numResultsToShow; i++) {
     var row = table.insertRow(-1)
     var cell = row.insertCell(-1)
 
@@ -221,7 +234,7 @@ function createTableAdmin (searchResults) {
     var category = report.category_id
     var image = 'report_images/' + report.report_id + '-thumb.jpg'
     var location = report.location_id
-    
+
     var paramA="?reportID='"+ report.report_id +"'&status='Assigned'"
 
     var assignButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Assigned')\" class='adminbuttons'>Assign</button>"
@@ -237,7 +250,7 @@ function createTableAdmin (searchResults) {
 }
 
 function createCard(report, image, category, location, buttons) {
-  var buttonHtml = 
+  var buttonHtml =
       "<div onclick=\"viewReports('" + report.report_id + "')\" id='" + report.report_id + "' class='repcard'>" +
       "<img class='cardImage' src='" + image + "'style='height:300;width:300'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
       category + '</div><div><strong>Details:</strong> ' +
