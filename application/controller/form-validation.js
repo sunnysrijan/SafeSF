@@ -81,7 +81,6 @@ exports.validateLoginForm = function (reqBody) {
 
   // Test each element individually.
   if(!isUsernameValid(reqBody) ||
-     !isEmailValid(reqBody) ||
      !isExistingPasswordValid(reqBody)) {
     return false
   }
@@ -222,13 +221,13 @@ function areCoordinatesInBounds (body) {
 // Testing username
 // TODO: DB query
 function isUsernameValid (body) {
-  if ('display_name' in body &&
-      validator.isAlphanumeric(body['display_name'] + '', ['en-US'] ) &&
-      validator.isLength(body['display_name'] + '', { min: 4, max: parseInt(maxUsernameVarcharAmount) })) {
-    console.log('display_name ' + body['display_name'] + ' pass')
+  if ('username' in body &&
+      validator.isAlphanumeric(body['username'] + '', ['en-US'] ) &&
+      validator.isLength(body['username'] + '', { min: 4, max: parseInt(maxUsernameVarcharAmount) })) {
+    console.log('username ' + body['username'] + ' pass')
     return true
   } else {
-    console.log('display_name ' + body['display_name'] + ' fail')
+    console.log('username ' + body['username'] + ' fail')
     return false
   }
 }
@@ -269,8 +268,7 @@ function isNewPasswordValid (body) {
 // Testing existing password
 function isExistingPasswordValid (body) {
   if ('password' in body &&
-      validator.isLength(body['password'] + '', { min: 7, max: parseInt(maxPasswordVarcharAmount) }) &&
-      'remember' in body ) {
+      validator.isLength(body['password'] + '', { min: 7, max: parseInt(maxPasswordVarcharAmount) })) {
     console.log('password ' + body['password'] + ' pass')
     return true
   } else {

@@ -276,7 +276,7 @@ router.post('/requestRegister', upload.none(), (req, res) => {
       delete req.body['g-recaptcha-response']
 
       var authInfo = {
-        username: req.body['display_name'],
+        username: req.body['username'],
         email: req.body['email'],
         password: req.body['password'],
       }
@@ -307,20 +307,26 @@ router.get('/requestLogin', upload.none(), (req, res) => {
   console.log(req.query.username)
   console.log(req.query.password)
   console.log(req.query.remember)
+
+  var authInfo = {}
+  authInfo['username'] = req.query.username
+  authInfo['password'] = req.query.password
+  console.log(authInfo)
+
   // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if (!formValidation.validateLoginForm(req.query)) {
+  if (!formValidation.validateLoginForm(authInfo)) {
     res.status(422)
     res.send('Login form validation failed!')
     console.log('Login form validation failed!')
     return
   } else {
-    auth.login(req.query, function (err, token) {
+    auth.login(authInfo, function (err, token) {
       if (err) {
         console.log('Error logging in: ', err.message)
         res.status(503)
         res.send(err.message)
       } else {
-        console.log(req.query.username, 'succesfully logged in')
+        console.log(authInfo.username, 'succesfully logged in')
         res.cookie('accessToken', token)
         res.sendStatus(200)
       }
