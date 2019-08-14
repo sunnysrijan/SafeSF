@@ -47,6 +47,8 @@ function setStatus(report_id, status) {
       alert("Report Was Updated Successfully!")
     else
       alert("Report Could Not Be Updated")
+
+    window.location.href = "/admin";
   }
 
   xmlReq.open('POST', '/admin?reportID=' + report_id + '&status=' + status, true)
@@ -182,12 +184,8 @@ function createTable (searchResults) {
 function createRecentsTable (searchResults) {
   var table = document.createElement('table')
   var numReports = 10
-  var max
 
-  //
-  //sortJsonArrayByProperty(searchResults, 'attributes.insert_date', -1)
-
-  for (var i = 0; i < numReports; i++) {
+  for (var i = 0; i < Math.min(numReports, searchResults.length); i++) {
     var row = table.insertRow(-1)
     var cell = row.insertCell(-1)
 
@@ -214,13 +212,17 @@ function createTableAdmin (searchResults) {
 
   for (var i = 0; i < searchResults.length; i++) {
     var row = table.insertRow(-1)
-
     var cell = row.insertCell(-1)
 
     var report = searchResults[i]
-    var category = report.category_id
+    var category = getValueOfId(categories, 'category_id', report.category_id)
     var image = 'report_images/' + report.report_id + '-thumb.jpg'
-    var location = report.location_id
+
+    if (locations[parseInt(report.location_id) - 1] == null) {
+      var location = ''
+    } else {
+      var location = getValueOfId(locations, 'location_id', report.location_id)
+    }
 
     var paramA="?reportID='"+ report.report_id +"'&status='Assigned'"
 

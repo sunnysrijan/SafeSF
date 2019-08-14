@@ -50,7 +50,7 @@
   </style>
 </head>
 
-<body onload="admin(), loadNavbar()">
+<body onload="admin()">
 
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
@@ -63,3 +63,20 @@
 </body>
 
 </html>
+
+<script type="text/javascript">
+  //imports
+  loadNavbar();
+  getCategories();
+  getLocations();
+
+  //google analytics
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-144569863-2');
+</script>
