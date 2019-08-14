@@ -143,7 +143,7 @@ function isCategoryIDValid (body) {
 // Testing category_id
 function isLocationIDValid (body) {
   if ('location_id' in body &&
-      validator.isLength(body['location_id'] + '', {min:1, max: 2 }) &&
+      validator.isLength(body['location_id'] + '', {min:1, max: 4 }) &&
       validator.isInt(body['location_id'] + '', { min: 1, max: parseInt(numberOfLocations) })) {
     console.log('location_id ' + body['location_id'] + ' pass')
     return true
