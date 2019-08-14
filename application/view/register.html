@@ -20,8 +20,6 @@
     <!-- imports -->
     <link rel="stylesheet" type="text/css" href="./css/standard.css">
     <link href="css/registration.css" rel="stylesheet">
-    <script type="text/javascript" src="js/captcha.js"></script>
-    <script type="text/javascript" src="js/registration.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script type="text/javascript" src="js/auth.js"></script>
@@ -47,7 +45,8 @@
               <label for="username_entry">Please enter a username.
                 <strong style='color: red'> *</strong>
               </label>
-              <input name='display_name' class="form-control" id="username" placeholder="Enter Username" required>
+              <input name='display_name' class="form-control" id="username" type="username" placeholder="Enter Username" required>
+              <strong style='color: red'><div id="usernameValidity" style="font-size:80%"></div></strong>
             </div>
           </div>
 
@@ -56,7 +55,8 @@
               <label for="email_entry">Please enter your email address.
                 <strong style='color: red'> *</strong>
               </label>
-              <input name='email' class="form-control" id="email" placeholder="Your Email" required>
+              <input name='email' class="form-control" id="email" type="email" placeholder="Your Email" required>
+              <strong style='color: red'><div id="emailValidity" style="font-size:80%"></div></strong>
             </div>
           </div>
 
@@ -65,7 +65,8 @@
               <label for="password_entry">Please enter a password.
                 <strong style='color: red'> *</strong>
               </label>
-              <input name='password' class="form-control" id="psw" placeholder="Enter Password" required>
+              <input name='password' class="form-control" id="psw" type="password" placeholder="Enter Password" data-toggle="password" required>
+              <strong style='color: red'><div id="passwordValidity" style="font-size:80%"></div></strong>
             </div>
           </div>
 
@@ -74,7 +75,30 @@
               <label for="passwordp_repeat_entry">Please repeat the password.
                 <strong style='color: red'> *</strong>
               </label>
-              <input name='passwordConfirmation' class="form-control" id="psw-repeat" placeholder="Repeat Password" required>
+              <input name='passwordConfirmation' class="form-control" id="psw-confirmation" type="password" placeholder="Repeat Password" required>
+              <strong style='color: red'><div id="passwordConfirmationValidity" style="font-size:80%"></div></strong>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="form-group">
+              <div class='policy-agreement-area'>
+                <label class="form-check-label" for="invalidCheck" style="font-size:80%">
+                  <input name='agreedToTerms' id="gridCheck" class="form-check-input" type="checkbox" required>
+                  <strong style='color: red'>*</strong>I agree to the <a href="">Terms of Service & Privacy Policy</a></input>
+                </label>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="text-center">
+            <div class="form-group">
+              <div style="display: flex; flex-wrap: wrap; justify-content:center">
+                <strong style="color: red; float:left;">*</strong>
+                <div id="captchaElement" class="g-recaptcha" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp"
+                  data-callback="onReCAPTCHASuccess"></div>
+              </div>
             </div>
           </div>
 
@@ -84,30 +108,15 @@
 
           <div class="text-center">
             <div class="form-group">
-              <div class='policy-agreement-area'>
-                <label class="form-check-label" for="invalidCheck" style="font-size:80%; display: inline;">
-                  <input name='agreedToToS' id="gridCheck" class="form-check-input" type="checkbox" required>
-                  I Agree to the <a href="">Terms of Service & Privacy Policy</a></input>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <div class="form-group">
-              <div id="captchaElement" class="g-recaptcha" data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp"
-                data-callback="onReCAPTCHASuccess"></div>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <div class="form-group">
-              <button id='submit-button' class="btn btn-primary btn-lg" type="submit" disabled='true'>Submit Registration</button>
+              <button id='submit-button' class="btn btn-primary btn-lg" type="button" disabled='true'>Submit Registration</button>
             </div>
           </div>
         </form> <!-- registration form -->
       </div>
     </div>
+    <script type="text/javascript" src="js/validator.min.js"></script>
+    <script type="text/javascript" src="js/captcha.js"></script>
+    <script type="text/javascript" src="js/registration.js"></script>
   </body>
 </html>
 
@@ -117,11 +126,11 @@
 
   //google analytics
   window.dataLayer = window.dataLayer || [];
-  
+
   function gtag() {
     dataLayer.push(arguments);
   }
-  
+
   gtag('js', new Date());
   gtag('config', 'UA-144569863-2');
 </script>

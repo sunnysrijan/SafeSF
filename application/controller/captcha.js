@@ -4,7 +4,6 @@ exports.getCaptchaValidationStatus = function (params, callback) {
   // The token string.
   var captchaToken = params['g-recaptcha-response']
   var userIPAdress = params['remote-address']
-  console.log('Captcha token: ' + captchaToken)
 
   // reCAPTCHA secret/server key.
   var secretKey = '6LfbkLEUAAAAAJjFA-c-wylbzVsjgc4Q4lL29gCN'

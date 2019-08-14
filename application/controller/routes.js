@@ -227,16 +227,22 @@ router.post('/requestRegister', upload.none(), (req, res) => {
       // Remove the captcha token from the original data packet.
       delete req.body['g-recaptcha-response']
 
+      var authInfo = {
+        username: req.body['display_name'],
+        email: req.body['email'],
+        password: req.body['password'],
+      }
+
       // ---------- BEGIN USER DB INSERTION SECTION ----------
       // Now that the validation is done, create the report.
-      auth.register(req.query, function (err, token) {
+      auth.register(authInfo, function (err, token) {
         if (err) {
           console.log('Error registering: ', err.message)
           res.status(503)
           res.send(err.message)
           return
         } else {
-          console.log(req.query.username, 'succesfully registered')
+          console.log(authInfo.username, 'succesfully registered')
           res.cookie('accessToken', token)
           res.sendStatus(200)
           return

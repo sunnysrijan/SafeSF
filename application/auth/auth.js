@@ -5,6 +5,8 @@ var bcrypt = require('bcryptjs')
 var cookie = require('cookie')
 
 exports.register = function (data, callback) {
+  console.log('Attempting to register user...')
+  console.log(data)
   bcrypt.genSalt(function (err, salt) {
     bcrypt.hash(data.password, salt, function (err, hash) {
       if (err) {

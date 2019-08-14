@@ -67,8 +67,9 @@ exports.validateRegistrationForm = function (reqBody) {
   if(!isCaptchaValid(reqBody) ||
      !isUsernameValid(reqBody) ||
      !isEmailValid(reqBody) ||
-     !isNewPasswordValid(reqBody) ||
-     !isUserIDValid(reqBody)) {
+     !isNewPasswordValid(reqBody) &&
+     ('agreedToTerms' in reqBody &&
+      reqBody['agreedToTerms'] === 'on')) {
     return false
   }
 
@@ -120,10 +121,10 @@ function isMarkerInSFRectangleBoundary (markerLat, markerLng) {
 function isCaptchaValid (body) {
   if ('g-recaptcha-response' in body &&
       validator.isLength(body['g-recaptcha-response'] + '', { min: 100, max: 500 })) {
-    console.log('g-recaptcha-response ' + body['g-recaptcha-response'] + ' pass')
+    console.log('g-recaptcha-response ' + ' pass')
     return true
   } else {
-    console.log('g-recaptcha-response ' + body['g-recaptcha-response'] + ' fail')
+    console.log('g-recaptcha-response ' + ' fail')
     return false
   }
 }
@@ -222,14 +223,14 @@ function areCoordinatesInBounds (body) {
 // Testing username
 // TODO: DB query
 function isUsernameValid (body) {
-  if ('username' in body &&
-      validator.isAlphanumeric(body['username'] + '', ['en-US'] ) &&
-      validator.isLength(body['username'] + '', { min: 1, max: parseInt(maxUsernameVarcharAmount) })) {
-    console.log('username ' + body['username'] + ' pass')
+  if ('display_name' in body &&
+      validator.isAlphanumeric(body['display_name'] + '', ['en-US'] ) &&
+      validator.isLength(body['display_name'] + '', { min: 4, max: parseInt(maxUsernameVarcharAmount) })) {
+    console.log('display_name ' + body['display_name'] + ' pass')
     return true
   } else {
-    console.log('username ' + body['username'] + ' fail')
-    validationPassed = false
+    console.log('display_name ' + body['display_name'] + ' fail')
+    return false
   }
 }
 
@@ -238,12 +239,12 @@ function isUsernameValid (body) {
 function isEmailValid (body) {
   if ('email' in body &&
       validator.isEmail(body['email'] + '') &&
-      validator.isLength(body['email'] + '', { min: 1, max: parseInt(maxEmailVarcharAmount) })) {
+      validator.isLength(body['email'] + '', { min: 5, max: parseInt(maxEmailVarcharAmount) })) {
     console.log('email ' + body['email'] + ' pass')
     return true
   } else {
     console.log('email ' + body['email'] + ' fail')
-    validationPassed = false
+    return false
   }
 }
 // ----- END GENERIC USER INFO VALIDATION FUNCTIONS -----
@@ -253,14 +254,14 @@ function isEmailValid (body) {
 function isNewPasswordValid (body) {
   if ('password' in body &&
       'passwordConfirmation' in body &&
-      validator.isLength(body['password'] + '', { min: 1, max: parseInt(maxPasswordVarcharAmount) }) &&
-      validator.isLength(body['passwordConfirmation'] + '', { min: 1, max: parseInt(maxPasswordVarcharAmount) }) &&
+      validator.isLength(body['password'] + '', { min: 7, max: parseInt(maxPasswordVarcharAmount) }) &&
+      validator.isLength(body['passwordConfirmation'] + '', { min: 7, max: parseInt(maxPasswordVarcharAmount) }) &&
       validator.equals(body['password'], body['passwordConfirmation'])) {
     console.log('password ' + body['password'] + ' pass')
     return true
   } else {
     console.log('password ' + body['password'] + ' fail')
-    validationPassed = false
+    return false
   }
 }
 // ----- END NEW USER INFO VALIDATION FUNCTIONS -----
@@ -269,13 +270,13 @@ function isNewPasswordValid (body) {
 // Testing existing password
 function isExistingPasswordValid (body) {
   if ('password' in body &&
-      validator.isLength(body['password'] + '', { min: 1, max: parseInt(maxPasswordVarcharAmount) }) &&
+      validator.isLength(body['password'] + '', { min: 7, max: parseInt(maxPasswordVarcharAmount) }) &&
       'remember' in body ) {
     console.log('password ' + body['password'] + ' pass')
     return true
   } else {
     console.log('password ' + body['password'] + ' fail')
-    validationPassed = false
+    return false
   }
 }
 // ----- START EXISTING USER INFO VALIDATION FUNCTIONS -----
