@@ -1,4 +1,11 @@
 function loadNavbar () {
+  var path = window.location.pathname;
+  var folder = path.substring(0, path.lastIndexOf('/'));
+  var templatePath = ''
+
+  if(folder == '/about')
+    templatePath = '../'
+
   var xmlReq= new XMLHttpRequest();
 
   xmlReq.onreadystatechange= function() {
@@ -11,6 +18,6 @@ function loadNavbar () {
     requestAccess();
   }
   
-  xmlReq.open('GET', 'navbar-template.html', true);
+  xmlReq.open('GET', templatePath + 'navbar-template.html', true);
   xmlReq.send();
 }

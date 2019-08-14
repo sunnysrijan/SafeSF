@@ -19,7 +19,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <link href="css/navbar.css" rel="stylesheet">
 
 </head>
 <body>
@@ -53,7 +52,7 @@
       <span class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <button class="btn btn btn-outline-light my-2 my-sm-0 submitBtn" type="submit"
+          <button class="btn btn btn-outline-light my-2 my-sm-0" style="margin-right: 10px;" type="submit"
                   onclick="window.location.href = '/submitReport'">
             <span class="fas fa-plus-circle"></span>
             <span>Create Report</span>
@@ -61,7 +60,7 @@
         </li>
 
         <li id="welcomeBox" class="nav-item">
-          <span id="welcomeText" class="nav-link nonInteractive"></span>
+          <span id="welcomeText" class="nav-link" style="cursor: default;"></span>
         </li>    
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
@@ -80,7 +79,7 @@
         </li>
 
         <li id="logoutBtn" class="nav-item">
-          <span class="nav-link interactive" onclick="logout()">Logout</span>
+          <span class="nav-link" style="cursor: pointer;" onclick="logout()">Logout</span>
         </li>
       </span>
     </div>

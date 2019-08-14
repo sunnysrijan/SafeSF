@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>About</title>
+  <title>About - Evan Guan</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,34 +19,26 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
   <!-- imports -->
-  <link href="css/index.css" rel="stylesheet">
-  <script type="text/javascript" src="js/navbar.js"></script>
-  <script type="text/javascript" src="js/auth.js"></script>
-  <script type="text/javascript" src="js/auth.js"></script>
+  <link href="../css/index.css" rel="stylesheet">
+  <script type="text/javascript" src="../js/navbar.js"></script>
+  <script type="text/javascript" src="../js/auth.js"></script>
+  <script type="text/javascript" src="../js/auth.js"></script>
 </head>
 
 <body>
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
 
-	<div align="center">
-		<h1>CSC 648 Team 2</h1>
-		<h2>Summer 2019</h2>
-		<div></div>
-		<h1>About</h1>
+    <div class="big-btn"><button onclick="back()">Back</button></div>
+    <h2>Evan Guan</h2>
+    <img src="images/evan.jpg" width="476" height="480">
+    <p>Hi! I'm a computer science undergrad at SFSU.</p>
+    
+    <p>Email: eguan3@mail.sfsu.edu</p>
+    <a href="https://jammypajamies.com">Website</a>
+    <br>
+    <a href="https://github.com/jammypajamies">Github</a>
 
-		<p>This is a website where users can browse through environmental hazards in San Francisco and report any hazards that they find</p>
-
-		<p>VVV Click on a developer's name to learn more about them VVV</p>
-
-		<div class="big-btn"><button onclick="goToPage('david')">David Stillwagon (Ryan)</button></div>
-		<div class="big-btn"><button onclick="goToPage('harsh')">Harshveer Saini (Harsh)</button></div>
-		<div class="big-btn"><button onclick="goToPage('tristan')">Tristan Mclennan</button></div>
-		<div class="big-btn"><button onclick="goToPage('lidiya')">Lidiya Jebessa</button></div>
-		<div class="big-btn"><button onclick="goToPage('sunny')">Sunny Srijan</button></div>
-		<div class="big-btn"><button onclick="goToPage('alex')">Alex Wolski</button></div>
-		<div class="big-btn"><button onclick="goToPage('evan')">Evan Guan</button></div>
-	</div>
 </body>
 
 </html>
@@ -56,8 +48,8 @@
   loadNavbar();
 
   //page navigation
-  function goToPage(page) {
-	window.location.href = '/about/' + page;
+  function back() {
+    window.location.href = '/about';
   }
 
   //google analytics
