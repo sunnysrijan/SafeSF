@@ -37,7 +37,7 @@
 <!-- loadNavbar is needed to load and render the navbar html code
      getCategories and getLocation are needed to populate dropdown menus
      these are called on the loading of the page -->
-<body>
+<body onload="onReCAPTCHASuccess()">
 
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
@@ -133,15 +133,6 @@
             Fields with <strong style='color: red'>*</strong> are required to continue.
           </p>
           <hr>
-
-          <!--- Captcha section --->
-          <!-- <div class="text-center"> -->
-            <div class="form-group">
-              <div id="captchaElement"
-                   class="g-recaptcha"  data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
-              </div>
-            </div>
-          <!-- </div> -->
 
           <!--- Submit button --->
           <!-- <div style="text-align: center"> -->

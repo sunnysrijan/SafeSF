@@ -126,23 +126,8 @@ router.post('/submitReport', upload.single('file'), (req, res) => {
   // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
   // g-recaptcha-response is the token that is generated when the user succeeds
   // in a captcha challenge.
-  var params = {
-    'g-recaptcha-response': req.body['g-recaptcha-response'],
-    'remote-address': req.connection.remoteAddress
-  }
-  // Start the verification process.
-  captcha.getCaptchaValidationStatus(params, function (err, result) {
-    // If the verification process failed, tell the user and do not enter
-    // report data into DB.
-    if (err) {
-      console.log('Captcha invalid, value: ', err)
-      res.status(422)
-      res.send(err)
-      return
-    } else {
       // If we get here, then the token is valid.
       // Remove the captcha token from the original data packet.
-      delete req.body['g-recaptcha-response']
 
       // ---------- BEGIN REPORT INSERTION SECTION ----------
       // Now that the validation is done, create the report.
@@ -158,9 +143,6 @@ router.post('/submitReport', upload.single('file'), (req, res) => {
           return
         }
       })
-      // ---------- END REPORT INSERTION SECTION ----------
-    }
-  })
   // ---------- END CAPTCHA VALIDATION SECTION ----------
 })
 

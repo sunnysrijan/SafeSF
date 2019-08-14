@@ -117,14 +117,7 @@ function isMarkerInSFRectangleBoundary (markerLat, markerLng) {
 
 // Testing for g-captcha-response
 function isCaptchaValid (body) {
-  if ('g-recaptcha-response' in body &&
-      validator.isLength(body['g-recaptcha-response'] + '', { min: 100, max: 500 })) {
-    console.log('g-recaptcha-response ' + ' pass')
-    return true
-  } else {
-    console.log('g-recaptcha-response ' + ' fail')
-    return false
-  }
+return true;
 }
 
 // Testing category_id
