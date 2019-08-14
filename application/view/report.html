@@ -24,18 +24,6 @@
   <script type="text/javascript" src="js/navbar.js"></script>
   <script type="text/javascript" src="js/auth.js"></script>
   <script type="text/javascript" src="js/report.js"></script>
-  <style>
-
-    .footer {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: #a0cc78;
-      color: white;
-      text-align: center;
-    }
-  </style>
 </head>
 
 <body onresize="resizeMap();" onload="resizeMap(); getReport();">
@@ -57,26 +45,23 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <h3><b>Image</b></h3>
+        <h3>Image</h3>
         <img id="report-image" class="img-responsive" src="" alt="image">
       </div>
 
       <div class="col-sm-6">
-        <h3><b>Location</b></h3>
+        <h3>Location</h3>
         <div id="map"></div>
         <script>
         </script>
       </div>
     </div>
     <hr>
+    
     <div class="jumbotron">
       <p1 id="report-details">Details: </p1>
     </div>
   </div>
-  <div class="footer">
-    <p>Copyright © SAFE SF All Rights Reserved</p>
-  </div>
-</div>
 </body>
 
 <script type="text/javascript">

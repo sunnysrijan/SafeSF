@@ -16,7 +16,72 @@
   font-family: 'Darker Grotesque', sans-serif;
   font-family: 'Kreon', serif; */
 
+* {
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  overflow-x: hidden;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+#mapBox {
+  height: 0;
+  width: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+}
+
+#floatingHeader {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+}
+
+.divider {
+  margin-top: 1rem;
+  margin-bottom: 0rem;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #aee7e8;
+  color: white;
+  text-align: center;
+}
+
+.split_left {
+
+  height:400px;
+  min-width: 520px;
+  float: left;
+  display: flex;
+  z-index: 1;
+  overflow-x: hidden;
+  margin: 10px}
+
+.split_right{
+
+  height: 400px;
+  min-width: max-content;
+  float: right;
+  display: flex;
+  z-index: 1;
+  padding: 10px;
+  overflow-x: hidden;
+  }
 
 .topnav {
   overflow: hidden;
@@ -114,14 +179,14 @@ h1 {
 	width: 200px;
 }
 
-.card{
+.repcard {
   cursor: pointer;
   border-radius: 25px;
   padding: 10px;
-  width: 100%;
+  width: max-content;
   height: 100%;
   border: black solid;
-  display:flex;
+  display: flex;
 }
 
 .dropbtn {
@@ -157,7 +222,7 @@ h1 {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #grey;}
+.dropdown-content a:hover {background-color: grey;}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
@@ -167,22 +232,36 @@ h1 {
   background-color: #FFFFFF;
   pointer-events: none;
 }
+.admincard{
+  display: flex;
+  margin-left:25%;
+}
+.buttonsdiv{
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  }
+.adminbuttons{
+  margin: auto;
+width:120px;
+}
 
 .cardImage {
   width: 130px;
-  height:112px;
+  height: 112px;
   float: left;
   margin-left: 5px;
   margin-right: 10px;
   position: relative;
-  top:auto;
-}
-.rptDet{
-  height:100%;
   margin-top: auto;
+  margin-bottom: auto;
+}
+.rptDet {
+  height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
   font-size: 16px;
 }
-
 .legend {
   display: none;
   font-size: 14px;
@@ -201,19 +280,11 @@ h1 {
 }
 
 table {
-
-  width: 95%;
+  width: 100%;
   margin: 1%;
 }
 
 td {
   vertical-align: middle;
   padding: 10px;
-}
-h2{
-  font-family: Impact, Charcoal, sans-serif;
-}
-h3{
-  font-family: Impact, Charcoal, sans-serif;
-}
 }
