@@ -2,7 +2,7 @@ const db = require('../auth/db_config.js')
 const sharp = require('sharp')
 
 exports.createReport = function (request, callback) {
-  
+  1234
   var params = request.body
   //var image = request.file.filename
 
@@ -12,7 +12,7 @@ exports.createReport = function (request, callback) {
   var insert_query = `INSERT INTO ${insert_table}`
 
   //var report_id = image.split('.')[0]\
-  report_id = 1234
+  report_id = Math.random()
 
 
 

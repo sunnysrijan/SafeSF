@@ -81,8 +81,8 @@ function initMap () {
   })
 
   setNewCenterLatLng({
-    lat: 37.7749,
-    lng: -122.4194
+    lat: 37.7556302,
+    lng: -122.4296997
   })
 
   // Finally, create the draggable marker at the center of the map.
