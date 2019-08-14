@@ -246,6 +246,15 @@ h1 {
 width:120px;
 }
 
+.repcard {
+  border-width: 2px;
+  /* border-color: #248ea9; */
+  border-color: lightgrey;
+  /* border-color: #28c3d4; */
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .cardImage {
   width: 130px;
   height: 112px;
@@ -269,7 +278,7 @@ width:120px;
   background: #f4f4f4;
   padding: 3px;
   margin: 3px;
-  border: 3px solid #444;
+  border: 2px solid #248ea9
 }
 
 .legend-header {

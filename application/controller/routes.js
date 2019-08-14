@@ -85,7 +85,7 @@ router.get('/search', (req, res) => {
   }
   else
   {
-    db_search.getResults(req.body, function (err, result) {
+    db_search.getResults(req.query, function (err, result) {
     if (err) {
       console.log('Error retrieving search results: ' + err)
       res.sendStatus(503)
