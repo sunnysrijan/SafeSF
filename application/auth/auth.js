@@ -23,7 +23,7 @@ exports.register = function (data, callback) {
 		            		if (errorMessage.includes('display_name')) { callback(new Error('That username is already taken. Please chooose another one.'), null) } else if (errorMessage.includes('email')) { callback(new Error('That email is already registered. Please use another one.'), null) }
 		            	}
           } else {
-            var tokenData = { username: data.username, password: data.password, remember: true }
+            var tokenData = { username: data.username, password: data.password, admin: 0, remember: true }
 
             jwt.createToken(tokenData, function (err, token) {
               if (err) {
@@ -43,7 +43,9 @@ exports.login = function (data, callback) {
     if (!result || !result.length) { callback(new Error('That username is not registered'), null) } else {
       bcrypt.compare(data.password, result[0].password, function (err, res) {
         if (res) {
-          jwt.createToken(data, function (err, token) {
+          var tokenData = { username: data.username, password: data.password, admin: result[0].status, remember: data.remember }
+
+          jwt.createToken(tokenData, function (err, token) {
             if (err) {
               console.log('Error: ', err)
               callback(new Error('Oops! There was an error! Please contact a system administrator.'), null)
@@ -56,26 +58,44 @@ exports.login = function (data, callback) {
 }
 
 exports.authenticate = function (cookieList, callback) {
-  if (cookieList == null) { callback(new Error('Can\'t authenticate user. No cookies.'), { authenticated: false, username: null }, null) } else {
+  if (cookieList == null) {
+    callback(new Error('Can\'t authenticate user. No cookies.'), { authenticated: false, username: null }, null)
+  } else
+  {
     var token = exports.parseCookie(cookieList)
 
-    if (token == null) { callback(new Error('Can\'t authenticate user. No access token cookie.'), { authenticated: false, username: null }, null) } else {
+    if (token == null){
+      callback(new Error('Can\'t authenticate user. No access token cookie.'), {authenticated: false, username: null }, null) }
+      else {
       jwt.verifyToken(token, function (err, decodedToken) {
         if (err) {
-          if (err.message === 'jwt expired') { callback(err, { authenticated: false, username: null, errMessage: 'Your session has expired. Please log in again.' }, null) } else { callback(err, { authenticated: false, username: null }, null) }
+          if (err.message === 'jwt expired') {
+            callback(err, { authenticated: false, username: null, admin: null, errMessage: 'Your session has expired. Please log in again.' }, null)
+          } else {
+            callback(err, { authenticated: false, username: null, admin: null }, null)
+          }
         } else {
           db.query('SELECT * FROM users WHERE display_name = ?', decodedToken.username, function (err, result) {
-            if (!result || !result.length) { callback(new Error('Can\'t authenticate user. Username does not exist.'), { authenticated: false, username: null }, null) } else {
+            if (!result || !result.length) {
+              callback(new Error('Can\'t authenticate user. Username does not exist.'), {
+                authenticated: false, username: null, admin: null }, null) }
+              else {
               bcrypt.compare(decodedToken.password, result[0].password, function (err, res) {
                 if (res) {
                   if (decodedToken.hasOwnProperty('exp')) {
                     jwt.createToken({ username: decodedToken.username, password: decodedToken.password, remember: 'false' }, function (err, token) {
                       if (err) {
                         callback(new Error('Failed to refresh toekn.'), null, null)
-                      } else { callback(null, { authenticated: true, username: decodedToken.username }, token) }
+                      } else {
+                        callback(null, { authenticated: true, username: decodedToken.username, admin: decodedToken.admin }, token)
+                      }
                     })
-                  } else { callback(null, { authenticated: true, username: decodedToken.username }, null) }
-                } else { callback(new Error('Can\'t authenticate user. Password is incorrect.'), { authenticated: false, username: null }, null) }
+                  } else {
+                    callback(null, { authenticated: true, username: decodedToken.username, admin: decodedToken.admin }, null)
+                  }
+                } else {
+                  callback(new Error('Can\'t authenticate user. Password is incorrect.'), { authenticated: false, username: null, admin: null }, null)
+                }
               })
             }
           })

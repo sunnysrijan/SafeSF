@@ -354,7 +354,7 @@ router.get('/requestAccess', (req, res) => {
       res.status(200)
       res.send(result)
     } else {
-      console.log(result.username, ' authenticated: ', result.authenticated)
+      console.log(result.username, ' authenticated: ', result.authenticated, '\tAdmin: ', result.admin)
 
       if (token) { res.cookie('accessToken', token, { overwrite: true }) }
 

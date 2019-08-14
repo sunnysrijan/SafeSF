@@ -8,7 +8,8 @@ exports.createToken = function (data, callback) {
 
   var payload = {
     username: data.username,
-    password: data.password
+    password: data.password,
+    admin: data.admin
   }
 
   var tokenOptions = {

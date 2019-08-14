@@ -5,6 +5,7 @@ function requestAccess () {
     if (xmlReq.status == 200) {
       	if (xmlReq.response.authenticated) {
           console.log('authenticated')
+          console.log('admin: ' + xmlReq.response.admin)
       		document.getElementById('loginBtn').style = 'display: none'
       		document.getElementById('registerBtn').style = 'display: none'
       		document.getElementById('welcomeText').innerText = 'Welcome ' + xmlReq.response.username + '!'
