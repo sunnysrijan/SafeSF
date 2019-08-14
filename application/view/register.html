@@ -28,16 +28,14 @@
     <!-- Will be populated with the html for the navbar on startup -->
     <div id="navbar-placeholder"></div>
 
-
     <div class="container" style="margin-top: 2%" id="form-container" novalidate> <!-- registration form -->
       <div class="row justify-content-center">
-
         <div class="card bg-light w-50 align-items-center" style="min-width: 450px;">
-          <h1 class="card-header w-100" style="text-align:center; font-family: 'Crimson Text', serif;
-                     font-weight: 700;">Registration </h1>
-            <div class="card-body ">
+          <h1 class="card-header w-100" style="text-align:center; font-family: 'Crimson Text', serif; font-weight: 700;">Registration </h1>
+          <div class="col-lg-10">
+            <div class="card-body">
               <div class="row justify-content-center">
-                <div class="col-lg-8 mw-100">
+                <div class="col-lg-12">
                   <form id="registration-form" action="/requestRegister" method="post" role="form" enctype="multipart/form-data">
 
                     <!-- <div > -->
@@ -121,22 +119,20 @@
                         <button id='submit-button' style="border-width: 2px;" class="btn-outline-primary registerBtn btn-send" type="button" disabled='true'>Submit Registration</button>
                       </div>
                     </div>
-
                   </form> <!-- registration form -->
-
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- end card -->
       </div>
+      <!-- end card -->
     </div>
-  </div>
-  <script type="text/javascript" src="js/validator.min.js"></script>
-  <script type="text/javascript" src="js/captcha.js"></script>
-  <script type="text/javascript" src="js/registration.js"></script>
-</body>
+
+    <script type="text/javascript" src="js/validator.min.js"></script>
+    <script type="text/javascript" src="js/captcha.js"></script>
+    <script type="text/javascript" src="js/registration.js"></script>
+  </body>
 </html>
 
 <script type="text/javascript">
