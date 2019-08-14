@@ -42,7 +42,8 @@ label {
   /* font-family: 'Crimson Text', serif; */
 }
 
-form {
+form,
+.form-control {
   min-width: 400px;
   max-width: 600px;
 }
