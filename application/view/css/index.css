@@ -200,7 +200,7 @@ h1 {
 	width: 200px;
 }
 
-/* .repcard {
+.repcard {
   cursor: pointer;
   border-radius: 25px;
   padding: 10px;
@@ -208,7 +208,7 @@ h1 {
   height: 100%;
   border: black solid;
   display: flex;
-} */
+}
 
 .dropbtn {
   background-color: #FFFFFF;
