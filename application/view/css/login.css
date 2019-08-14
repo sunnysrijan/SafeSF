@@ -26,14 +26,15 @@ button:hover {
 .btn-outline-primary:active,
 .btn-outline-primary:visited,
 .btn-outline-primary:focus {
-    background-color: white;
-    border-color: #248ea9;
-    color: #248ea9;
+    background-color: white !important;
+    border-color: #248ea9 !important; 
+    color: #248ea9 !important;
 }
 
 .btn-outline-primary:hover {
-  background-color: #248ea9;
-  border-color: white;
+  background-color: #248ea9 !important;
+  border-color: white !important;
+  color: white !important;
 }
 
 .cancelbtn {

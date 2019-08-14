@@ -1,8 +1,8 @@
-<!-- Tristan Mclennan: 
-    
+<!-- Tristan Mclennan:
+
      This is a template for SF Safe header and Navbar.
-     Bootstrap 4.0.0 is used along with FontAwesome for glyphicons. 
-     Feel free to explore different uses of color and font on the header. 
+     Bootstrap 4.0.0 is used along with FontAwesome for glyphicons.
+     Feel free to explore different uses of color and font on the header.
 
 -->
 
@@ -25,29 +25,22 @@
 <body>
 
 <!-- This is the SFSU header required in the non-functional requirements: -->
-<container-fluid>
-      <!-- <h5 style="background-color: #aee7e8; font-family: 'Crimson Text', serif; font-style: italic;
-        text-align: center; padding: 5px; margin-bottom: 0px;">  -->
-        <h5 style="background-color: black; color:white;  font-family: 'Crimson Text', serif; font-style: italic;
-        text-align: center; padding: 5px; margin-bottom: 0px;"> 
-        SFSU Software Engineering Project CSC 648-848, Summer 2019.  For Demonstration Only
-      </h5>
-   </container>
-  
-  
+
+
+
     <!-- Standard dark navbar - collapsable into reduced menu for small screen sizes: -->
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #248ea9;">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #207561;">
     <a class="navbar-brand" href="/">SF Safe</a>
-  
-    <form class="form-inline mx-auto">
-      <input class="form-control mr-lg-2" style="width: 200px;" type="search" placeholder="Search" aria-label="Search">
+
+    <form class="form-inline mx-auto" action="/" method="get" >
+      <input class="form-control mr-lg-2" style="width: 200px;" type="search" placeholder="Search" aria-label="Search" name="query">
       <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
     </form>
-  
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sfsafeNavbar" aria-controls="sfsafeNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <!-- collapsable portion of the navbar: -->
     <div class="collapse navbar-collapse" id="sfsafeNavbar">
       <span class="navbar-nav ml-auto">
@@ -82,5 +75,13 @@
       </span>
     </div>
   </nav>
+  <container-fluid>
+        <!-- <h5 style="background-color: #aee7e8; font-family: 'Crimson Text', serif; font-style: italic;
+          text-align: center; padding: 5px; margin-bottom: 0px;">  -->
+          <h5 style="background-color: #589167; color:white;  font-family: 'Crimson Text', serif; font-style: italic;
+          text-align: center; padding: 5px; margin-bottom: 0px;">
+          SFSU Software Engineering Project CSC 648-848, Summer 2019.  For Demonstration Only
+        </h5>
+     </container>
 
 </body>

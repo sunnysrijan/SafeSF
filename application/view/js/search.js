@@ -1,3 +1,5 @@
+const urlParams = new URLSearchParams(window.location.search) // Parameter parser class.
+
 function search () {
   var xmlReq = new XMLHttpRequest()
 
@@ -5,44 +7,44 @@ function search () {
     if (xmlReq.status == 200) { createTable(xmlReq.response) }
   }
 
-  xmlReq.open('GET', '/search' + getSearchParams(), true)
+  xmlReq.open('GET', '/search?user_entry=' + urlParams.get('query'), true)
   xmlReq.responseType = 'json'
   xmlReq.send(null)
 }
 
-function getSearchParams () {
-  var category_id = document.getElementById('categoryDropDown').value
-  var location_id = document.getElementById('locationDropDown').value
+// function getSearchParams () {
+//   var category_id = document.getElementById('categoryDropDown').value
+//   var location_id = document.getElementById('locationDropDown').value
 
-  var user_entry = document.getElementById('searchBox').value
+//   var user_entry = document.getElementById('searchBox').value
 
-  var requestParam = '?'
-  var firstParam = true
+//   var requestParam = '?'
+//   var firstParam = true
 
-  if (category_id != -1) {
-    requestParam += 'category_id=' + category_id
-    firstParam = false
-  }
+//   if (category_id != -1) {
+//     requestParam += 'category_id=' + category_id
+//     firstParam = false
+//   }
 
-  if (location_id != -1) {
-    if (!firstParam) {
-      requestParam += '&'
-    }
+//   if (location_id != -1) {
+//     if (!firstParam) {
+//       requestParam += '&'
+//     }
 
-    requestParam += 'location_id=' + location_id
-    firstParam = false
-  }
+//     requestParam += 'location_id=' + location_id
+//     firstParam = false
+//   }
 
-  if (user_entry != '') {
-    if (!firstParam) {
-      requestParam += '&'
-    }
+//   if (user_entry != '') {
+//     if (!firstParam) {
+//       requestParam += '&'
+//     }
 
-    requestParam += 'user_entry=' + user_entry
-  }
+//     requestParam += 'user_entry=' + user_entry
+//   }
 
-  return requestParam
-}
+//   return requestParam
+// }
 
 function getValueOfId (jsonData, field, id) {
   for (var i = 0; i < jsonData.length; i++) {
