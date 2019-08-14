@@ -1,3 +1,17 @@
+function checkCookie () {
+  var cookies = document.cookie.replace(/ /g,'').split(';')
+  var cookiePresent = false
+
+  for (var i = 0; i < cookies.length; i++) {
+    if (cookies[i].startsWith('accessToken=')) {
+        cookiePresent = true
+      break
+    }
+  }
+  
+  return cookiePresent;
+}
+
 function requestAccess () {
   var xmlReq = new XMLHttpRequest()
 

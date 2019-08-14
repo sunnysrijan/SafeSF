@@ -145,8 +145,8 @@
 
           <!--- Submit button --->
           <!-- <div style="text-align: center"> -->
-              <input id="submit-button" type="submit" class="btn-outline-primary btn-send mx-auto offset-xl-2"
-                     value=" Submit Report "  style="border-radius: 15px; border-width: 2px " disabled="true">
+              <input id="submit-button" class="btn-outline-primary btn-send mx-auto offset-xl-2" value=" Submit Report "
+                style="border-radius: 15px; border-width: 2px; text-align: center;" disabled="true" onclick="submitForm()">
           <!-- </div> -->
         </div>
       </form> <!-- report submission form -->
@@ -167,6 +167,18 @@
   
   function gtag() {
     dataLayer.push(arguments);
+  }
+
+  //Check if uesr is logged in and submit form
+  function submitForm()
+  {
+    if(!checkCookie())
+    {
+      alert("You must be logged into post. Redirecting to login page.")
+      window.location.href = "/login";
+    }
+    else
+      document.getElementById('report-submission-form').submit()
   }
   
   gtag('js', new Date());
