@@ -1,6 +1,5 @@
 const db = require('../auth/db_config.js')
-const db_categories = require('./categories.js')
-const db_locations = require('./locations.js')
+const dropdowns = require('./dropdowns.js')
 const validator = require('validator')
 
 // Terms for bounds checking. Query once on server start to save time and communicaiton.
@@ -17,13 +16,13 @@ const maxImageRefVarcharAmount = 100
 // ---------- /THESE MUST BE CHANGED TO BE <= THE SIZE OF RELATED DB COLUMNS ----------
 
 // Initial DB call to get the number of categories in the database at the time of startup.
-db_categories.getNumberOfCategories()
+dropdowns.getNumberOfCategories()
   .then(function (numCategories) {
     numberOfCategories = String(numCategories)
   })
 
 // Initial DB call to get the number of locations in the database at the time of startup.
-db_locations.getNumberOfLocations()
+dropdowns.getNumberOfLocations()
   .then(function (numLocations) {
     numberOfLocations = String(numLocations)
   })

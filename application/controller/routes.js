@@ -3,9 +3,8 @@ const https = require('https')
 const bodyParser = require('body-parser')
 const router = express.Router()
 const path = require('path')
-const db_categories = require('./categories.js')
+const dropdowns = require('./dropdowns.js')
 const db_search = require('./search.js')
-const db_locations = require('./locations.js')
 const image = require('./images.js')
 const reports = require('./reports.js')
 //const { body, check, validationResult } = require('express-validator')
@@ -13,11 +12,22 @@ const multer = require('multer')
 const captcha = require('./captcha.js')
 const formValidation = require('./form-validation.js')
 const auth = require('../auth/auth.js')
-
+const db=require('../auth/db_config')
 router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 // Create the multer and limit the size of files to 2mb.
-var storage = multer.memoryStorage()
+// var storage = multer.memoryStorage()
+
+var storage = multer.diskStorage({
+  destination : function (req, file, cb){
+    cb(null, './view/report_images')
+  },
+  filename : function (req, file, cb){
+    var file_name = new Date().getTime()
+    cb(null, `${file_name}.jpg`)
+  }
+
+})
 var upload = multer({
   storage: storage,
   limits: { fileSize: 2 * 1024 * 1024 }
@@ -47,12 +57,35 @@ router.get('/submitReport', (req, res) => {
   res.sendFile(path.resolve('view/report-submission.html'))
 })
 
+router.post('/admin', (req, res) => {
+  db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (error, results) => {
+    if (error) {
+      console.log(error)
+      res.sendStatus(503)
+    }
+    res.sendstatus(200)
+  })
+})
+
 /*
     Search
 */
 router.get('/search', (req, res) => {
-  db_search.getResults(req.query, function (err, result) {
-    console.log(req.query)
+  if (req.query.admin ==='true'){
+    console.log("In admin search")
+    db.query("Select * from reports where status='unassigned'or status='assigned'", (error, results) => {
+      if (error) {
+        console.log(error)
+        res.sendStatus(503)
+      }
+      res.status(200)
+      res.send(results)
+
+    })
+  }
+  else
+  {
+    db_search.getResults(req.query, function (err, result) {
     if (err) {
       console.log('Error retrieving search results: ' + err)
       res.sendStatus(503)
@@ -60,8 +93,9 @@ router.get('/search', (req, res) => {
       console.log('Retrieved Search Results from the Database')
       res.status(200)
       res.send(result)
-    }
-  })
+      }
+    })
+  }
 })
 
 /*
@@ -100,14 +134,13 @@ router.post('/submitReport', upload.single('file'), (req, res) => {
       res.send(err)
       return
     } else {
-      console.log(result)
       // If we get here, then the token is valid.
       // Remove the captcha token from the original data packet.
       delete req.body['g-recaptcha-response']
 
       // ---------- BEGIN REPORT INSERTION SECTION ----------
       // Now that the validation is done, create the report.
-      reports.createReport(req.body, function (err, result) {
+      reports.createReport(req, function (err, result) {
         if (err) {
           console.log('Error creating report: ' + err)
           res.status(422)
@@ -115,7 +148,6 @@ router.post('/submitReport', upload.single('file'), (req, res) => {
           return
         } else {
           res.status(200)
-          console.log(result)
           res.redirect('report?report_id=' + result.report_id)
           return
         }
@@ -142,13 +174,15 @@ router.get('/getReport', (req, res) => {
   })
 })
 
+router.get('/admin', (req, res) => {res.sendFile(path.join(__dirname, '../view/admin.html'));})
+
 /*
     Dropdown endpoints
 */
 
 // Endpoint for filling categories dropdown menu
 router.get('/categories', (req, res) => {
-  db_categories.getCategories(function (err, result) {
+  dropdowns.getCategories(function (err, result) {
     if (err) {
       console.log('Error retrieving categories: ' + err)
       res.sendStatus(503)
@@ -162,12 +196,26 @@ router.get('/categories', (req, res) => {
 
 // Endpoint for filling locations dropdown menu
 router.get('/locations', (req, res) => {
-  db_locations.getLocations(function (err, result) {
+  dropdowns.getLocations(function (err, result) {
     if (err) {
       console.log('Error retrieving locations: ' + err)
       res.sendStatus(503)
     } else {
       console.log('Retrieved locations from the Database')
+      res.status(200)
+      res.send(result)
+    }
+  })
+})
+
+// Endpoint for filling parks dropdown menu
+router.get('/parks', (req, res) => {
+  dropdowns.getParks(function (err, result) {
+    if (err) {
+      console.log('Error retrieving parks: ' + err)
+      res.sendStatus(503)
+    } else {
+      console.log('Retrieved parks from the Database')
       res.status(200)
       res.send(result)
     }

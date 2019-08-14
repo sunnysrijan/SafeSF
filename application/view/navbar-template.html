@@ -40,7 +40,7 @@
     <a class="navbar-brand" href="/">SF Safe</a>
   
     <form class="form-inline mx-auto" action="/" method="get" >
-      <input class="form-control mr-lg-2" style="width: 200px;" type="search" placeholder="Search" aria-label="Search" name="query">
+      <input class="form-control mr-lg-2" style="width: 200px;" id="searchBox" type="search" placeholder="Search" aria-label="Search" name="user_entry">
       <button class="btn btn btn-outline-light my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
     </form>
   
@@ -63,6 +63,11 @@
         <li id="welcomeBox" class="nav-item">
           <span id="welcomeText" class="nav-link nonInteractive"></span>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Admin</a>
+        </li>
+        <li class="nav-item ">
+          <a id="loginBtn" class="nav-link" href="/login"><span class="fa fa-user"></span> Login</a>
 
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>

@@ -285,7 +285,7 @@ function resizeMap() {
   var mapBox = document.getElementById('mapBox');
   var table = document.getElementById('table');
   var headerHeight = document.getElementById('floatingHeader').offsetHeight;
-  var resultsAreaHeight = window.innerHeight - headerHeight - 30;
+  var resultsAreaHeight = window.innerHeight - headerHeight - 10;
 
   //Push the table below the header
   table.style.marginTop = document.getElementById('floatingHeader').offsetHeight + "px";

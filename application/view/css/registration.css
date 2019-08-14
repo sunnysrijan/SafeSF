@@ -23,6 +23,17 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 label {
@@ -34,7 +45,7 @@ label {
 form,
 .form-control {
   min-width: 400px;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .text-center {
@@ -48,7 +59,7 @@ form,
 
 
 /* Set a style for the submit button */
-.registerbtn {
+/* #registerbtn {
   background-color: #f4f4f4;
   color: white;
   padding: 16px 20px;
@@ -57,10 +68,40 @@ form,
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
+  border-radius: 10px;
+  width: 100%;
+} */
+
+#registerbtn:hover {
+  opacity: 1;
+} 
+
+
+.registerBtn {
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 10px;
 }
 
-.registerbtn:hover {
-  opacity: 1;
+button:hover {
+  opacity: 0.8;
+}
+
+.btn-outline-primary,
+.btn-outline-primary:active,
+.btn-outline-primary:visited,
+.btn-outline-primary:focus {
+    background-color: white !important;
+    border-color: #248ea9 !important; 
+    color: #248ea9 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #248ea9 !important;
+  border-color: white !important;
+  color: white !important;
 }
 
 #registration-form {
@@ -68,4 +109,15 @@ form,
   /* font-family: 'Darker Grotesque', sans-serif; */
   /* font-family: 'Cormorant Garamond', serif; */
   font-family: 'Crimson Text', serif;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
 }

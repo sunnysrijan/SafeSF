@@ -26,14 +26,15 @@ button:hover {
 .btn-outline-primary:active,
 .btn-outline-primary:visited,
 .btn-outline-primary:focus {
-    background-color: white;
-    border-color: #248ea9;
-    color: #248ea9;
+    background-color: white !important;
+    border-color: #248ea9 !important; 
+    color: #248ea9 !important;
 }
 
 .btn-outline-primary:hover {
-  background-color: #248ea9;
-  border-color: white;
+  background-color: #248ea9 !important;
+  border-color: white !important;
+  color: white !important;
 }
 
 .cancelbtn {
@@ -54,6 +55,13 @@ button:hover {
 span.psw {
   float: right;
   padding-top: 16px;
+}
+
+#registration-form {
+  font-size:105%;
+  /* font-family: 'Darker Grotesque', sans-serif; */
+  /* font-family: 'Cormorant Garamond', serif; */
+  font-family: 'Crimson Text', serif;
 }
 
 /* Change styles for span and cancel button on extra small screens */

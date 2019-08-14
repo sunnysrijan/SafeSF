@@ -1,20 +1,26 @@
 const db = require('../auth/db_config.js')
+const sharp = require('sharp')
 
-exports.createReport = function (params, callback) {
+exports.createReport = function (request, callback) {
+  
+  var params = request.body
+  var image = request.file.filename
+
   var insert_table = 'reports'
-
   var field_placeholders = ' ('
   var value_placeholders = ' VALUES('
-
   var insert_query = `INSERT INTO ${insert_table}`
-  console.log(params)
+
+  var report_id = image.split('.')[0]
+
+
+
   var fields = []
   var values = []
   var placeholder_replacement = []
 
   if (params) {
-    params['report_id'] = new Date().getTime()
-    params['park_id'] = 1 // this is for testing purposes
+    params['report_id'] = report_id
     params['user_id'] = '52a885e0-ae55-11e9-bcaf-9fea80b280db'
 
     for (var [field, value] of Object.entries(params)) {
@@ -37,6 +43,18 @@ exports.createReport = function (params, callback) {
   }
   placeholder_replacement = fields.concat(values)
 
+ 
+  sharp(`./view/report_images/${image}`).resize(200,200).toFile(`./view/report_images/${params["report_id"]}-thumb.jpg`, function(err){
+    if(err){
+
+      console.log("Error thumbnailing image: " + err)
+    }
+    else{
+      console.log("Image thumbnailed")
+    }
+  })
+
+
   db.query(insert_query, placeholder_replacement, function (err, result) {
     if (err) {
       console.log('Error querying database : ' + err)
@@ -44,6 +62,7 @@ exports.createReport = function (params, callback) {
       console.log(placeholder_replacement)
       callback(err, null)
     } else {
+
       console.log('Results succesfully retrieved')
       result.report_id = params['report_id']
       callback(null, result)

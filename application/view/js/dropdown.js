@@ -1,5 +1,6 @@
 var categories
 var locations
+var parks
 
 function getCategories () {
   var xmlReq = new XMLHttpRequest()
@@ -31,6 +32,21 @@ function getLocations () {
   xmlReq.send()
 }
 
+function getParks () {
+  var xmlReq = new XMLHttpRequest()
+
+  xmlReq.onload = function () {
+    if (xmlReq.status == 200) {
+      parks = xmlReq.response
+      populateDropdown(parks, 'park')
+    }
+  }
+
+  xmlReq.open('GET', '/parks', true)
+  xmlReq.responseType = 'json'
+  xmlReq.send()
+}
+
 function populateDropdown (data, field) {
   var dropDown
 
@@ -38,6 +54,8 @@ function populateDropdown (data, field) {
     dropDown = document.getElementById('categoryDropDown')
   } else if (field === 'location') {
     dropDown = document.getElementById('locationDropDown')
+  } else if (field === 'park') {
+    dropDown = document.getElementById('parkDropDown')
   }
 
   let option
@@ -51,6 +69,9 @@ function populateDropdown (data, field) {
     } else if (field === 'location') {
       option.text = data[i].location
       option.value = data[i].location_id
+    } else if (field === 'park') {
+      option.text = data[i].park
+      option.value = data[i].park_id
     }
 
     dropDown.add(option)
