@@ -38,6 +38,16 @@ var upload = multer({
     Page requests
 */
 
+router.get('/about', (req, res) => {
+  res.status(200)
+  res.sendFile(path.resolve('view/about.html'))
+})
+
+router.get('/about/:page', function(req, res, next) {
+  res.status(200)
+  res.sendFile(path.resolve('view/team_pages/' + req.params.page + '.html'))
+});
+
 router.get('/search-results', (req, res) => {
   res.status(200)
   res.sendFile(path.resolve('view/search-results.html'))
