@@ -128,8 +128,8 @@ function initMap () {
     boolMarkerInSF = isMarkerInPolygonBoundary(newLat, newLng, sanFranciscoOutlineCoords)
 
     // DOM calls to set form values.
-    document.getElementById('currentCoords').innerHTML = '<p>New coords: ' + newLat.toFixed(7) + ', ' + newLng.toFixed(7) +
-      '; The marker in the vicinity of San Francisco: ' + boolMarkerInSF + '</p>'
+    // document.getElementById('currentCoords').innerHTML = '<p>New coords: ' + newLat.toFixed(7) + ', ' + newLng.toFixed(7) +
+    //   '; The marker in the vicinity of San Francisco: ' + boolMarkerInSF + '</p>'
     document.forms['report-submission-form'].elements['loc_lat'].value = newLat
     document.forms['report-submission-form'].elements['loc_long'].value = newLng
 
@@ -143,7 +143,7 @@ function initMap () {
   })
 
   google.maps.event.addListener(marker, 'dragstart', function (evt) {
-    document.getElementById('currentCoords').innerHTML = '<p>Currently dragging marker...</p>'
+    // document.getElementById('currentCoords').innerHTML = '<p>Currently dragging marker...</p>'
     curLatLng = marker.position
   })
 }

@@ -8,7 +8,7 @@
   <title>Submit a Report</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
-  
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-2"></script>
   <!-- These links and scripts provide us with Bootstrap, fonts, icons: -->
@@ -51,7 +51,7 @@
       {category_id, location_id, park_id, details, loc_lat, loc_long, user_id, image_ref}
       -->
       <form id="report-submission-form" action="/submitReport" method="post" role="form" enctype="multipart/form-data">
-        <div class="col-lg-10 offset-xl-1">
+        <div class="col-lg-12">
 
           <!-- Page title -->
           <div style="text-align:center">
@@ -77,7 +77,7 @@
             <label for="dropdown-content">Neighborhood<strong style='color: red'> *</strong>
             </label>
             <select class="form-control" name="location_id" id="locationDropDown">
-              <option>Please Select One (Optional)</option>
+              <option>Please Select One</option>
             </select>
           </div>
 
@@ -108,13 +108,13 @@
           <hr>
 
           <!--- Map section --->
-          <h3 style="text-align: center; font-weight: 600;">Please drag the red marker to location of incident:</h3>
+          <h3 style="text-align: center; font-size: 150%; font-weight: 600;">Please drag the red marker to location of incident:</h3>
           <br>
           <div id="map">
           </div>
-          <div>
+          <!-- <div>
             <label id="currentCoords"></label>
-          </div>
+          </div> -->
 
           <hr>
           <br>
@@ -128,7 +128,7 @@
           </div>
 
           <br><hr>
-          <p>
+          <p style="text-align:center">
           <!-- style="text-align: center"> -->
             Fields with <strong style='color: red'>*</strong> are required to continue.
           </p>
@@ -136,7 +136,7 @@
 
           <!--- Captcha section --->
           <!-- <div class="text-center"> -->
-            <div class="form-group">
+            <div class="form-group" style="text-align:center">
               <div id="captchaElement"
                    class="g-recaptcha"  data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
               </div>
@@ -147,7 +147,7 @@
           <!-- <div style="text-align: center"> -->
               <button id="submit-button" class="btn-outline-primary btn-send mx-auto offset-xl-2"
                 style="border-radius: 15px; border-width: 2px;" disabled="true" onclick="submitForm()">
-                 Submit Report 
+                 Submit Report
               </button>
           <!-- </div> -->
         </div>
@@ -166,7 +166,7 @@
 
   //google analytics
   window.dataLayer = window.dataLayer || [];
-  
+
   function gtag() {
     dataLayer.push(arguments);
   }
@@ -182,7 +182,7 @@
     else
       document.getElementById('report-submission-form').submit()
   }
-  
+
   gtag('js', new Date());
   gtag('config', 'UA-144569863-2');
 </script>
