@@ -58,7 +58,7 @@ function getSearchParams () {
   var user_entry = document.getElementById('searchBox').value
   var category_id = document.getElementById('categoryDropDown').value
   var location_id = document.getElementById('locationDropDown').value
-  var park_id = document.getElementById('parkDropDown').value
+  //var park_id = document.getElementById('parkDropDown').value
 
   var requestParam = '?'
   var firstParam = true
@@ -86,13 +86,13 @@ function getSearchParams () {
     firstParam = false
   }
 
-  if (park_id != null && park_id != -1) {
-    if (!firstParam) {
-      requestParam += '&'
-    }
+  // if (park_id != null && park_id != -1) {
+  //   if (!firstParam) {
+  //     requestParam += '&'
+  //   }
 
-    requestParam += 'park_id=' + park_id
-  }
+  //   requestParam += 'park_id=' + park_id
+  // }
 
   return requestParam
 }

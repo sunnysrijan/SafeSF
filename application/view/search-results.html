@@ -42,27 +42,36 @@
 		      <div class="form-box">
 
 		        <div class="dropdown">
-		          <p>Category:</p>
+				  <p id="drop-label">
+					Category:
+				  </p>
 		          <select class="form-control" name="category_id" id="categoryDropDown">
 		            <option value="-1">None</option>
 		          </select>
 		        </div>
 
 		        <div class="dropdown">
-		          <p>Location:</p>
+				  <p id="drop-label">
+					Location:
+				 </p>
 		          <select class="form-control" name="location_id" id="locationDropDown">
 		            <option value="-1">None</option>
 		          </select>
 		        </div>
 		        
-		        <div class="dropdown">
-		          <p>Park:</p>
+	       <!-- <div class="dropdown">
+				  <p id="drop-label">
+					Park:
+				 </p>
 		          <select class="form-control" name="park_id" id="parkDropDown">
 		            <option value="-1">None</option>
 		          </select>
-		        </div>
+		        </div> -->
 
-		        <button type='button' onclick="filterResults()">Apply Filter</button>
+				<button class="btn btn-outline-primary" style="margin-left:5px;" 
+						 type='button' onclick="filterResults()">Apply Filter
+				</button>
+				
 		      </div>
 		      <hr class="divider"/>
 		    </form>
