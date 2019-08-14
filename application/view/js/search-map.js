@@ -268,16 +268,23 @@ function getMarkerIconURL (reportCategory) {
 // Takes a card-click event, scrolls to the map, finds the marker with the same id,
 // and triggers a click event to zoom in on it.
 function viewReports (report_id) {
-  // Scroll to the map.
-  document.getElementById('map').scrollIntoView({ behavior: 'smooth', alignToTop: 'true', inline: 'nearest' })
+  //If a map exists, highlight the report on the map
+  if(document.getElementById('map')) {
+    // Scroll to the map.
+    document.getElementById('map').scrollIntoView({ behavior: 'smooth', alignToTop: 'true', inline: 'nearest' })
 
-  // Loop through and find the marker with given id.
-  markers.forEach(function (marker) {
-    if (marker['id'] == report_id + '_marker') {
-      // Fire the click event to show the infowindow popup.
-      google.maps.event.trigger(marker, 'click')
-    }
-  })
+    // Loop through and find the marker with given id.
+    markers.forEach(function (marker) {
+      if (marker['id'] == report_id + '_marker') {
+        // Fire the click event to show the infowindow popup.
+        google.maps.event.trigger(marker, 'click')
+      }
+    })
+  }
+  //If there is no map, redirect to the report details page
+  else {
+    window.location.href = "/report?report_id=" + report_id;
+  }
 }
 
 //Resizes the map when the page is resized
