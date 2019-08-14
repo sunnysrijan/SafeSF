@@ -1,5 +1,4 @@
 const urlParams = new URLSearchParams(window.location.search) // Parameter parser class.
-const NUMBER_OF_MOST_RECENT_RESULTS = 10
 
 function search () {
   var xmlReq = new XMLHttpRequest()
@@ -151,19 +150,7 @@ function sortJsonArrayByProperty(objArray, prop, direction){
 function createTable (searchResults) {
   var table = document.createElement('table')
 
-  // If we have search parameters, show all results.
-  // Otherwise, show a default amount of them.
-  var numResultsToShow = NUMBER_OF_MOST_RECENT_RESULTS
-  var numParams = 0
-  urlParams.forEach(function (value, key) {
-    numParams++
-  })
-
-  if (numParams > 1) {
-    numResultsToShow = Math.ceil(searchResults.length)
-  }
-
-  for (var i = 0; i < numResultsToShow; i++) {
+  for (var i = 0; i < Math.ceil(searchResults.length); i++) {
     var row = table.insertRow(-1)
     var cell = row.insertCell(-1)
 
