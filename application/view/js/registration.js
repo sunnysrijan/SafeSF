@@ -88,32 +88,6 @@ function isRepeatPasswordValid (newPassword, passwordConfirmation) {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // function register() {
 //   var username = document.getElementById("username").value
 //   var email = document.getElementById("email").value

@@ -40,7 +40,7 @@ exports.register = function (data, callback) {
 
 exports.login = function (data, callback) {
   db.query('SELECT * FROM users WHERE display_name = ?', data.username, function (err, result) {
-    if (!result || !result.length) { callback(new Error('That usename is not registered'), null) } else {
+    if (!result || !result.length) { callback(new Error('That username is not registered'), null) } else {
       bcrypt.compare(data.password, result[0].password, function (err, res) {
         if (res) {
           jwt.createToken(data, function (err, token) {

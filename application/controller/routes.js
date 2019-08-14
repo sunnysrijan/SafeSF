@@ -275,6 +275,7 @@ router.post('/requestRegister', upload.none(), (req, res) => {
       // Remove the captcha token from the original data packet.
       delete req.body['g-recaptcha-response']
 
+      // Convert the parameters to an object usable by our code.
       var authInfo = {
         username: req.body['username'],
         email: req.body['email'],
@@ -303,15 +304,10 @@ router.post('/requestRegister', upload.none(), (req, res) => {
 })
 
 router.get('/requestLogin', upload.none(), (req, res) => {
-  console.log(req.query)
-  console.log(req.query.username)
-  console.log(req.query.password)
-  console.log(req.query.remember)
-
+  // Convert the parameters to an object usable by our code.
   var authInfo = {}
   authInfo['username'] = req.query.username
   authInfo['password'] = req.query.password
-  console.log(authInfo)
 
   // ---------- BEGIN FORM VALIDATION SECTION ----------
   if (!formValidation.validateLoginForm(authInfo)) {
@@ -328,7 +324,9 @@ router.get('/requestLogin', upload.none(), (req, res) => {
       } else {
         console.log(authInfo.username, 'succesfully logged in')
         res.cookie('accessToken', token)
+        res.redirect('/')
         res.sendStatus(200)
+        return
       }
     })
   }
