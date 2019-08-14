@@ -37,6 +37,12 @@ var upload = multer({
 /*
     Page requests
 */
+
+router.get('/search-results', (req, res) => {
+  res.status(200)
+  res.sendFile(path.resolve('view/search-results.html'))
+})
+
 router.get('/register', (req, res) => {
   res.status(200)
   res.sendFile(path.resolve('view/register.html'))
