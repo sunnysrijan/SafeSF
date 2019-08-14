@@ -1,0 +1,102 @@
+
+
+/* Chosen Color Scheme: */
+
+/*  Darkest:   #248ea9
+               #28c3d4
+               #aee7e8
+   Lightest:   #f4f4f4      */
+
+/* Fonts available through google CDN:
+
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
+              Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"rel="stylesheet">
+
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Crimson Text', serif;
+  font-family: 'Darker Grotesque', sans-serif;
+  font-family: 'Kreon', serif; */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+label {
+  font-weight:700;
+  font-size:125%;
+  /* font-family: 'Crimson Text', serif; */
+}
+
+.loginBtn {
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+}
+
+.align-left-labels {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.btn-outline-primary,
+.btn-outline-primary:active,
+.btn-outline-primary:visited,
+.btn-outline-primary:focus {
+    background-color: white !important;
+    border-color: #248ea9 !important;
+    color: #248ea9 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #248ea9 !important;
+  border-color: white !important;
+  color: white !important;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+#login-form {
+  font-size:105%;
+  /* font-family: 'Darker Grotesque', sans-serif; */
+  /* font-family: 'Cormorant Garamond', serif; */
+  font-family: 'Crimson Text', serif;
+  margin: 0 auto;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}

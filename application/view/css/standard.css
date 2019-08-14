@@ -1,0 +1,86 @@
+
+/* Chosen Color Scheme: */
+
+/*  Darkest:   #248ea9
+               #28c3d4
+               #aee7e8
+   Lightest:   #f4f4f4      */
+
+/* Fonts available through google CDN:
+
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
+              Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"rel="stylesheet">
+
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Crimson Text', serif;
+  font-family: 'Darker Grotesque', sans-serif;
+  font-family: 'Kreon', serif; */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Add padding to containers */
+  .container {
+    padding: 4px;
+    background-color: white;
+  }
+  
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+    width: 60%;
+    padding: 15px;
+    margin: 5px 0 5px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  input[type="text"]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+    font-size: 14px;
+    width: 60%;
+    
+  }
+  
+  /* Overwrite default styles of hr */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 5px;
+  }
+  
+  /* Set a style for the submit button */
+  .registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 0 auto;
+    border: none;
+    width: 60%;
+    opacity: 0.9;
+    border-radius: 12px;
+    position: relative;
+    margin: 8px 0 8px;
+    font-size: 18px
+  }
+  
+  .registerbtn:hover {
+    opacity: 1;
+  }
+  
+  /* Add a blue text color to links */
+  a {
+    color: dodgerblue;
+  }
+  
+  /* Set a grey background color and center the text of the "sign in" section */
+  .signin {
+    background-color: #f1f1f1;
+    text-align: center;
+  }
+  

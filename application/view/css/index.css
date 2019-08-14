@@ -1,20 +1,108 @@
+/* Chosen Color Scheme: */
+
+/*  Darkest:   #248ea9
+               #28c3d4
+               #aee7e8
+   Lightest:   #f4f4f4      */
+
+/* Fonts available through google CDN:
+
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:700|
+              Cormorant+Garamond:700|Crimson+Text|Darker+Grotesque:500|Kreon&display=swap"rel="stylesheet">
+
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Crimson Text', serif;
+  font-family: 'Darker Grotesque', sans-serif;
+  font-family: 'Kreon', serif; */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+#mapBox {
+  height: 0;
+  width: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+}
+
+#floatingHeader {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+}
+
+#drop-label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color:#248ea9;
+}
+
+.divider {
+  margin-top: 1rem;
+  margin-bottom: 0rem;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #aee7e8;
+  color: white;
+  text-align: center;
+}
+
 .split_left {
-  width:40%;
-  left:0;
+
+  height:400px;
+  min-width: 520px;
+  float: left;
+  display: flex;
   z-index: 1;
   overflow-x: hidden;
-  position: absolute;
-  padding-top: 20px}
+  margin: 10px}
 
 .split_right{
-  margin-top: 30px;
-  width:60%;
-  right:0;
+
+  height: 400px;
+  min-width: max-content;
+  float: right;
+  display: flex;
   z-index: 1;
-  position: absolute;
+  padding: 10px;
   overflow-x: hidden;
-  padding-top: 20px;
-}
+  }
+
+  .btn-outline-primary,
+  .btn-outline-primary:active,
+  .btn-outline-primary:visited,
+  .btn-outline-primary:focus {
+      background-color: white !important;
+      border-color: #248ea9 !important; 
+      color: #248ea9 !important;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #248ea9 !important;
+    border-color: white !important;
+    color: white !important;
+  }
 
 .topnav {
   overflow: hidden;
@@ -94,7 +182,6 @@
 
 .header{
 	height: 100vh;
-	background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),url(images/Background.jpg);
 	background-size: cover;
 	background-position: center;
 	align-items: center;font-family: sans-serif;
@@ -113,12 +200,18 @@ h1 {
 	width: 200px;
 }
 
-.card{
-  border-radius: 25px;
-  background: #73AD21;
+ .repcard {
+  cursor: pointer;
+  border-radius: 10px;
   padding: 10px;
-  width: 100%;
+  width: max-content;
   height: 100%;
+  width: 95%;
+  display: flex;
+  border-width: 2px;
+  border-color: #28c3d4;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .dropbtn {
@@ -133,6 +226,7 @@ h1 {
 .dropdown {
   position: relative;
   display: inline-block;
+  margin: 5px;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -154,7 +248,7 @@ h1 {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #grey;}
+.dropdown-content a:hover {background-color: grey;}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
@@ -164,19 +258,70 @@ h1 {
   background-color: #FFFFFF;
   pointer-events: none;
 }
-
-.cardImage {
-  width: 400px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.admincard{
+  display: flex;
+  margin-left:25%;
+}
+.buttonsdiv{
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  }
+.adminbuttons{
+  margin: auto;
+width:120px;
 }
 
+/* .repcard {
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 10px;
+  width: max-content;
+  height: 100%;
+  display: flex;
+  border-width: 2px;
+  border-color: #248ea9;
+  border-color: lightgrey;
+  border-color: #28c3d4;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+} */
+
+.cardImage {
+  width: 130px;
+  height: 112px;
+  float: left;
+  margin-left: 5px;
+  margin-right: 10px;
+  position: relative;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.rptDet {
+  height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 16px;
+}
+.legend {
+  display: none;
+  font-size: 14px;
+  font-weight: bold;
+  background: #f4f4f4;
+  padding: 3px;
+  margin: 3px;
+  border: 2px solid #248ea9
+}
+
+.legend-header {
+  display: none;
+  font-size: 20px;
+  font-weight: bold;
+  background: #aee7e8;
+}
 
 table {
-  width: 95%;
+  width: 100%;
   margin: 1%;
 }
 
