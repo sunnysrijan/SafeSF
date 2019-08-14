@@ -156,7 +156,7 @@ function createTable (searchResults) {
 
     var report = searchResults[i]
     var category = getValueOfId(categories, 'category_id', report.category_id)
-    var image = 'report_images/' + report.report_id + '.jpg'
+    var image = 'report_images/' + report.report_id + '-thumb.jpg'
 
     if (locations[parseInt(report.location_id) - 1] == null) {
       var location = ''
@@ -193,7 +193,7 @@ function createRecentsTable (searchResults) {
 
     var report = searchResults[i]
     var category = getValueOfId(categories, 'category_id', report.category_id)
-    var image = 'report_images/' + report.report_id + '.jpg'
+    var image = 'report_images/' + report.report_id + '-thumb.jpg'
 
     if (locations[parseInt(report.location_id) - 1] == null) {
       var location = ''
@@ -219,7 +219,7 @@ function createTableAdmin (searchResults) {
 
     var report = searchResults[i]
     var category = report.category_id
-    var image = 'report_images/' + report.report_id + '.jpg'
+    var image = 'report_images/' + report.report_id + '-thumb.jpg'
     var location = report.location_id
     
     var paramA="?reportID='"+ report.report_id +"'&status='Assigned'"
@@ -238,7 +238,7 @@ function createTableAdmin (searchResults) {
 
 function createCard(report, image, category, location, buttons) {
   var buttonHtml = 
-      "<div onclick=\"viewReports('" + report.report_id + "')\" class='repcard'>" +
+      "<div onclick=\"viewReports('" + report.report_id + "')\" id='" + report.report_id + "' class='repcard'>" +
       "<img class='cardImage' src='" + image + "'style='height:300;width:300'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
       category + '</div><div><strong>Details:</strong> ' +
       report.details + '</div><div><strong>Location:</strong> ' +
