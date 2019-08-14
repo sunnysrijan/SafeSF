@@ -42,6 +42,15 @@ label {
   /* font-family: 'Crimson Text', serif; */
 }
 
+
+.registerBtn {
+  padding: 14px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 10px;
+}
+
 .align-left-labels {
   text-align: left;
 }
@@ -53,34 +62,6 @@ label {
 .g-recaptcha {
   margin-top: 10px;
   display: inline-block;
-}
-
-
-/* Set a style for the submit button */
-/* #registerbtn {
-  background-color: #f4f4f4;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-  border-radius: 10px;
-  width: 100%;
-} */
-
-#submit-button:hover {
-  opacity: 1;
-}
-
-
-.registerBtn {
-  padding: 14px 20px;
-  margin: 8px 0;
-  cursor: pointer;
-  width: 100%;
-  border-radius: 10px;
 }
 
 button:hover {
