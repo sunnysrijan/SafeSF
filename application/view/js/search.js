@@ -184,7 +184,7 @@ function createTable (searchResults) {
 	  tableContainer.appendChild(table)
 	}
 	else {
-		tableContainer.innerHTML = "<h2 style='margin-top: 50%;'>No reports matched your search</h2>"
+		tableContainer.innerHTML = "<h2 style='margin-top: 50%;'>No reports matched your search</h2><h2>Please try a different search term or filters</h2>"
 	}
 }
 
