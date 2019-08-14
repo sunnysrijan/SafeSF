@@ -150,35 +150,42 @@ function sortJsonArrayByProperty(objArray, prop, direction){
 }
 
 function createTable (searchResults) {
-  var table = document.createElement('table')
+	var tableContainer = document.getElementById('table')
 
-  for (var i = 0; i < searchResults.length; i++) {
-    var row = table.insertRow(-1)
-    var cell = row.insertCell(-1)
+    //Populate the table if there were resutls matchingh the user's search
+    if(searchResults.length > 0) {
+	  var table = document.createElement('table')
 
-    var report = searchResults[i]
-    var category = getValueOfId(categories, 'category_id', report.category_id)
-    var image = 'report_images/' + report.report_id + '-thumb.jpg'
+	  for (var i = 0; i < searchResults.length; i++) {
+	    var row = table.insertRow(-1)
+	    var cell = row.insertCell(-1)
 
-    if (locations[parseInt(report.location_id) - 1] == null) {
-      var location = ''
-    } else {
-      var location = getValueOfId(locations, 'location_id', report.location_id)
-    }
+	    var report = searchResults[i]
+	    var category = getValueOfId(categories, 'category_id', report.category_id)
+	    var image = 'report_images/' + report.report_id + '-thumb.jpg'
 
-    cell.innerHTML = createCard(report, image, category, location, null, true)
+	    if (locations[parseInt(report.location_id) - 1] == null) {
+	      var location = ''
+	    } else {
+	      var location = getValueOfId(locations, 'location_id', report.location_id)
+	    }
 
-    // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
-    var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
-    var markerLng = report.loc_long != null ? report.loc_long : report.park_loc_long
-    // Add marker for map using this result.
-    // addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng)
-    addReportMarkerToMap(category, report.category_id, image, report.details, report.report_id, markerLat, markerLng)
-  }
+	    cell.innerHTML = createCard(report, image, category, location, null, true)
 
-  var tableContainer = document.getElementById('table')
-  tableContainer.innerHTML = ''
-  tableContainer.appendChild(table)
+	    // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
+	    var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
+	    var markerLng = report.loc_long != null ? report.loc_long : report.park_loc_long
+	    // Add marker for map using this result.
+	    // addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng)
+	    addReportMarkerToMap(category, report.category_id, image, report.details, report.report_id, markerLat, markerLng)
+	  }
+
+	  tableContainer.innerHTML = ''
+	  tableContainer.appendChild(table)
+	}
+	else {
+		tableContainer.innerHTML = "<h2 style='margin-top: 50%;'>No reports matched your search</h2>"
+	}
 }
 
 function createRecentsTable (searchResults) {
