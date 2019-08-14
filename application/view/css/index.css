@@ -47,6 +47,12 @@ body {
   background-color: white;
 }
 
+#drop-label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color:#248ea9;
+}
+
 .divider {
   margin-top: 1rem;
   margin-bottom: 0rem;
@@ -81,6 +87,21 @@ body {
   z-index: 1;
   padding: 10px;
   overflow-x: hidden;
+  }
+
+  .btn-outline-primary,
+  .btn-outline-primary:active,
+  .btn-outline-primary:visited,
+  .btn-outline-primary:focus {
+      background-color: white !important;
+      border-color: #248ea9 !important; 
+      color: #248ea9 !important;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #248ea9 !important;
+    border-color: white !important;
+    color: white !important;
   }
 
 .topnav {
@@ -201,6 +222,7 @@ h1 {
 .dropdown {
   position: relative;
   display: inline-block;
+  margin: 5px;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -246,14 +268,20 @@ h1 {
 width:120px;
 }
 
-.repcard {
+/* .repcard {
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 10px;
+  width: max-content;
+  height: 100%;
+  display: flex;
   border-width: 2px;
-  /* border-color: #248ea9; */
+  border-color: #248ea9;
   border-color: lightgrey;
-  /* border-color: #28c3d4; */
+  border-color: #28c3d4;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+} */
 
 .cardImage {
   width: 130px;
