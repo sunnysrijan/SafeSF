@@ -162,12 +162,7 @@ function createRecentsTable (searchResults) {
   var numReports = 10
   var max
 
-  if(numReports > Math.ceil(searchResults.length))
-    max = Math.ceil(searchResults.length)
-  else
-    max = numReports
-
-  for (var i = max - 1; i >= 0; i--) {
+  for (var i = 0; i < numReports; i++) {
     var row = table.insertRow(-1)
     var cell = row.insertCell(-1)
 
