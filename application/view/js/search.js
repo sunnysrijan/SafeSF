@@ -13,6 +13,47 @@ function search () {
   xmlReq.send(null)
 }
 
+function getRecents() {
+  var xmlReq = new XMLHttpRequest()
+
+  xmlReq.onload = function () {
+    if (xmlReq.status == 200)
+      createRecentsTable(xmlReq.response)
+  }
+
+  xmlReq.open('GET', '/search', true)
+  xmlReq.responseType = 'json'
+  xmlReq.send(null)
+}
+
+function admin () {
+  var xmlReq = new XMLHttpRequest()
+
+  xmlReq.onload = function () {
+    if (xmlReq.status == 200) 
+      createTableAdmin(xmlReq.response)
+  }
+
+  xmlReq.open('GET', '/search?admin=true', true)
+  xmlReq.responseType = 'json'
+  xmlReq.send(null)
+}
+
+function setStatus(report_id, status) {
+  var xmlReq = new XMLHttpRequest()
+
+  xmlReq.onload = function () {
+    if (xmlReq.status == 200)
+      alert("Report Was Updated Successfully!")
+    else
+      alert("Report Could Not Be Updated")
+  }
+
+  xmlReq.open('POST', '/admin?reportID=' + report_id + '&status=' + status, true)
+  xmlReq.responseType = 'json'
+  xmlReq.send(null)
+}
+
 function getSearchParams () {
   var user_entry = document.getElementById('searchBox').value
   var category_id = document.getElementById('categoryDropDown').value
@@ -57,7 +98,7 @@ function getSearchParams () {
 }
 
 function filterResults() {
-  window.location.href = "/" + getSearchParams();
+  window.location.href = "/search-results" + getSearchParams();
 }
 
 //Populate the searchbar and dropdowns with the values from the query
@@ -84,32 +125,68 @@ function getValueOfId (jsonData, field, id) {
   }
 }
 
-function setStatus(report_id, status) {
-  var xmlReq = new XMLHttpRequest()
+function createTable (searchResults) {
+  var table = document.createElement('table')
 
-  xmlReq.onload = function () {
-    if (xmlReq.status == 200)
-      alert("Report Was Updated Successfully!")
-    else
-      alert("Report Could Not Be Updated")
+  for (var i = 0; i < Math.ceil(searchResults.length); i++) {
+    var row = table.insertRow(-1)
+    var cell = row.insertCell(-1)
+
+    var report = searchResults[i]
+    var category = getValueOfId(categories, 'category_id', report.category_id)
+    var image = 'report_images/' + report.report_id + '.jpg'
+
+    if (locations[parseInt(report.location_id) - 1] == null) {
+      var location = ''
+    } else {
+      var location = getValueOfId(locations, 'location_id', report.location_id)
+    }
+
+    cell.innerHTML = createCard(report, image, category, location, null)
+
+    // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
+    var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
+    var markerLng = report.loc_long != null ? report.loc_long : report.park_loc_long
+    // Add marker for map using this result.
+    // addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng)
+    addReportMarkerToMap(category, report.category_id, image, report.details, report.report_id, markerLat, markerLng)
   }
 
-  xmlReq.open('POST', '/admin?reportID=' + report_id + '&status=' + status, true)
-  xmlReq.responseType = 'json'
-  xmlReq.send(null)
+  var tableContainer = document.getElementById('table')
+  tableContainer.innerHTML = ''
+  tableContainer.appendChild(table)
 }
 
-function admin () {
-  var xmlReq = new XMLHttpRequest()
+function createRecentsTable (searchResults) {
+  var table = document.createElement('table')
+  var numReports = 10
+  var max
 
-  xmlReq.onload = function () {
-    if (xmlReq.status == 200) 
-      createTableAdmin(xmlReq.response)
+  if(numReports > Math.ceil(searchResults.length))
+    max = Math.ceil(searchResults.length)
+  else
+    max = numReports
+
+  for (var i = max - 1; i >= 0; i--) {
+    var row = table.insertRow(-1)
+    var cell = row.insertCell(-1)
+
+    var report = searchResults[i]
+    var category = getValueOfId(categories, 'category_id', report.category_id)
+    var image = 'report_images/' + report.report_id + '.jpg'
+
+    if (locations[parseInt(report.location_id) - 1] == null) {
+      var location = ''
+    } else {
+      var location = getValueOfId(locations, 'location_id', report.location_id)
+    }
+
+    cell.innerHTML = createCard(report, image, category, location, null)
   }
 
-  xmlReq.open('GET', '/search?admin=true', true)
-  xmlReq.responseType = 'json'
-  xmlReq.send(null)
+  var tableContainer = document.getElementById('table')
+  tableContainer.innerHTML = ''
+  tableContainer.appendChild(table)
 }
 
 function createTableAdmin (searchResults) {
@@ -131,20 +208,7 @@ function createTableAdmin (searchResults) {
     var dismissButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Dismiss')\" class='adminbuttons'>Dismiss</button>"
     var completedButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Completed')\" class='adminbuttons'>Completed</button>"
 
-    cell.innerHTML = "<div class='admincard'><div onclick=\"viewReports('\" + report.report_id + \"')\" class='repcard'>" +
-      "<img class='cardImage' src='" + image + "'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
-      category + '</div><div><strong>Details:</strong> ' +
-      report.details + '</div><div><strong>Location:</strong> ' +
-      location + '</div><div><strong>Reported On: </strong>' +
-      report.insert_date + '</div><div><strong>Status: </strong>' +
-      report.status + "</div></div></div><div class='buttonsdiv'>" + assignButton + dismissButton + completedButton + "</div></div>"
-
-    // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
-    //var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
-    //var markerLng = report.loc_long != null ? report.loc_long : report.park_loc_long
-    // Add marker for map using this result.
-    // addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng)
-    //addReportMarkerToMap(category, report.category_id, image, report.details, report.report_id, markerLat, markerLng)
+    cell.innerHTML = createCard(report, image, category, location, assignButton + dismissButton + completedButton)
   }
 
   var tableContainer = document.getElementById('table')
@@ -152,41 +216,20 @@ function createTableAdmin (searchResults) {
   tableContainer.appendChild(table)
 }
 
-function createTable (searchResults) {
-  var table = document.createElement('table')
-
-  for (var i = 0; i < Math.ceil(searchResults.length); i++) {
-    var row = table.insertRow(-1)
-
-    var cell = row.insertCell(-1)
-
-    var report = searchResults[i]
-    var category = getValueOfId(categories, 'category_id', report.category_id)
-    var image = 'report_images/' + report.report_id + '.jpg'
-
-    if (locations[parseInt(report.location_id) - 1] == null) {
-      var location = ''
-    } else {
-      var location = getValueOfId(locations, 'location_id', report.location_id)
-    }
-
-    cell.innerHTML = "<div onclick=\"viewReports('" + report.report_id + "')\" class='repcard'>" +
+function createCard(report, image, category, location, buttons) {
+  var buttonHtml = 
+      "<div onclick=\"viewReports('" + report.report_id + "')\" class='repcard'>" +
       "<img class='cardImage' src='" + image + "'style='height:300;width:300'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
       category + '</div><div><strong>Details:</strong> ' +
       report.details + '</div><div><strong>Location:</strong> ' +
       location + '</div><div><strong>Reported On: </strong>' +
       report.insert_date + '</div><div><strong>Status: </strong>' +
-      report.status + '</div></div></div>'
+      report.status + '</div>'
 
-    // Check for lat/lng. If it doesn't exit, then we need the coordinates of the park instead.
-    var markerLat = report.loc_lat != null ? report.loc_lat : report.park_loc_lat
-    var markerLng = report.loc_long != null ? report.loc_long : report.park_loc_long
-    // Add marker for map using this result.
-    // addReportMarkerToMap(reportCategory, reportCategoryID, reportThumbnail, reportDetails, reportID, markerLat, markerLng)
-    addReportMarkerToMap(category, report.category_id, image, report.details, report.report_id, markerLat, markerLng)
-  }
+  if(buttons)
+    buttonHtml += buttons;
 
-  var tableContainer = document.getElementById('table')
-  tableContainer.innerHTML = ''
-  tableContainer.appendChild(table)
+  buttonHtml += '</div></div>';
+
+  return buttonHtml
 }

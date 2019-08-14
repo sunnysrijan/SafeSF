@@ -58,22 +58,25 @@ function populateDropdown (data, field) {
     dropDown = document.getElementById('parkDropDown')
   }
 
-  let option
+  if(dropDown != null)
+  {
+    let option
 
-  for (let i = 0; i < data.length; i++) {
-    option = document.createElement('option')
+    for (let i = 0; i < data.length; i++) {
+      option = document.createElement('option')
 
-    if (field === 'category') {
-      option.text = data[i].category
-      option.value = data[i].category_id
-    } else if (field === 'location') {
-      option.text = data[i].location
-      option.value = data[i].location_id
-    } else if (field === 'park') {
-      option.text = data[i].park
-      option.value = data[i].park_id
+      if (field === 'category') {
+        option.text = data[i].category
+        option.value = data[i].category_id
+      } else if (field === 'location') {
+        option.text = data[i].location
+        option.value = data[i].location_id
+      } else if (field === 'park') {
+        option.text = data[i].park
+        option.value = data[i].park_id
+      }
+
+      dropDown.add(option)
     }
-
-    dropDown.add(option)
   }
 }
