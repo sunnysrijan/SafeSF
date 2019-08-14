@@ -42,14 +42,12 @@ label {
   /* font-family: 'Crimson Text', serif; */
 }
 
-form,
-.form-control {
-  min-width: 400px;
-  max-width: 600px;
+.align-left-labels {
+  text-align: left;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .g-recaptcha {
@@ -109,6 +107,7 @@ button:hover {
   /* font-family: 'Darker Grotesque', sans-serif; */
   /* font-family: 'Cormorant Garamond', serif; */
   font-family: 'Crimson Text', serif;
+  margin: 0 auto;
 }
 
 /* Change styles for span and cancel button on extra small screens */
