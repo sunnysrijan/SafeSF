@@ -58,7 +58,7 @@
 		            <option value="-1">None</option>
 		          </select>
 		        </div>
-		        
+
 	       <!-- <div class="dropdown">
 				  <p id="drop-label">
 					Park:
@@ -68,18 +68,18 @@
 		          </select>
 		        </div> -->
 
-				<button class="btn btn-outline-primary" style="margin-left:5px;" 
+				<button class="btn btn-outline-primary" style="margin-left:5px;"
 						 type='button' onclick="filterResults()">Apply Filter
 				</button>
-				
+
 		      </div>
 		      <hr class="divider"/>
 		    </form>
 		</div>
 	</div>
 
-	<div class="container">
-	    <div class="row">
+	<div class="container-fluid">
+	    <div class="row justify-content-center">
 	      <div class="col-sm-6">
 	        <div class="legend">
 	          <center class="legend-header">Hazards</center>
@@ -90,9 +90,11 @@
 		    </div>
 	      </div>
 
-	      <div class="col-sm-6">
-	        <div id="table"></div>
-	      </div>
+        <div class="col-sm-6">
+          <div class="row justify-content-center">
+            <div class="table-responsive-lg" id="table"></div>
+          </div>
+        </div>
 	    </div>
 	</div>
   </div>
