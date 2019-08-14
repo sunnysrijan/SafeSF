@@ -32,6 +32,10 @@
 
   <div class="container">
     <div class="jumbotron">
+    <button class="btn btn-outline-primary" style=" margin-top: -5%; font-size: 150%; width: 35%" type='button' onclick="goBack()">
+      Back
+    </button>
+
       <p id="report_id" style="font-size: 120%">
         <p1 class="text-danger">Hazard type: </p1><text id="hazard-type"></text><br>
         <p2 class="text-primary">Report location: </p2><text id="hazard-location"></text><br>
@@ -70,6 +74,11 @@
 
   function gtag() {
     dataLayer.push(arguments);
+  }
+
+  //navigate to previous page
+  function goBack() {
+    window.history.back();
   }
 
   gtag('js', new Date());
