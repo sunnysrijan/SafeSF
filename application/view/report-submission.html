@@ -25,7 +25,7 @@
 
   <!-- These links are needed for the map and specific styling for the report-submission page -->
   <link href="css/report-submission.css" rel="stylesheet">
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry&callback=initMap" async defer></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry" async defer></script>
   <script type="text/javascript" src="js/navbar.js"></script>
   <script type="text/javascript" src="js/auth.js"></script>
   <script type="text/javascript" src="js/captcha.js"></script>
@@ -37,7 +37,7 @@
 <!-- loadNavbar is needed to load and render the navbar html code
      getCategories and getLocation are needed to populate dropdown menus
      these are called on the loading of the page -->
-<body onload="onReCAPTCHASuccess()">
+<body onload="onReCAPTCHASuccess(); initMap();">
 
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
