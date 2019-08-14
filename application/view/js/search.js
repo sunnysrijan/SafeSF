@@ -8,9 +8,80 @@ function search () {
       createTable(xmlReq.response)
   }
 
-  xmlReq.open('GET', '/search?user_entry=' + urlParams.get('query'), true)
+  xmlReq.open('GET', '/search' + getSearchParams(), true)
   xmlReq.responseType = 'json'
   xmlReq.send(null)
+}
+
+function getSearchParams () {
+  var user_entry = document.getElementById('searchBox').value
+  var category_id = document.getElementById('categoryDropDown').value
+  var location_id = document.getElementById('locationDropDown').value
+  var park_id = document.getElementById('parkDropDown').value
+
+  var requestParam = '?'
+  var firstParam = true
+
+  if (user_entry != null && user_entry != '') {
+    requestParam += 'user_entry=' + user_entry
+    firstParam = false
+  }
+
+  if (category_id != null && category_id != -1) {
+    if (!firstParam) {
+      requestParam += '&'
+    }
+
+    requestParam += 'category_id=' + category_id
+    firstParam = false
+  }
+
+  if (location_id != null && location_id != -1) {
+    if (!firstParam) {
+      requestParam += '&'
+    }
+
+    requestParam += 'location_id=' + location_id
+    firstParam = false
+  }
+
+  if (park_id != null && park_id != -1) {
+    if (!firstParam) {
+      requestParam += '&'
+    }
+
+    requestParam += 'park_id=' + park_id
+  }
+
+  return requestParam
+}
+
+function filterResults() {
+  window.location.href = "/" + getSearchParams();
+}
+
+//Populate the searchbar and dropdowns with the values from the query
+function populateSearchOptions() {
+  document.getElementById('searchBox').value = urlParams.get('user_entry')
+
+  if(urlParams.get('category_id') != null)
+    document.getElementById('categoryDropDown').value = urlParams.get('category_id')
+
+  if(urlParams.get('location_id') != null)
+    document.getElementById('locationDropDown').value = urlParams.get('location_id')
+
+  if(urlParams.get('park_id') != null)
+    document.getElementById('parkDropDown').value = urlParams.get('park_id')
+}
+
+function getValueOfId (jsonData, field, id) {
+  for (var i = 0; i < jsonData.length; i++) {
+    if (field === 'category_id' && jsonData[i].category_id === id) {
+      return jsonData[i].category
+    } else if (field === 'location_id' && jsonData[i].location_id === id) {
+      return jsonData[i].location
+    }
+  }
 }
 
 function setStatus(report_id, status) {
@@ -39,50 +110,6 @@ function admin () {
   xmlReq.open('GET', '/search?admin=true', true)
   xmlReq.responseType = 'json'
   xmlReq.send(null)
-}
-
-// function getSearchParams () {
-//   var category_id = document.getElementById('categoryDropDown').value
-//   var location_id = document.getElementById('locationDropDown').value
-
-//   var user_entry = document.getElementById('searchBox').value
-
-//   var requestParam = '?'
-//   var firstParam = true
-
-//   if (category_id != -1) {
-//     requestParam += 'category_id=' + category_id
-//     firstParam = false
-//   }
-
-//   if (location_id != -1) {
-//     if (!firstParam) {
-//       requestParam += '&'
-//     }
-
-//     requestParam += 'location_id=' + location_id
-//     firstParam = false
-//   }
-
-//   if (user_entry != '') {
-//     if (!firstParam) {
-//       requestParam += '&'
-//     }
-
-//     requestParam += 'user_entry=' + user_entry
-//   }
-
-//   return requestParam
-// }
-
-function getValueOfId (jsonData, field, id) {
-  for (var i = 0; i < jsonData.length; i++) {
-    if (field === 'category_id' && jsonData[i].category_id === id) {
-      return jsonData[i].category
-    } else if (field === 'location_id' && jsonData[i].location_id === id) {
-      return jsonData[i].location
-    }
-  }
 }
 
 function createTableAdmin (searchResults) {
@@ -163,8 +190,3 @@ function createTable (searchResults) {
   tableContainer.innerHTML = ''
   tableContainer.appendChild(table)
 }
-
-// The original re-direct viewReport function.
-// function viewReports (report_id) {
-//   window.location.href = '/report?report_id=' + report_id
-// }

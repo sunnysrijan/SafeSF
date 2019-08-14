@@ -28,7 +28,7 @@
   <script type="text/javascript" src="js/dropdown.js"></script>
 </head>
 
-<body onload="search(); resizeMap();" onresize="resizeMap();">
+<body onload="populateSearchOptions(); search(); resizeMap();" onresize="resizeMap();">
 
   <div class="header">
     <div id="floatingHeader">
@@ -54,13 +54,15 @@
 		            <option value="-1">None</option>
 		          </select>
 		        </div>
-
+		        
 		        <div class="dropdown">
 		          <p>Park:</p>
 		          <select class="form-control" name="park_id" id="parkDropDown">
 		            <option value="-1">None</option>
 		          </select>
 		        </div>
+
+		        <button type='button' onclick="filterResults()">Apply Filter</button>
 		      </div>
 		      <hr class="divider"/>
 		    </form>

@@ -75,7 +75,6 @@ router.get('/search', (req, res) => {
   else
   {
     db_search.getResults(req.query, function (err, result) {
-    console.log(req.query)
     if (err) {
       console.log('Error retrieving search results: ' + err)
       res.sendStatus(503)
@@ -139,7 +138,6 @@ router.post('/submitReport', upload.single('file'), (req, res) => {
           return
         } else {
           res.status(200)
-          console.log(result)
           res.redirect('report?report_id=' + result.report_id)
           return
         }
