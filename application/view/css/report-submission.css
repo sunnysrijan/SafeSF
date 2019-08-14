@@ -33,15 +33,15 @@
 
   }
 
-  form {
+  /* form {
     width: 50rem;
     min-width: 20rem;
     max-width: 75rem;
-  }
+  } */
 
   label {
     font-weight:700;
-    font-size:125%;
+    /* font-size:125%; */
     /* font-family: 'Crimson Text', serif; */
   }
 

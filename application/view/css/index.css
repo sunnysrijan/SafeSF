@@ -47,6 +47,12 @@ body {
   background-color: white;
 }
 
+#drop-label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color:#248ea9;
+}
+
 .divider {
   margin-top: 1rem;
   margin-bottom: 0rem;
@@ -81,6 +87,29 @@ body {
   z-index: 1;
   padding: 10px;
   overflow-x: hidden;
+  }
+
+  /* .btn-search {
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 180px;
+    height: 40px;
+  } */
+
+  .btn-outline-primary,
+  .btn-outline-primary:active,
+  .btn-outline-primary:visited,
+  .btn-outline-primary:focus {
+      background-color: white !important;
+      border-color: #248ea9 !important; 
+      color: #248ea9 !important;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #248ea9 !important;
+    border-color: white !important;
+    color: white !important;
   }
 
 .topnav {
@@ -201,6 +230,7 @@ h1 {
 .dropdown {
   position: relative;
   display: inline-block;
+  margin: 5px;
 }
 
 /* Dropdown Content (Hidden by Default) */
