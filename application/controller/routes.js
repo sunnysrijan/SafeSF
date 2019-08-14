@@ -299,6 +299,7 @@ router.post('/requestRegister', upload.none(), (req, res) => {
         } else {
           console.log(authInfo.username, 'succesfully registered')
           res.cookie('accessToken', token)
+          res.redirect('/')
           res.sendStatus(200)
           return
         }
