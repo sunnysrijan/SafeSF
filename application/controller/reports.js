@@ -2,7 +2,7 @@ const db = require('../auth/db_config.js')
 const sharp = require('sharp')
 
 exports.createReport = function (request, callback) {
-  
+
   var params = request.body
   var image = request.file.filename
 
@@ -43,7 +43,7 @@ exports.createReport = function (request, callback) {
   }
   placeholder_replacement = fields.concat(values)
 
- 
+
   sharp(`./view/report_images/${image}`).resize(200,200).toFile(`./view/report_images/${params["report_id"]}-thumb.jpg`, function(err){
     if(err){
 
@@ -73,9 +73,9 @@ exports.createReport = function (request, callback) {
 exports.getReport = function (params, callback) {
   var select_table = 'reports'
   var select_query = `
-      SELECT reports.report_id, DATE_FORMAT(reports.insert_date, '%d %M %Y %h:%i%p') AS insert_date,
-        IF(reports.update_date IS NOT NULL, DATE_FORMAT(reports.update_date, '%d %M %Y %h:%i%p'), 'No updates yet.') AS update_date,
-        reports.status, reports.assigned_to, reports.image_ref,
+      SELECT DATE_FORMAT(ADDTIME(reports.insert_date, '-08:00:00'), '%d %M %Y %h:%i%p') AS insert_date,
+        IF(reports.update_date IS NOT NULL, DATE_FORMAT(ADDTIME(reports.update_date, '-8:00:00'), '%d %M %Y %h:%i%p'), 'No updates yet.') AS update_date,
+        reports.report_id, reports.status, reports.assigned_to, reports.image_ref,
         reports.loc_lat, reports.loc_long, reports.details,
         parks.loc_lat AS park_loc_lat, parks.loc_long AS park_loc_long, categories.category, locations.location FROM ${select_table}
       LEFT JOIN parks ON parks.park_id = reports.park_id
