@@ -173,20 +173,13 @@ router.get('/search', (req, res) => {
 // endpoint for POSTing reports
 // Uses validator.js and express-validator.js libraries to enforce rules.
 router.post('/submitReport', upload.single('file'), (req, res) => {
-    // ---------- BEGIN LOGIN VALIDATION SECTION ----------
-    //Only submit the report if the user has a valid auth token
-    auth.authenticate(req.headers.cookie, function (err, result, token) {
+  // ---------- BEGIN LOGIN VALIDATION SECTION ----------
+  //Only submit the report if the user has a valid auth token
+  auth.authenticate(req.headers.cookie, function (err, result, token) {
     if (err) {
         res.status(503)
         res.send('You must be logged in to submit a report')
-    } 
-    else {
-      console.log(result.admin)
-      if(result.admin == 0) {
-        res.status(503)
-        res.send('You must be logged in to submit a report')
-      }
-      else {
+    } else {
         // ---------- BEGIN FORM VALIDATION SECTION ----------
         if (!formValidation.validateReportSubmissionForm(req.body)) {
           res.status(422)
@@ -235,7 +228,6 @@ router.post('/submitReport', upload.single('file'), (req, res) => {
           }
         })
         // ---------- END CAPTCHA VALIDATION SECTION ----------
-      } 
     }
   })
   // ---------- END LOGIN VALIDATION SECTION ----------
