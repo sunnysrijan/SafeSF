@@ -257,12 +257,12 @@ router.get('/images', (req, res) => {
 
 // endpoint for POSTing (creating) new users
 // Uses validator.js and express-validator.js libraries to enforce rules.
-router.post('/requestRegister', upload.none(), (req, res) => {
+router.post('/requestRegister', (req, res) => {
   console.log('Registration endpoint.')
-  console.log(req.body)
+  console.log(req.query)
 
   // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if (!formValidation.validateRegistrationForm(req.body)) {
+  if (!formValidation.validateRegistrationForm(req.query)) {
     res.status(422)
     res.send('Registration form validation failed!')
     console.log('Registration form validation failed!')
@@ -274,7 +274,7 @@ router.post('/requestRegister', upload.none(), (req, res) => {
   // g-recaptcha-response is the token that is generated when the user succeeds
   // in a captcha challenge.
   var params = {
-    'g-recaptcha-response': req.body['g-recaptcha-response'],
+    'g-recaptcha-response': req.query['g-recaptcha-response'],
     'remote-address': req.connection.remoteAddress
   }
   // Start the verification process.
@@ -290,13 +290,13 @@ router.post('/requestRegister', upload.none(), (req, res) => {
       console.log(result)
       // If we get here, then the token is valid.
       // Remove the captcha token from the original data packet.
-      delete req.body['g-recaptcha-response']
+      delete req.query['g-recaptcha-response']
 
       // Convert the parameters to an object usable by our code.
       var authInfo = {
-        username: req.body['username'],
-        email: req.body['email'],
-        password: req.body['password'],
+        username: req.query['username'],
+        email: req.query['email'],
+        password: req.query['password'],
       }
 
       // ---------- BEGIN USER DB INSERTION SECTION ----------

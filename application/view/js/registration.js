@@ -98,7 +98,7 @@ function register() {
       alert(xmlReq.response)
   }
 
-  var params = '?username=' + name.value + '&email=' + email.value + '&password=' + password.value
+  var params = '?username=' + name.value + '&email=' + email.value + '&password=' + password.value + '&g-recaptcha-response=' + grecaptcha.getResponse()
 
   xmlReq.open('POST', '/requestRegister' + params, true)
   xmlReq.send(null)
