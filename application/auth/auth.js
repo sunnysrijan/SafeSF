@@ -1,3 +1,11 @@
+/*
+Alex Wolski
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Handles password encryption, comparison, and cookie storage
+Contains functions to login, register, and validate authentication token
+*/
+
 const db = require('./db_config.js')
 const jwt = require('./jwt.js')
 const uuid = require('uuid/v1')

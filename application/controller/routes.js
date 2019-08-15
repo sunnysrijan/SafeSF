@@ -1,3 +1,10 @@
+/*
+David Stillwagon (Ryan), Alex Wolski, Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Contains all of the api endpoints
+*/
+
 const express = require('express')
 const https = require('https')
 const bodyParser = require('body-parser')
@@ -30,7 +37,7 @@ var storage = multer.diskStorage({
 })
 var upload = multer({
   storage: storage,
-  limits: { fileSize: 2 * 1024 * 1024 }
+  limits: { fileSize: 5 * 1024 * 1024 }
 })
 //router.use(check())
 
@@ -73,14 +80,74 @@ router.get('/submitReport', (req, res) => {
   res.sendFile(path.resolve('view/report-submission.html'))
 })
 
+router.get('/admin', (req, res) => {
+  auth.authenticate(req.headers.cookie, function (err, result, token) {
+    if (err) {
+        res.status(404)
+        res.send('You must be an admin to access this page')
+    } 
+    else {
+      console.log(result.admin)
+      if(result.admin == 0) {
+        res.status(404)
+        res.send('You must be an admin to access this page')
+      }
+      else {
+        res.status(200)
+        res.sendFile(path.resolve('view/admin.html'));
+      } 
+    }
+  })
+})
+
 router.post('/admin', (req, res) => {
-  db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (error, results) => {
+    auth.authenticate(req.headers.cookie, function (err, result, token) {
+    if (err) {
+        res.status(503)
+        res.send('You must be an admin to access this endpoint')
+    } 
+    else {
+      console.log(result.admin)
+      if(result.admin == 0) {
+        res.status(503)
+        res.send('You must be an admin to access this endpoint')
+      }
+      else {
+        db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (err, results) => {
+          if (err) {
+            console.log(err.message)
+            res.status(503)
+            res.send(err.message)
+          }
+          res.status(200)
+          res.send('success')
+        })
+      } 
+    }
+  })
+})
+
+/*
+    Admin Search
+    Returns all unassigned or assigned reports in date order
+*/
+router.get('/adminSearch', (req, res) => {
+  db.query(`SELECT DATE_FORMAT(ADDTIME(reports.insert_date, '-08:00:00'), '%d %M %Y %h:%i%p') AS insert_date,
+      IF(reports.update_date IS NOT NULL, DATE_FORMAT(ADDTIME(reports.update_date, '-8:00:00'), '%d %M %Y %h:%i%p'), 'No updates yet.') AS update_date,
+      reports.report_id, reports.status, reports.assigned_to, reports.category_id,
+      reports.location_id, reports.image_ref, reports.loc_lat, reports.loc_long, reports.details,
+      parks.loc_lat AS park_loc_lat, parks.loc_long AS park_loc_long, categories.category, locations.location FROM reports
+      LEFT JOIN parks ON parks.park_id = reports.park_id
+      LEFT JOIN categories ON categories.category_id = reports.category_id
+      LEFT JOIN locations ON locations.location_id = reports.location_id where status='unassigned' or status='assigned'`, (error, results) => {
+
     if (error) {
       console.log(error)
       res.sendStatus(503)
     }
     res.status(200)
-    res.send('success')
+    res.send(results)
+
   })
 })
 
@@ -88,31 +155,16 @@ router.post('/admin', (req, res) => {
     Search
 */
 router.get('/search', (req, res) => {
-  if (req.query.admin ==='true'){
-    console.log("In admin search")
-    db.query("Select * from reports where status='unassigned'or status='assigned'", (error, results) => {
-      if (error) {
-        console.log(error)
-        res.sendStatus(503)
-      }
-      res.status(200)
-      res.send(results)
-
-    })
-  }
-  else
-  {
-    db_search.getResults(req.query, function (err, result) {
-    if (err) {
-      console.log('Error retrieving search results: ' + err)
-      res.sendStatus(503)
-    } else {
-      console.log('Retrieved Search Results from the Database')
-      res.status(200)
-      res.send(result)
-      }
-    })
-  }
+  db_search.getResults(req.query, function (err, result) {
+  if (err) {
+    console.log('Error retrieving search results: ' + err)
+    res.sendStatus(503)
+  } else {
+    console.log('Retrieved Search Results from the Database')
+    res.status(200)
+    res.send(result)
+    }
+  })
 })
 
 /*
@@ -121,58 +173,64 @@ router.get('/search', (req, res) => {
 // endpoint for POSTing reports
 // Uses validator.js and express-validator.js libraries to enforce rules.
 router.post('/submitReport', upload.single('file'), (req, res) => {
-  console.log('POST endpoint.')
-  // console.log('body: ', req.body)
-  // console.log('file: ', req.file)
-
-  // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if (!formValidation.validateReportSubmissionForm(req.body)) {
-    res.status(422)
-    res.send('Report form validation failed!')
-    console.log('Report form validation failed!')
-    return
-  }
-  // ---------- END FORM VALIDATION SECTION ----------
-
-  // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
-  // g-recaptcha-response is the token that is generated when the user succeeds
-  // in a captcha challenge.
-  var params = {
-    'g-recaptcha-response': req.body['g-recaptcha-response'],
-    'remote-address': req.connection.remoteAddress
-  }
-  // Start the verification process.
-  captcha.getCaptchaValidationStatus(params, function (err, result) {
-    // If the verification process failed, tell the user and do not enter
-    // report data into DB.
+  // ---------- BEGIN LOGIN VALIDATION SECTION ----------
+  //Only submit the report if the user has a valid auth token
+  auth.authenticate(req.headers.cookie, function (err, result, token) {
     if (err) {
-      console.log('Captcha invalid, value: ', err)
-      res.status(422)
-      res.send(err)
-      return
+        res.status(503)
+        res.send('You must be logged in to submit a report')
     } else {
-      // If we get here, then the token is valid.
-      // Remove the captcha token from the original data packet.
-      delete req.body['g-recaptcha-response']
-
-      // ---------- BEGIN REPORT INSERTION SECTION ----------
-      // Now that the validation is done, create the report.
-      reports.createReport(req, function (err, result) {
-        if (err) {
-          console.log('Error creating report: ' + err)
+        // ---------- BEGIN FORM VALIDATION SECTION ----------
+        if (!formValidation.validateReportSubmissionForm(req.body)) {
           res.status(422)
-          res.send('Error creating report\n')
-          return
-        } else {
-          res.status(200)
-          res.redirect('report?report_id=' + result.report_id)
+          res.send('Report form validation failed!')
+          console.log('Report form validation failed!')
           return
         }
-      })
-      // ---------- END REPORT INSERTION SECTION ----------
+        // ---------- END FORM VALIDATION SECTION ----------
+
+        // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
+        // g-recaptcha-response is the token that is generated when the user succeeds
+        // in a captcha challenge.
+        var params = {
+          'g-recaptcha-response': req.body['g-recaptcha-response'],
+          'remote-address': req.connection.remoteAddress
+        }
+        // Start the verification process.
+        captcha.getCaptchaValidationStatus(params, function (err, result) {
+          // If the verification process failed, tell the user and do not enter
+          // report data into DB.
+          if (err) {
+            console.log('Captcha invalid, value: ', err)
+            res.status(422)
+            res.send(err)
+            return
+          } else {
+            // If we get here, then the token is valid.
+            // Remove the captcha token from the original data packet.
+            delete req.body['g-recaptcha-response']
+
+            // ---------- BEGIN REPORT INSERTION SECTION ----------
+            // Now that the validation is done, create the report.
+            reports.createReport(req, function (err, result) {
+              if (err) {
+                console.log('Error creating report: ' + err)
+                res.status(422)
+                res.send('Error creating report\n')
+                return
+              } else {
+                res.status(200)
+                res.redirect('report?report_id=' + result.report_id)
+                return
+              }
+            })
+            // ---------- END REPORT INSERTION SECTION ----------
+          }
+        })
+        // ---------- END CAPTCHA VALIDATION SECTION ----------
     }
   })
-  // ---------- END CAPTCHA VALIDATION SECTION ----------
+  // ---------- END LOGIN VALIDATION SECTION ----------
 })
 
 // Gets data of a report for the full-page report page.
@@ -190,8 +248,6 @@ router.get('/getReport', (req, res) => {
     }
   })
 })
-
-router.get('/admin', (req, res) => {res.sendFile(path.join(__dirname, '../view/admin.html'));})
 
 /*
     Dropdown endpoints
@@ -257,12 +313,12 @@ router.get('/images', (req, res) => {
 
 // endpoint for POSTing (creating) new users
 // Uses validator.js and express-validator.js libraries to enforce rules.
-router.post('/requestRegister', upload.none(), (req, res) => {
+router.post('/requestRegister', (req, res) => {
   console.log('Registration endpoint.')
-  console.log(req.body)
+  console.log(req.query)
 
   // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if (!formValidation.validateRegistrationForm(req.body)) {
+  if (!formValidation.validateRegistrationForm(req.query)) {
     res.status(422)
     res.send('Registration form validation failed!')
     console.log('Registration form validation failed!')
@@ -274,7 +330,7 @@ router.post('/requestRegister', upload.none(), (req, res) => {
   // g-recaptcha-response is the token that is generated when the user succeeds
   // in a captcha challenge.
   var params = {
-    'g-recaptcha-response': req.body['g-recaptcha-response'],
+    'g-recaptcha-response': req.query['g-recaptcha-response'],
     'remote-address': req.connection.remoteAddress
   }
   // Start the verification process.
@@ -290,13 +346,13 @@ router.post('/requestRegister', upload.none(), (req, res) => {
       console.log(result)
       // If we get here, then the token is valid.
       // Remove the captcha token from the original data packet.
-      delete req.body['g-recaptcha-response']
+      delete req.query['g-recaptcha-response']
 
       // Convert the parameters to an object usable by our code.
       var authInfo = {
-        username: req.body['username'],
-        email: req.body['email'],
-        password: req.body['password'],
+        username: req.query['username'],
+        email: req.query['email'],
+        password: req.query['password'],
       }
 
       // ---------- BEGIN USER DB INSERTION SECTION ----------

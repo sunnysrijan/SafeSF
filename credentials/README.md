@@ -17,7 +17,7 @@ Database
 1. URL: chess-mysql.cmaf5ugscgcc.us-west-2.rds.amazonaws.com
 2. port: 3306
 3. username: group9
-4. password: chess667
+4. password: envproject648
 5. database name: env
 6. the provided information should allow sign in through mysql workbench
 

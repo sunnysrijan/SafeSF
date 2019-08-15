@@ -1,12 +1,17 @@
+/*
+Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Validate the fields on the report submission page
+If they are valid, send a request to create a new report
+*/
+
 const name = document.getElementById('username')
 const password = document.getElementById('psw')
-const form = document.getElementById('login-form')
 const submitButton = document.getElementById('submit-button')
 
 // Click event on the submit button.
-submitButton.addEventListener('click', function (event) {
-console.log('login clicked')
-
+function login() {
   var canSubmit = true
 
   // Do all of the tests so we can print error messages as needed.
@@ -19,9 +24,9 @@ console.log('login clicked')
   }
 
   if (canSubmit) {
-    form.submit()
+    sendLoginRequest()
   }
-})
+}
 
 // Testing username
 function isUsernameValid (newUsername) {
@@ -50,30 +55,20 @@ function isPasswordValid (newPassword) {
   }
 }
 
-// function login() {
-//   var username = document.getElementById("username").value
-//   var password = document.getElementById("psw").value
-//   var remember = document.getElementById("remember").checked
-//
-//   if(username === "")
-//     alert("Please enter a username")
-//   else if(password === "")
-//     alert("Please enter a password")
-//
-//   if(username === "" || password === "")
-//     return
-//
-//   var xmlReq = new XMLHttpRequest();
-//
-//   xmlReq.onload = function() {
-//     if (xmlReq.status == 200)
-//       window.location.href =  "/"
-//     else
-//       alert(xmlReq.response)
-//   }
-//
-//   var params = '?username=' + username + '&password=' + password + '&remember=' + remember
-//
-//   xmlReq.open('GET', '/requestLogin' + params, true)
-//   xmlReq.send(null)
-// }
+function sendLoginRequest() {
+  var remember = document.getElementById("remember").checked
+
+  var xmlReq = new XMLHttpRequest();
+
+  xmlReq.onload = function() {
+    if (xmlReq.status == 200)
+      window.location.href =  "/"
+    else
+      alert(xmlReq.response)
+  }
+
+  var params = '?username=' + name.value + '&password=' + password.value + '&remember=' + remember
+
+  xmlReq.open('GET', '/requestLogin' + params, true)
+  xmlReq.send(null)
+}
