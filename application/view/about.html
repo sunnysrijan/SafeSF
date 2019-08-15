@@ -20,6 +20,7 @@
 
   <!-- imports -->
   <link href="css/index.css" rel="stylesheet">
+  <link href="css/about.css" rel="stylesheet">
   <script type="text/javascript" src="js/navbar.js"></script>
   <script type="text/javascript" src="js/auth.js"></script>
   <script type="text/javascript" src="js/auth.js"></script>
@@ -29,25 +30,48 @@
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
 
-	<div align="center">
-		<br/>
-		<h2>About</h2>
-		<br/>
+  <div align="center">
+    <div class="jumbotron" style="width: 75%; margin: 2%;">
+  		<h2>About</h2>
+  		<br/>
 
-		<p>This website is being developed by a team of 7 SFSU students</p>
+  		<p>This website is being developed by a team of 7 SFSU students</p>
 
-		<p>We all share a passion for the environment and started this project to make our community cleaner and safer</p>
+  		<p>We all share a passion for the environment and started this project to make our community cleaner and safer</p>
 
-		<p>VVV Click on a developer's name to learn more about them VVV</p>
+  		<p>VVV Click on a developer's name to learn more about them VVV</p>
+    </div>
 
-		<div class="big-btn"><button onclick="goToPage('david')">David Stillwagon (Ryan)</button></div>
-		<div class="big-btn"><button onclick="goToPage('harsh')">Harshveer Saini (Harsh)</button></div>
-		<div class="big-btn"><button onclick="goToPage('tristan')">Tristan Mclennan</button></div>
-		<div class="big-btn"><button onclick="goToPage('lidiya')">Lidiya Jebessa</button></div>
-		<div class="big-btn"><button onclick="goToPage('sunny')">Sunny Srijan</button></div>
-		<div class="big-btn"><button onclick="goToPage('alex')">Alex Wolski</button></div>
-		<div class="big-btn"><button onclick="goToPage('evan')">Evan Guan</button></div>
-	</div>
+    <div class="container">
+      <div><button class="btn btn-outline-primary teamButton"  onclick="goToPage('alex')">
+        Alex Wolski
+      </button></div>
+
+  		<div><button class="btn btn-outline-primary teamButton" onclick="goToPage('david')">
+        David Stillwagon (Ryan)
+      </button></div>
+
+      <div><button class="btn btn-outline-primary teamButton"  onclick="goToPage('evan')">
+        Evan Guan
+      </button></div>
+
+  		<div><button class="btn btn-outline-primary teamButton"  onclick="goToPage('harsh')">
+        Harshveer Saini (Harsh)
+      </button></div>
+
+  		<div><button class="btn btn-outline-primary teamButton"  onclick="goToPage('lidiya')">
+        Lidiya Jebessa
+      </button></div>
+
+  		<div><button class="btn btn-outline-primary teamButton"  onclick="goToPage('sunny')">
+        Sunny Srijan
+      </button></div>
+
+      <div><button class="btn btn-outline-primary teamButton"  onclick="goToPage('tristan')">
+        Tristan Mclennan
+      </button></div>
+    </div>
+  </div>
 </body>
 
 </html>
