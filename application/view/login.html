@@ -36,7 +36,7 @@
             <div class="card-body">
               <div class="row justify-content-center">
                 <div class="col-lg-12">
-                  <form id="login-form" action="/requestLogin" method="get" role="form" enctype="multipart/form-data">
+                  <form id="login-form">
 
                     <div class="form-group mx-1">
                       <div class="align-left-labels">
@@ -58,16 +58,9 @@
                       <div class="inline form-group" style= "margin-left: 20px;">
                         <div class='remember-me-area'>
                           <label class="form-check-label" for="rememberUserCheck" style="font-size:80%">
-                            <input name='remember' id="gridCheck" class="form-check-input" checked="checked" type="checkbox" required> Remember me</input>
+                            <input name='remember' id="remember" class="form-check-input" checked="checked" type="checkbox" required> Remember me</input>
                           </label>
                         </div>
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <div class="form-group">
-                        <button id='submit-button' style="margin-bottom: 0px; margin-top: 0px; border-radius: 10px; font-size:150%;"
-                          class="btn-outline-primary loginBtn btn-send" type="button">Login</button>
                       </div>
                     </div>
 
@@ -76,27 +69,14 @@
                     <div class="container" align="center">
                       <p>Don't have an account? <a href="/register">Register Here</a></p>
                     </div>
-
-                      <!-- <div class="form-group">
-                        <label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" id="username"
-                                style="margin-top: 0px" required>
-                      </div>
-
-
-                      <div class="form-group">
-                        <label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" id="psw"
-                               style="margin-top: 0px" required>
-                      </div>
-
-                      <div class="form-group">
-                        <label style="margin-top: 6px;">
-                          <input type="checkbox" checked="checked" id="remember"> Remember me
-                        </label>
-                        <button style="margin-bottom: 0px; margin-top: 0px; border-radius: 10px;" type="submit" class="btn-outline-primary loginBtn btn-send" onclick="login()">Login</button>
-                      </div> -->
                   </form> <!-- registration form -->
+
+                  <!-- Login button -->
+                  <div class="text-center">
+                    <button id="submit-button" style="margin-bottom: 0px; margin-top: 0px; border-radius: 10px; font-size:150%;" class="btn-outline-primary loginBtn">
+                      		Login
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
