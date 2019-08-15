@@ -1,3 +1,10 @@
+/*
+Alex Wolski
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Handles the creation and verification of authentication tokens
+*/
+
 'use strict'
 const path = require('path')
 const fs = require('fs')

@@ -1,3 +1,10 @@
+/*
+David Stillwagon (Ryan), Alex Wolski, Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Contains all of the api endpoints
+*/
+
 const express = require('express')
 const https = require('https')
 const bodyParser = require('body-parser')

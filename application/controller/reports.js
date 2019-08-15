@@ -1,3 +1,10 @@
+/*
+David Stillwagon (Ryan)
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Create and get reports
+*/
+
 const db = require('../auth/db_config.js')
 const sharp = require('sharp')
 

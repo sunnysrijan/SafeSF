@@ -1,3 +1,10 @@
+/*
+Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Validate form elements before logging in, registering, or creating a report
+*/
+
 const db = require('../auth/db_config.js')
 const dropdowns = require('./dropdowns.js')
 const validator = require('validator')
