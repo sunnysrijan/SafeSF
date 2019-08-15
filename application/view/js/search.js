@@ -231,11 +231,12 @@ function createTableAdmin (searchResults) {
       var location = getValueOfId(locations, 'location_id', report.location_id)
     }
 
-    var assignButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Assigned')\" class='adminbuttons'>Assign</button>"
-    var dismissButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Dismiss')\" class='adminbuttons'>Dismiss</button>"
-    var completedButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Completed')\" class='adminbuttons'>Completed</button>"
+    var assignButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Assigned')\" class='adminbuttons btn btn-outline-primary'>Assign</button>"
+    var dismissButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Dismiss')\" class='adminbuttons btn btn-outline-primary'>Dismiss</button>"
+    var completedButton = "<button onclick=\"setStatus(" + report.report_id + ", 'Completed')\" class='adminbuttons btn btn-outline-primary'>Completed</button>"
+    var buttonContainer = "<hr/><div align='center'>" + assignButton + dismissButton + completedButton + "</div>"
 
-    cell.innerHTML = createCard(report, image, category, location, assignButton + dismissButton + completedButton, false)
+    cell.innerHTML = createCard(report, image, category, location, buttonContainer, false)
   }
 
   var tableContainer = document.getElementById('table')
@@ -253,7 +254,7 @@ function createCard(report, image, category, location, buttons, redirect) {
 
   var buttonHtml = buttonHtml +
       " id='" + report.report_id + "' class='repcard'>" +
-      "<img class='cardImage' src='" + image + "'style='height:300;width:300'><div id=rptDet class=rptDet><div><strong>Category:</strong> " +
+      "<img class='cardImage' src='" + image + "'style='height:300;width:300'><div id=rptDet class=rptDet style='width: 100%;'><div><strong>Category:</strong> " +
       category + '</div><div><strong>Details:</strong> ' +
       report.details + '</div><div><strong>Location:</strong> ' +
       location + '</div><div><strong>Reported On: </strong>' +

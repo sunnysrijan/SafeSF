@@ -267,9 +267,10 @@ h1 {
   flex-direction: column;
   margin-left: 20px;
   }
+
 .adminbuttons{
-  margin: auto;
-width:120px;
+  margin: 10px;
+  width:120px;
 }
 
 /* .repcard {
