@@ -73,11 +73,32 @@ router.get('/submitReport', (req, res) => {
   res.sendFile(path.resolve('view/report-submission.html'))
 })
 
+router.get('/admin', (req, res) => {
+  auth.authenticate(req.headers.cookie, function (err, result, token) {
+    if (err) {
+        res.status(404)
+        res.send('You must be an admin to access this page')
+    } 
+    else {
+      console.log(result.admin)
+      if(result.admin == 0) {
+        res.status(404)
+        res.send('You must be an admin to access this page')
+      }
+      else {
+        res.status(200)
+        res.sendFile(path.resolve('view/admin.html'));
+      } 
+    }
+  })
+})
+
 router.post('/admin', (req, res) => {
-  db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (error, results) => {
-    if (error) {
-      console.log(error)
-      res.sendStatus(503)
+  db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (err, results) => {
+    if (err) {
+      console.log(err.message)
+      res.status(503)
+      res.send(err.message)
     }
     res.status(200)
     res.send('success')
@@ -190,8 +211,6 @@ router.get('/getReport', (req, res) => {
     }
   })
 })
-
-router.get('/admin', (req, res) => {res.sendFile(path.join(__dirname, '../view/admin.html'));})
 
 /*
     Dropdown endpoints
