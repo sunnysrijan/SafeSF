@@ -157,58 +157,72 @@ router.get('/search', (req, res) => {
 // endpoint for POSTing reports
 // Uses validator.js and express-validator.js libraries to enforce rules.
 router.post('/submitReport', upload.single('file'), (req, res) => {
-  console.log('POST endpoint.')
-  // console.log('body: ', req.body)
-  // console.log('file: ', req.file)
-
-  // ---------- BEGIN FORM VALIDATION SECTION ----------
-  if (!formValidation.validateReportSubmissionForm(req.body)) {
-    res.status(422)
-    res.send('Report form validation failed!')
-    console.log('Report form validation failed!')
-    return
-  }
-  // ---------- END FORM VALIDATION SECTION ----------
-
-  // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
-  // g-recaptcha-response is the token that is generated when the user succeeds
-  // in a captcha challenge.
-  var params = {
-    'g-recaptcha-response': req.body['g-recaptcha-response'],
-    'remote-address': req.connection.remoteAddress
-  }
-  // Start the verification process.
-  captcha.getCaptchaValidationStatus(params, function (err, result) {
-    // If the verification process failed, tell the user and do not enter
-    // report data into DB.
+    // ---------- BEGIN LOGIN VALIDATION SECTION ----------
+    //Only submit the report if the user has a valid auth token
+    auth.authenticate(req.headers.cookie, function (err, result, token) {
     if (err) {
-      console.log('Captcha invalid, value: ', err)
-      res.status(422)
-      res.send(err)
-      return
-    } else {
-      // If we get here, then the token is valid.
-      // Remove the captcha token from the original data packet.
-      delete req.body['g-recaptcha-response']
-
-      // ---------- BEGIN REPORT INSERTION SECTION ----------
-      // Now that the validation is done, create the report.
-      reports.createReport(req, function (err, result) {
-        if (err) {
-          console.log('Error creating report: ' + err)
+        res.status(503)
+        res.send('You must be logged in to submit a report')
+    } 
+    else {
+      console.log(result.admin)
+      if(result.admin == 0) {
+        res.status(503)
+        res.send('You must be logged in to submit a report')
+      }
+      else {
+        // ---------- BEGIN FORM VALIDATION SECTION ----------
+        if (!formValidation.validateReportSubmissionForm(req.body)) {
           res.status(422)
-          res.send('Error creating report\n')
-          return
-        } else {
-          res.status(200)
-          res.redirect('report?report_id=' + result.report_id)
+          res.send('Report form validation failed!')
+          console.log('Report form validation failed!')
           return
         }
-      })
-      // ---------- END REPORT INSERTION SECTION ----------
+        // ---------- END FORM VALIDATION SECTION ----------
+
+        // ---------- BEGIN CAPTCHA VALIDATION SECTION ----------
+        // g-recaptcha-response is the token that is generated when the user succeeds
+        // in a captcha challenge.
+        var params = {
+          'g-recaptcha-response': req.body['g-recaptcha-response'],
+          'remote-address': req.connection.remoteAddress
+        }
+        // Start the verification process.
+        captcha.getCaptchaValidationStatus(params, function (err, result) {
+          // If the verification process failed, tell the user and do not enter
+          // report data into DB.
+          if (err) {
+            console.log('Captcha invalid, value: ', err)
+            res.status(422)
+            res.send(err)
+            return
+          } else {
+            // If we get here, then the token is valid.
+            // Remove the captcha token from the original data packet.
+            delete req.body['g-recaptcha-response']
+
+            // ---------- BEGIN REPORT INSERTION SECTION ----------
+            // Now that the validation is done, create the report.
+            reports.createReport(req, function (err, result) {
+              if (err) {
+                console.log('Error creating report: ' + err)
+                res.status(422)
+                res.send('Error creating report\n')
+                return
+              } else {
+                res.status(200)
+                res.redirect('report?report_id=' + result.report_id)
+                return
+              }
+            })
+            // ---------- END REPORT INSERTION SECTION ----------
+          }
+        })
+        // ---------- END CAPTCHA VALIDATION SECTION ----------
+      } 
     }
   })
-  // ---------- END CAPTCHA VALIDATION SECTION ----------
+  // ---------- END LOGIN VALIDATION SECTION ----------
 })
 
 // Gets data of a report for the full-page report page.
