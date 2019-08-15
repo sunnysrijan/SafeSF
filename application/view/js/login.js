@@ -1,12 +1,9 @@
 const name = document.getElementById('username')
 const password = document.getElementById('psw')
-const form = document.getElementById('login-form')
 const submitButton = document.getElementById('submit-button')
 
 // Click event on the submit button.
-submitButton.addEventListener('click', function (event) {
-console.log('login clicked')
-
+function login() {
   var canSubmit = true
 
   // Do all of the tests so we can print error messages as needed.
@@ -19,9 +16,9 @@ console.log('login clicked')
   }
 
   if (canSubmit) {
-    login()
+    sendLoginRequest()
   }
-})
+}
 
 // Testing username
 function isUsernameValid (newUsername) {
@@ -50,7 +47,7 @@ function isPasswordValid (newPassword) {
   }
 }
 
-function login() {
+function sendLoginRequest() {
   var remember = document.getElementById("remember").checked
 
   var xmlReq = new XMLHttpRequest();

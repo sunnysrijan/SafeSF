@@ -3,11 +3,10 @@ const email = document.getElementById('email')
 const password = document.getElementById('psw')
 const passwordConfirmation = document.getElementById('psw-confirmation')
 const checkedToS = document.getElementById('grid-check')
-const form = document.getElementById('registration-form')
 const submitButton = document.getElementById('submit-button')
 
 // Click event on the submit button.
-submitButton.addEventListener('click', function (event) {
+function register() {
   var canSubmit = true
 
   // Do all of the tests so we can print error messages as needed.
@@ -26,9 +25,9 @@ submitButton.addEventListener('click', function (event) {
   }
 
   if (canSubmit) {
-    register()
+    sendRegisterRequest()
   }
-})
+}
 
 
 // Testing username
@@ -88,7 +87,7 @@ function isRepeatPasswordValid (newPassword, passwordConfirmation) {
   }
 }
 
-function register() {
+function sendRegisterRequest() {
   var xmlReq = new XMLHttpRequest();
 
   xmlReq.onload = function() {
