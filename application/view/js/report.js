@@ -1,3 +1,11 @@
+/*
+Sunny Srijan and Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Get the details of a report and display it on the page
+Display a map with a pin on the location of the report
+*/
+
 // the lat/lng of San Francisco.
 var curLatLng = {
   lat: 37.7749,

@@ -1,3 +1,11 @@
+/*
+Alex Wolski
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Make a request for the navbar template html file
+Once retreived, add teh navbar to the current page
+*/
+
 function loadNavbar () {
   var path = window.location.pathname;
   var folder = path.substring(0, path.lastIndexOf('/'));

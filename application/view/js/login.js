@@ -1,3 +1,11 @@
+/*
+Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Validate the fields on the report submission page
+If they are valid, send a request to create a new report
+*/
+
 const name = document.getElementById('username')
 const password = document.getElementById('psw')
 const submitButton = document.getElementById('submit-button')

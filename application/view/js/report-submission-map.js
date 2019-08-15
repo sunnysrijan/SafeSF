@@ -1,6 +1,9 @@
 /*
-Written by: Evan Guan
+Evan Guan
 Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Manage the map on the report submission page
+Add a dragable pin and extract its coordinates every time it is moved
 */
 
 // The current saved coordinates of the center of the map. San Francisco coordinates.

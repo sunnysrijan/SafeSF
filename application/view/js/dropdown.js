@@ -1,3 +1,10 @@
+/*
+Alex Wolski
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Load categories and location from the database, and use the resutls to populate the respective dropdowns
+*/
+
 var categories
 var locations
 var parks

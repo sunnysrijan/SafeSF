@@ -1,3 +1,10 @@
+/*Alex Wolski and Harsh Saini
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Send search options to the backend and retreive search results
+Create a table and populate it with the results
+*/
+
 const urlParams = new URLSearchParams(window.location.search) // Parameter parser class.
 
 function search () {
@@ -125,28 +132,6 @@ function getValueOfId (jsonData, field, id) {
       return jsonData[i].location
     }
   }
-}
-
-//Copied from https://stackoverflow.com/questions/4222690/sorting-a-json-object-in-javascript
-function sortJsonArrayByProperty(objArray, prop, direction){
-    if (arguments.length<2) throw new Error("sortJsonArrayByProp requires 2 arguments");
-    var direct = arguments.length>2 ? arguments[2] : 1; //Default to ascending
-
-    if (objArray && objArray.constructor===Array){
-        var propPath = (prop.constructor===Array) ? prop : prop.split(".");
-        objArray.sort(function(a,b){
-            for (var p in propPath){
-                if (a[propPath[p]] && b[propPath[p]]){
-                    a = a[propPath[p]];
-                    b = b[propPath[p]];
-                }
-            }
-            // convert numeric strings to integers
-            a = a.match(/^\d+$/) ? +a : a;
-            b = b.match(/^\d+$/) ? +b : b;
-            return ( (a < b) ? -1*direct : ((a > b) ? 1*direct : 0) );
-        });
-    }
 }
 
 function createTable (searchResults) {

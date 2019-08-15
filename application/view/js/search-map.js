@@ -1,3 +1,12 @@
+/*
+Evan Guan and Alex Wolski
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Manage the map on the search resutls page
+Add new pins with info boxes populated with report information
+Resize map to adapt with screen size
+*/
+
 // The current saved coordinates of the center of the map.
 var curLatLng = {
   lat: 37.7749,
