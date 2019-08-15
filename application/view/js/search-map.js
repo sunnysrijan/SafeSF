@@ -138,25 +138,23 @@ function addReportMarkerToMap (reportCategory, reportCategoryID, reportThumbnail
 
   // The string of html that will be in the popup for the marker on-click. It is essentially pure html.
   infoWindowContentString =
-    '<div id="content">' +
-    '<div id="bodyContent">' +
-    '<p>' +
-    '<b>' + infoWindowReportCategory + '</b>' +
-    '<br>' + infoWindowReportDetails + '<br>' +
-    // '<br>id: ' + reportID + '<br>' +
-    '</p>' +
-    '<p>' +
-    '<a href="' + infoWindowReportURL + '">' +
-    '<img src="' + infoWindowReportThumbnail + '" alt="Click for full report"' +
-    ' style="float:middle; width:96px; height:96px;" align="middle">' +
-    '</a><br>' +
-    '</p>' +
-    '<p>' +
-    '<a ' + 'href="' + infoWindowReportURL + '">' +
-    '<b>Click here for full report.</b>' +
-    '</a> ' +
-    '</p>' +
-    '</div>' +
+    '<div id="content" style="width: 300px">' +
+      '<div id="bodyContent">' +
+          '<div style="float: left; margin: 5px;"' +
+            '<a href="' + infoWindowReportURL + '">' +
+              '<img src="' + infoWindowReportThumbnail + '" alt="Click for full report"' + ' style="float:middle; width:96px; height:96px;" align="middle">' +
+            '</a><br>' +
+          '</div>' +
+
+          '<div style="margin: 5px;">' +
+            '<b>' + infoWindowReportCategory + '</b>' +
+            '<br>' + infoWindowReportDetails + '<br>' +
+
+            '<div align="center" style="margin-top: 10px">' +
+              '<a ' + 'href="' + infoWindowReportURL + '">' + '<b>Click here for full report.</b>' + '</a> ' +
+            '</div>' +
+          '</div>' +
+      '</div>' +
     '</div>'
 
   // Create a new infoWindow object for this marker.
