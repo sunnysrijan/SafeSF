@@ -29,10 +29,9 @@ submitButton.addEventListener('click', function (event) {
 
   //Check if uesr is logged in and submit form
   if (!checkCookie()) {
+    canSubmit = false
     alert("You must be logged into post. Redirecting to login page.")
     window.location.href = "/login";
-  } else {
-    document.getElementById('report-submission-form').submit()
   }
 
   // Go in bottom-up order so we can show the top-most form error first.
@@ -131,13 +130,11 @@ function isCoordValid () {
   }
 }
 
-console.log(imageFile.files)
-
 // Testing file
 function isFileValid () {
   if(imageFile.files.length === 1) {
-    var fileSize = imageFile.files[0].size / 1024 / 1024; // convert to MB
-    if (fileSize > 5) { // filesize is more than 5MB
+    var fileSize = imageFile.files[0].size;
+    if (fileSize > (5 * 1024 * 1024) && fileSize > 1024) { // filesize is > 5MB or < 1kb
       // Display error and scroll to the field.
       document.getElementById('fileValidity').innerHTML =
         'Please upload 1 picture of the hazard.<br>Image must be less than 5MB in size.'
@@ -157,6 +154,7 @@ function isFileValid () {
   }
 }
 
+// Testing captcha
 function isCaptchaValid()
 {
   if (grecaptcha && grecaptcha.getResponse().length > 0) {
@@ -172,21 +170,4 @@ function isCaptchaValid()
     document.getElementById('captchaValidity').scrollIntoView({ behavior: 'smooth', alignToTop: 'true', inline: 'nearest' })
     return false
   }
-}
-
-
-function sendRegisterRequest() {
-  var xmlReq = new XMLHttpRequest();
-
-  xmlReq.onload = function() {
-    if (xmlReq.status == 200)
-      window.location.href =  "/"
-    else
-      alert(xmlReq.response)
-  }
-
-  var params = '?username=' + name.value + '&email=' + email.value + '&password=' + password.value + '&g-recaptcha-response=' + grecaptcha.getResponse()
-
-  xmlReq.open('POST', '/requestRegister' + params, true)
-  xmlReq.send(null)
 }
