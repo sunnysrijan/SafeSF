@@ -9,6 +9,7 @@ function getCategories () {
     if (xmlReq.status == 200) {
       categories = xmlReq.response
       populateDropdown(categories, 'category')
+      console.log(document.getElementById("categoryDropDown").selectedIndex)
     }
   }
 
@@ -24,6 +25,7 @@ function getLocations () {
     if (xmlReq.status == 200) {
       locations = xmlReq.response
       populateDropdown(locations, 'location')
+      console.log(document.getElementById("locationDropDown").selectedIndex)
     }
   }
 
@@ -79,4 +81,5 @@ function populateDropdown (data, field) {
       dropDown.add(option)
     }
   }
+
 }

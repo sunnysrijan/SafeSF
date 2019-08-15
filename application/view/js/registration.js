@@ -35,7 +35,7 @@ function isUsernameValid (newUsername) {
   if (!validator.isEmpty(newUsername, { ignore_whitespace: true }) &&
       validator.isAlphanumeric(newUsername + '', ['en-US'] ) &&
       validator.isLength(newUsername + '', { min: 4, max: 100 })) {
-      document.getElementById('usernameValidity').innerHTML = ''
+    document.getElementById('usernameValidity').innerHTML = ''
     return true
   } else {
     document.getElementById('usernameValidity').innerHTML =
@@ -49,11 +49,11 @@ function isEmailValid (newEmail) {
   if (!validator.isEmpty(newEmail, { ignore_whitespace: true }) &&
       validator.isEmail(newEmail + '') &&
       validator.isLength(newEmail + '', { min: 6, max: 100 })) {
-      document.getElementById('emailValidity').innerHTML = ''
+    document.getElementById('emailValidity').innerHTML = ''
     return true
   } else {
     document.getElementById('emailValidity').innerHTML =
-      'Please check your email.\nEmail must be between 6 and 100 characters long.'
+      'Please check your email.<br>Email must be between 6 and 100 characters long.'
     return false
   }
 }
@@ -82,7 +82,7 @@ function isRepeatPasswordValid (newPassword, passwordConfirmation) {
     return true
   } else {
     document.getElementById('passwordConfirmationValidity').innerHTML =
-      'Please check your previous password.\nPassword must be between 7 and 100 characters long.'
+      'Please check your previous password.<br>Password must be between 7 and 100 characters long.'
     return false
   }
 }

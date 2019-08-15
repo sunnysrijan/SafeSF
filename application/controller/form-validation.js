@@ -27,13 +27,11 @@ dropdowns.getNumberOfLocations()
     numberOfLocations = String(numLocations)
   })
 
-// The variable used to track whether or not the marker is in the vicinity of San Francisco.
-var boolMarkerInSF
 // The vertices describing a polygon that very roughly overlays San Francisco.
 // Used for limiting bounds for marker placement.
 const SAN_FRANCISCO_MAP_BOUNDS = {
   north: 37.83,
-  south: 37.72,
+  south: 37.66,
   west: -122.56,
   east: -122.32
 }
