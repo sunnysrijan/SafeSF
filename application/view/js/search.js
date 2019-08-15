@@ -34,7 +34,7 @@ function admin () {
       createTableAdmin(xmlReq.response)
   }
 
-  xmlReq.open('GET', '/search?admin=true', true)
+  xmlReq.open('GET', '/adminSearch', true)
   xmlReq.responseType = 'json'
   xmlReq.send(null)
 }
