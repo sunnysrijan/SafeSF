@@ -94,14 +94,29 @@ router.get('/admin', (req, res) => {
 })
 
 router.post('/admin', (req, res) => {
-  db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (err, results) => {
+    auth.authenticate(req.headers.cookie, function (err, result, token) {
     if (err) {
-      console.log(err.message)
-      res.status(503)
-      res.send(err.message)
+        res.status(503)
+        res.send('You must be an admin to access this endpoint')
+    } 
+    else {
+      console.log(result.admin)
+      if(result.admin == 0) {
+        res.status(503)
+        res.send('You must be an admin to access this endpoint')
+      }
+      else {
+        db.query("Update reports set status='" + req.query.status + "' where report_id='" + req.query.reportID + "'", (err, results) => {
+          if (err) {
+            console.log(err.message)
+            res.status(503)
+            res.send(err.message)
+          }
+          res.status(200)
+          res.send('success')
+        })
+      } 
     }
-    res.status(200)
-    res.send('success')
   })
 })
 
