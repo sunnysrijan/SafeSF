@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-144569863-1');
+    </script>
+
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {height: 50%; width: 100%;}
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script type="text/javascript" src="js/ReportSubmissionMapExample.js"></script>
+  </head>
+  <body>
+
+    <div style="text-align:center">
+      <h4>Report Submission Page Map Example</h4>
+    </div>
+
+    <!--- This element holds the map. --->
+    <div id="map"></div>
+    <p>Dynamic updating in paragraph elements below.</p>
+    <p id="currentCoords"></p>
+    <p id="isMarkerInSF"></p>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18&libraries=geometry&callback=initMap"
+    async defer></script>
+
+  </body>
+</html>
