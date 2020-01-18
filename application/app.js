@@ -14,6 +14,6 @@ app.get('/', function (request, response) {
   response.sendFile('view/index.html', { root: __dirname })
 })
 
-http.listen(3000, function () {
+http.listen(8000, function () {
   console.log('Server is up and listening on 3000...')
 })

@@ -11,14 +11,15 @@ const sharp = require('sharp')
 exports.createReport = function (request, callback) {
 
   var params = request.body
-  var image = request.file.filename
+  //var image = request.file.filename
 
   var insert_table = 'reports'
   var field_placeholders = ' ('
   var value_placeholders = ' VALUES('
   var insert_query = `INSERT INTO ${insert_table}`
 
-  var report_id = image.split('.')[0]
+  //var report_id = image.split('.')[0]\
+  report_id = Math.random()
 
 
 
@@ -51,15 +52,6 @@ exports.createReport = function (request, callback) {
   placeholder_replacement = fields.concat(values)
 
 
-  sharp(`./view/report_images/${image}`).resize(200,200).toFile(`./view/report_images/${params["report_id"]}-thumb.jpg`, function(err){
-    if(err){
-
-      console.log("Error thumbnailing image: " + err)
-    }
-    else{
-      console.log("Image thumbnailed")
-    }
-  })
 
 
   db.query(insert_query, placeholder_replacement, function (err, result) {

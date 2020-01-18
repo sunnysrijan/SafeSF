@@ -6,5 +6,5 @@ Allow the user to click the 'Create Report' button once the captcha is completed
 */
 
 function onReCAPTCHASuccess () {
-  var submitButton = document.getElementById('submit-button').disabled = false
+
 }

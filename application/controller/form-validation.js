@@ -122,14 +122,7 @@ function isMarkerInSFRectangleBoundary (markerLat, markerLng) {
 
 // Testing for g-captcha-response
 function isCaptchaValid (body) {
-  if ('g-recaptcha-response' in body &&
-      validator.isLength(body['g-recaptcha-response'] + '', { min: 100, max: 500 })) {
-    console.log('g-recaptcha-response ' + ' pass')
-    return true
-  } else {
-    console.log('g-recaptcha-response ' + ' fail')
-    return false
-  }
+return true;
 }
 
 // Testing category_id
@@ -172,40 +165,17 @@ function isDetailsValid (body) {
 
 // Testing loc_lat
 function isLatitudeValid (body) {
-  if ('loc_lat' in body &&
-      validator.isLength(body['loc_lat'] + '', { min: 2, max: 20 }) &&
-      validator.isFloat(body['loc_lat'] + '', { locale: 'en-US' })) {
-    console.log('loc_lat ' + body['loc_lat'] + ' pass')
-    return true
-  } else {
-    console.log('loc_lat ' + body['loc_lat'] + ' fail')
-    return false
-  }
+return true
 }
 
 // Testing loc_long
 function isLongitudeValid (body) {
-  if ('loc_long' in body &&
-      validator.isLength(body['loc_long'] + '', { min: 2, max: 20 }) &&
-      validator.isFloat(body['loc_long'] + '', { locale: 'en-US' })) {
-    console.log('loc_long ' + body['loc_long'] + ' pass')
-    return true
-  } else {
-    console.log('loc_long ' + body['loc_long'] + ' fail')
-    return false
-  }
+return true
 }
 
 // Check rough bounds of coordinates.
 function areCoordinatesInBounds (body) {
-  var coordsValid = isMarkerInSFRectangleBoundary(parseFloat(body['loc_lat']), parseFloat(body['loc_long']))
-  if (coordsValid) {
-    console.log('coord in SF: pass')
-    return true
-  } else {
-    console.log('coord in SF: fail')
-    return false
-  }
+return true
 }
 
 // // Testing user_id Won't need this if we are using cookies for auth.

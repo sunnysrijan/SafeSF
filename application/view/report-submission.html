@@ -39,7 +39,7 @@
 <!-- loadNavbar is needed to load and render the navbar html code
      getCategories and getLocation are needed to populate dropdown menus
      these are called on the loading of the page -->
-<body onload="initMap();">
+
 
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
@@ -126,15 +126,7 @@
           <br>
 
           <!--- Image submission --->
-          <div class="form-group text-center">
-            <label for="picture" id="picturesLabel">Please choose a picture of the hazard to be submitted:
-                <strong style='color: red'> *</strong>
-            </label>
-            <div class="form-group">
-              <input style="padding-top: 15px; font-size: 100%; margin: 0 auto;"
-                type="file" class="form-control-file" name="file" id="image_ref">
-            </div>
-            <strong style="color: red"><div id="fileValidity" style="font-size:80%"></div></strong>
+
           </div>
           <br><hr>
           <p style="text-align:center">
@@ -143,15 +135,6 @@
           </p>
           <hr>
 
-          <!--- Captcha section --->
-          <!-- <div class="text-center"> -->
-            <div class="form-group" style="text-align:center">
-              <div id="captchaElement"
-                   class="g-recaptcha"  data-sitekey="6LfbkLEUAAAAAE7agK7poUyOO0D_RcZOFjnVM2Jp" data-callback="onReCAPTCHASuccess">
-              </div>
-              <strong style="color: red"><div id="captchaValidity" style="font-size:80%"></div></strong>
-            </div>
-          <!-- </div> -->
 
           <!--- Submit button --->
           <!-- <div style="text-align: center"> -->
