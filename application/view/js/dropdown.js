@@ -1,3 +1,10 @@
+/*
+Alex Wolski
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Load categories and location from the database, and use the resutls to populate the respective dropdowns
+*/
+
 var categories
 var locations
 var parks
@@ -9,6 +16,7 @@ function getCategories () {
     if (xmlReq.status == 200) {
       categories = xmlReq.response
       populateDropdown(categories, 'category')
+      console.log(document.getElementById("categoryDropDown").selectedIndex)
     }
   }
 
@@ -24,6 +32,7 @@ function getLocations () {
     if (xmlReq.status == 200) {
       locations = xmlReq.response
       populateDropdown(locations, 'location')
+      console.log(document.getElementById("locationDropDown").selectedIndex)
     }
   }
 
@@ -79,4 +88,5 @@ function populateDropdown (data, field) {
       dropDown.add(option)
     }
   }
+
 }

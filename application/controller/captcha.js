@@ -1,3 +1,10 @@
+/*
+Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Verifies if the captcha was completed correctly
+*/
+
 var request = require('request')
 
 exports.getCaptchaValidationStatus = function (params, callback) {

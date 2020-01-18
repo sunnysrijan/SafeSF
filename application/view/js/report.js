@@ -1,3 +1,11 @@
+/*
+Sunny Srijan and Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Get the details of a report and display it on the page
+Display a map with a pin on the location of the report
+*/
+
 // the lat/lng of San Francisco.
 var curLatLng = {
   lat: 37.7749,
@@ -34,7 +42,7 @@ function initMap () {
     zoom: 16, // Bigger number = higher zoom. Float values accepted.
     streetViewControl: false, // Disable street view.
     draggable: false, // Make the map undraggagle.
-    mapTypeId: 'hybrid',
+    mapTypeId: 'roadmap',
     styles: [{ // This styling removes points of interest to declutter the map.
       featureType: 'poi',
       stylers: [{
@@ -45,7 +53,7 @@ function initMap () {
 }
 
 function resizeMap () {
-  var rowHeight = document.getElementById('report-image').offsetHeight > 400 ? document.getElementById('report-image').offsetHeight : 400
+  var rowHeight = document.getElementById('report-image').offsetHeight > 200 ? document.getElementById('report-image').offsetHeight : 400
   document.getElementById('map').style.height = rowHeight + 'px'
 }
 

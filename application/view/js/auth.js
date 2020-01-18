@@ -1,3 +1,25 @@
+/*
+Alex Wolski
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Manage the auth token received from the backend.
+Check if the token is valid or not so that the navbar can display the proper elements
+*/
+
+function checkCookie () {
+  var cookies = document.cookie.replace(/ /g,'').split(';')
+  var cookiePresent = false
+
+  for (var i = 0; i < cookies.length; i++) {
+    if (cookies[i].startsWith('accessToken=')) {
+        cookiePresent = true
+      break
+    }
+  }
+  
+  return cookiePresent;
+}
+
 function requestAccess () {
   var xmlReq = new XMLHttpRequest()
 

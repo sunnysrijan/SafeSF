@@ -1,3 +1,12 @@
+<!-- Alex Wolski:
+     Course: CSc 648 Software Engineering Summer 2019 Team 2
+    
+     This is the home page of the website.
+     Gets the user up to speed with a short description of our mission statement and instruction on what to do.
+     Shows the 10 latest posts.
+
+-->
+
 <!DOCTYPE html>
 <html>
 
@@ -34,10 +43,22 @@
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
 
-	<div class="container">
-		<h2 style="text-align: center">Safe SF</h2>
-		<h3 style="text-align: center">Recent Posts:</h2>
-		<hr/>
+  <div align="center">
+    <div class="jumbotron" style="width: 75%; margin: 2%;" align="center">
+      <h2 style="font-weight: 700; font-size: 250%">Safe SF</h2>
+
+      <div style="margin: 50px">
+        <p>Our goal at Safe SF is to raise awareness of environmental hazards and help get them resolved as soon as possible</p>
+        <br/>
+        <p>To get started, search for reports in the search bar or create a new report by clicking the 'Create Report' button</p>
+      </div>
+    </div>
+  </div>
+
+	<div class="container"  align="center">
+    <h2 style="text-align: center">Recent Posts:</h2>
+
+    <hr/>
 
 		<div id="table"></div>
 	</div>

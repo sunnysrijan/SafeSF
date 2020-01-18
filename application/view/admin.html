@@ -1,3 +1,11 @@
+<!-- Harshveer Saini:
+     Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+     Page for admins to manage reports.
+     Only users with admin status can access this page.
+
+-->
+
 <!DOCTYPE html>
 <html>
 
@@ -50,16 +58,36 @@
   </style>
 </head>
 
-<body onload="admin(), loadNavbar()">
+<body onload="admin()">
 
   <!-- Will be populated with the html for the navbar on startup -->
   <div id="navbar-placeholder"></div>
   <div class="header">
-  <h2 style="text-align: center">Admin Page</h2> 
-    <div class="container">
-        <div id="table"></div>
-    </div>
+  <div class="container">
+    <h2 style="font-weight: 700; font-size: 250%; text-align: center; margin: 2%;">Admin Page</h2> 
+
+    <hr/>
+
+    <div id="table"></div>
+  </div>
   </div>
 </body>
 
 </html>
+
+<script type="text/javascript">
+  //imports
+  loadNavbar();
+  getCategories();
+  getLocations();
+
+  //google analytics
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-144569863-2');
+</script>

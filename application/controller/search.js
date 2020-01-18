@@ -1,7 +1,9 @@
-// TODO:
-//  getResults :
-//      1. change basic query so that it returns a smaller list of reports if no parameters are passed in
-//
+/*
+David Stillwagon (Ryan)
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Retreives reports from the database based on given parameters
+*/
 
 const db = require('../auth/db_config.js')
 const db_query = require('../database/db_query.js')

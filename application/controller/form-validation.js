@@ -1,3 +1,10 @@
+/*
+Evan Guan
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Validate form elements before logging in, registering, or creating a report
+*/
+
 const db = require('../auth/db_config.js')
 const dropdowns = require('./dropdowns.js')
 const validator = require('validator')
@@ -27,13 +34,11 @@ dropdowns.getNumberOfLocations()
     numberOfLocations = String(numLocations)
   })
 
-// The variable used to track whether or not the marker is in the vicinity of San Francisco.
-var boolMarkerInSF
 // The vertices describing a polygon that very roughly overlays San Francisco.
 // Used for limiting bounds for marker placement.
 const SAN_FRANCISCO_MAP_BOUNDS = {
   north: 37.83,
-  south: 37.72,
+  south: 37.66,
   west: -122.56,
   east: -122.32
 }
@@ -136,7 +141,7 @@ function isCategoryIDValid (body) {
 // Testing category_id
 function isLocationIDValid (body) {
   if ('location_id' in body &&
-      validator.isLength(body['location_id'] + '', {min:1, max: 2 }) &&
+      validator.isLength(body['location_id'] + '', {min:1, max: 4 }) &&
       validator.isInt(body['location_id'] + '', { min: 1, max: parseInt(numberOfLocations) })) {
     console.log('location_id ' + body['location_id'] + ' pass')
     return true

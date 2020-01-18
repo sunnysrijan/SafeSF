@@ -1,8 +1,8 @@
 
 exports.buildSearchQuery = function (table, order, params) {
   var query = `
-      SELECT DATE_FORMAT(reports.insert_date, '%d %M %Y %h:%i%p') AS insert_date,
-        IF(reports.update_date IS NOT NULL, DATE_FORMAT(reports.update_date, '%d %M %Y %h:%i%p'), 'No updates yet.') AS update_date,
+      SELECT DATE_FORMAT(ADDTIME(reports.insert_date, '-08:00:00'), '%d %M %Y %h:%i%p') AS insert_date,
+        IF(reports.update_date IS NOT NULL, DATE_FORMAT(ADDTIME(reports.update_date, '-8:00:00'), '%d %M %Y %h:%i%p'), 'No updates yet.') AS update_date,
         reports.report_id, reports.status, reports.assigned_to, reports.category_id,
         reports.location_id, reports.image_ref, reports.loc_lat, reports.loc_long, reports.details,
         parks.loc_lat AS park_loc_lat, parks.loc_long AS park_loc_long, categories.category, locations.location FROM ${table}

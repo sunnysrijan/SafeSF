@@ -184,7 +184,7 @@ body {
 	height: 100vh;
 	background-size: cover;
 	background-position: center;
-	align-items: center;font-family: sans-serif;
+	align-items: center; font-family: sans-serif;
 }
 h1 {
 	text-align: center;
@@ -206,7 +206,7 @@ h1 {
   padding: 10px;
   width: max-content;
   height: 100%;
-  width: 100%;
+  width: 95%;
   display: flex;
   border-width: 2px;
   border-color: #28c3d4;
@@ -267,25 +267,11 @@ h1 {
   flex-direction: column;
   margin-left: 20px;
   }
-.adminbuttons{
-  margin: auto;
-width:120px;
-}
 
-/* .repcard {
-  cursor: pointer;
-  border-radius: 10px;
-  padding: 10px;
-  width: max-content;
-  height: 100%;
-  display: flex;
-  border-width: 2px;
-  border-color: #248ea9;
-  border-color: lightgrey;
-  border-color: #28c3d4;
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-} */
+.adminbuttons{
+  margin: 10px;
+  width:120px;
+}
 
 .cardImage {
   width: 130px;

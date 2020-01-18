@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144569863-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-144569863-1');
+    </script>
+
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {height: 50%; width: 100%;}
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script type="text/javascript" src="js/ReportViewMapExample.js"></script>
+    <!--- We normally load this asynchronously, but will force this to finish loading in case DB result processing takes too long. --->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyuM-hX7dGj7gXBfLXyuwvAEhZo4sxj18"></script>
+  </head>
+  <body>
+
+    <div style="text-align:center">
+      <h4>Report View Page Map Example</h4>
+    </div>
+
+
+    <!--- This element holds the map. --->
+    <div id="map"></div>
+    <p id="startCoords"></p>
+    <p id="reportCoords"></p>
+
+    <!--- Show the coordinates of the default map view. --->
+    <script type="text/javascript">
+      showStartCoords();
+    </script>
+
+    <!--- DO DB QUERY AND GET VARIABLES HERE. --->
+    <!--- DO DB QUERY AND GET VARIABLES HERE. --->
+    <!--- DO DB QUERY AND GET VARIABLES HERE. --->
+
+    <!--- Set the new coordinates for centering the map. Finally, instantiate the map and show the report's coordinates. --->
+    <script type="text/javascript">
+      setNewCenterLatLng({lat: 37.7241, lng: -122.4799});
+      initMap();
+      showReportCoords();
+    </script>
+
+  </body>
+</html>

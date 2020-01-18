@@ -1,3 +1,11 @@
+<!-- Sunny Srijan:
+     Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+     This page lists all of the information regarding one report.
+     The location of the report is pinned on a map and an image of the hazard is displayed.
+
+-->
+
 <!DOCTYPE html>
 
 <head>
@@ -32,13 +40,20 @@
 
   <div class="container">
     <div class="jumbotron">
-      <p id="report_id">
+      <div class="row justify-content-center">
+        <button class="btn btn-light btn-outline-primary" style=" margin-top: -5%; font-size: 150%; width: 35%" type='button' onclick="goBack()">
+          Back
+        </button>
+      </div>
+
+      <p id="report_id" style="font-size: 120%">
         <p1 class="text-danger">Hazard type: </p1><text id="hazard-type"></text><br>
         <p2 class="text-primary">Report location: </p2><text id="hazard-location"></text><br>
         <p3 class="text-primary">Time submitted: </p3><text id="report-date"></text><br>
         <p4 class="text-primary">Last updated: </p4><text id="report-update-date"></text><br>
         <p5 class="text-primary">Report status: </p5><text id="report-status"></text><br>
         <p6 class="text-primary">Report ID: </p6><text id="report-id"></text><br>
+        <p7 class="text-primary">Details: </p7><text id="report-details"></text><br>
       </p>
     </div>
     <hr>
@@ -46,7 +61,7 @@
     <div class="row">
       <div class="col-sm-6">
         <h3>Image</h3>
-        <img id="report-image" class="img-responsive" src="" alt="image">
+        <img id="report-image" class="img-responsive" src="" alt="image" style="width:100%; height:auto; object-fit: contain;">
       </div>
 
       <div class="col-sm-6">
@@ -55,11 +70,6 @@
         <script>
         </script>
       </div>
-    </div>
-    <hr>
-    
-    <div class="jumbotron">
-      <p1 id="report-details">Details: </p1>
     </div>
   </div>
 </body>
@@ -73,6 +83,11 @@
 
   function gtag() {
     dataLayer.push(arguments);
+  }
+
+  //navigate to previous page
+  function goBack() {
+    window.history.back();
   }
 
   gtag('js', new Date());

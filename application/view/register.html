@@ -1,3 +1,11 @@
+<!-- Lidiya Jebessa, Tristan Mclennan, Evan Guan:
+     Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+     The registration page.
+     Fields are validated, and any errors from the backend are displayed.
+
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,7 +26,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <!-- imports -->
-    <link rel="stylesheet" type="text/css" href="./css/standard.css">
     <link href="css/registration.css" rel="stylesheet">
     <script type="text/javascript" src="js/navbar.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -31,12 +38,12 @@
     <div class="container" style="margin-top: 2%" id="form-container" novalidate> <!-- registration form -->
       <div class="row justify-content-center">
         <div class="card bg-light w-50 align-items-center" style="min-width: 450px;">
-          <h1 class="card-header w-100" style="text-align:center; font-family: 'Crimson Text', serif; font-weight: 700;">Registration</h1>
+          <h1 class="card-header w-100" style="text-align:center; font-family: san-serif; font-weight: 700;">Registration</h1>
           <div class="col-lg-10">
             <div class="card-body">
               <div class="row justify-content-center">
                 <div class="col-lg-12">
-                  <form id="registration-form" action="/requestRegister" method="post" role="form" enctype="multipart/form-data">
+                  <form id="registration-form">
 
                     <!-- Inside the form now. Good to add form elements. -->
                     <div class="form-group mx-1">
@@ -103,12 +110,18 @@
                       </div>
                     </div>
 
-                    <div class="text-center">
-                      <div class="form-group">
-                        <button id='submit-button' style="border-width: 2px; font-size:150%;" class="btn-outline-primary registerBtn btn-send" type="button" disabled='true'>Submit Registration</button>
-                      </div>
+                    <div class="container" align="center">
+                      <p>Already have an account? <a href="/login">Login Here</a></p>
                     </div>
+
                   </form> <!-- registration form -->
+
+                  <!-- Register button -->
+                  <div class="text-center">
+                    <button id='submit-button' style="border-width: 2px; font-size:150%;" class="btn-outline-primary registerBtn" disabled='true' onclick="register()">
+                      Register
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

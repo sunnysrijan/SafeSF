@@ -1,3 +1,10 @@
+/*
+David Stillwagon (Ryan)
+Course: CSc 648 Software Engineering Summer 2019 Team 2
+
+Gets the values and number of values used in the dropdown menus on the frontend
+*/
+
 const db = require('../auth/db_config.js')
 
 exports.getLocations = function (callback) {
